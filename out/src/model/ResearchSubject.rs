@@ -241,10 +241,10 @@ impl ResearchSubject<'_> {
 
     /// The current state of the subject.
     pub fn status(&self) -> Option<ResearchSubjectStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(ResearchSubjectStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => ResearchSubjectStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Reference to the study the subject is participating in.

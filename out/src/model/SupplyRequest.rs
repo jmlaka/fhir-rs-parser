@@ -372,10 +372,10 @@ impl SupplyRequest<'_> {
 
     /// Status of the supply request.
     pub fn status(&self) -> Option<SupplyRequestStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(SupplyRequestStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => SupplyRequestStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Who is intended to fulfill the request.

@@ -81,10 +81,10 @@ impl CoverageEligibilityResponse_Item<'_> {
     /// A boolean flag indicating whether a preauthorization is required prior to actual
     /// service delivery.
     pub fn authorization_required(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("authorizationRequired") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("authorizationRequired") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Codes or comments regarding information or actions associated with the
@@ -147,10 +147,10 @@ impl CoverageEligibilityResponse_Item<'_> {
     /// True if the indicated class of service is excluded from the plan, missing or
     /// False indicates the product or service is included in the coverage.
     pub fn excluded(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("excluded") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("excluded") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

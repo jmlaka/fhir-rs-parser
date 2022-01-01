@@ -150,10 +150,10 @@ impl ValueSet_Expansion<'_> {
     /// resource is a partial view into the expansion. If paging is not being used, this
     /// element SHALL NOT be present.
     pub fn offset(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("offset") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("offset") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// A parameter that controlled the expansion process. These parameters may be used
@@ -184,10 +184,10 @@ impl ValueSet_Expansion<'_> {
     /// this resource is less than the stated number, then the server can return more
     /// using the offset parameter.
     pub fn total(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("total") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("total") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

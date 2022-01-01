@@ -47,18 +47,18 @@ impl VisionPrescription_Prism<'_> {
 
     /// Amount of prism to compensate for eye alignment in fractional units.
     pub fn amount(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("amount") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("amount") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The relative base, or reference lens edge, for the prism.
     pub fn base(&self) -> Option<VisionPrescription_PrismBase> {
-        if let Some(Value::String(val)) = self.value.get("base") {
-            return Some(VisionPrescription_PrismBase::from_string(&val).unwrap());
+        match self.value.get("base") {
+            Some(Value::String(val)) => VisionPrescription_PrismBase::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

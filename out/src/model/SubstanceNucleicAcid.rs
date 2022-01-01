@@ -186,10 +186,10 @@ impl SubstanceNucleicAcid<'_> {
     /// tightly associated typically through Watson-Crick base pairing. NOTE: If not
     /// specified in the reference source, the assumption is that there is 1 subunit.
     pub fn number_of_subunits(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("numberOfSubunits") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("numberOfSubunits") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// (TBC).

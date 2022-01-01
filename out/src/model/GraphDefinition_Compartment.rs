@@ -153,20 +153,20 @@ impl GraphDefinition_Compartment<'_> {
 
     /// identical | matching | different | no-rule | custom.
     pub fn rule(&self) -> Option<GraphDefinition_CompartmentRule> {
-        if let Some(Value::String(val)) = self.value.get("rule") {
-            return Some(GraphDefinition_CompartmentRule::from_string(&val).unwrap());
+        match self.value.get("rule") {
+            Some(Value::String(val)) => GraphDefinition_CompartmentRule::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Defines how the compartment rule is used - whether it it is used to test whether
     /// resources are subject to the rule, or whether it is a rule that must be
     /// followed.
     pub fn fhir_use(&self) -> Option<GraphDefinition_CompartmentUse> {
-        if let Some(Value::String(val)) = self.value.get("use") {
-            return Some(GraphDefinition_CompartmentUse::from_string(&val).unwrap());
+        match self.value.get("use") {
+            Some(Value::String(val)) => GraphDefinition_CompartmentUse::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

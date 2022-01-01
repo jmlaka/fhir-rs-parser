@@ -547,14 +547,14 @@ impl ExplanationOfBenefit<'_> {
     /// Reference from the Insurer which is used in later communications which refers to
     /// this adjudication.
     pub fn pre_auth_ref(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("preAuthRef") {
-            return Some(
+        match self.value.get("preAuthRef") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The timeframe during which the supplied preauthorization reference may be quoted
@@ -575,10 +575,10 @@ impl ExplanationOfBenefit<'_> {
     /// This indicates the relative order of a series of EOBs related to different
     /// coverages for the same suite of services.
     pub fn precedence(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("precedence") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("precedence") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Prescription to support the dispensing of pharmacy, device or vision products.
@@ -666,10 +666,10 @@ impl ExplanationOfBenefit<'_> {
 
     /// The status of the resource instance.
     pub fn status(&self) -> Option<ExplanationOfBenefitStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(ExplanationOfBenefitStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => ExplanationOfBenefitStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A finer grained suite of claim type codes which may convey additional

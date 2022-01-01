@@ -71,10 +71,10 @@ impl PractitionerRole_AvailableTime<'_> {
 
     /// Is this always available? (hence times are irrelevant) e.g. 24 hour service.
     pub fn all_day(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("allDay") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("allDay") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// The closing time of day. Note: If the AllDay flag is set, then this time is
@@ -97,14 +97,14 @@ impl PractitionerRole_AvailableTime<'_> {
 
     /// Indicates which days of the week are available between the start and end Times.
     pub fn days_of_week(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("daysOfWeek") {
-            return Some(
+        match self.value.get("daysOfWeek") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

@@ -216,10 +216,10 @@ impl Claim_Item<'_> {
     /// of services delivered and/or goods received. The concept of a Factor allows for
     /// a discount or surcharge multiplier to be applied to a monetary amount.
     pub fn factor(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("factor") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("factor") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Unique id for the element within a resource (for internal references). This may
@@ -381,10 +381,10 @@ impl Claim_Item<'_> {
 
     /// A number to uniquely identify item entries.
     pub fn sequence(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("sequence") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("sequence") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The date or dates when the service or product was supplied, performed or

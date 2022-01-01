@@ -89,10 +89,10 @@ impl Invoice_PriceComponent<'_> {
     /// The factor that has been applied on the base price for calculating this
     /// component.
     pub fn factor(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("factor") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("factor") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Unique id for the element within a resource (for internal references). This may
@@ -130,10 +130,10 @@ impl Invoice_PriceComponent<'_> {
 
     /// This code identifies the type of the component.
     pub fn fhir_type(&self) -> Option<Invoice_PriceComponentType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(Invoice_PriceComponentType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => Invoice_PriceComponentType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

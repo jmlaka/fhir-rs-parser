@@ -67,10 +67,10 @@ impl MedicationKnowledge_Ingredient<'_> {
     /// Indication of whether this ingredient affects the therapeutic action of the
     /// drug.
     pub fn is_active(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("isActive") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("isActive") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// The actual ingredient - either a substance (simple ingredient) or another

@@ -96,10 +96,10 @@ impl Patient_Link<'_> {
 
     /// The type of link between this patient resource and another patient resource.
     pub fn fhir_type(&self) -> Option<Patient_LinkType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(Patient_LinkType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => Patient_LinkType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

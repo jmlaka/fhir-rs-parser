@@ -297,10 +297,10 @@ impl CapabilityStatement<'_> {
     /// testing purposes (or education/evaluation/marketing) and is not intended to be
     /// used for genuine usage.
     pub fn experimental(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("experimental") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("experimental") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -325,23 +325,23 @@ impl CapabilityStatement<'_> {
     /// (which SHALL be the same as the FHIR version of the CapabilityStatement itself).
     /// There is no default value.
     pub fn fhir_version(&self) -> Option<CapabilityStatementFhirVersion> {
-        if let Some(Value::String(val)) = self.value.get("fhirVersion") {
-            return Some(CapabilityStatementFhirVersion::from_string(&val).unwrap());
+        match self.value.get("fhirVersion") {
+            Some(Value::String(val)) => CapabilityStatementFhirVersion::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A list of the formats supported by this implementation using their content
     /// types.
     pub fn format(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("format") {
-            return Some(
+        match self.value.get("format") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The logical id of the resource, as used in the URL for the resource. Once
@@ -368,14 +368,14 @@ impl CapabilityStatement<'_> {
     /// A list of implementation guides that the server does (or should) support in
     /// their entirety.
     pub fn implementation_guide(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("implementationGuide") {
-            return Some(
+        match self.value.get("implementationGuide") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// A reference to a set of rules that were followed when the resource was
@@ -394,14 +394,14 @@ impl CapabilityStatement<'_> {
     /// statement, and it is not duplicated, though the server may repeat the same
     /// resources, interactions and operations to add additional details to them.
     pub fn imports(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("imports") {
-            return Some(
+        match self.value.get("imports") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Reference to a canonical URL of another CapabilityStatement that this software
@@ -410,14 +410,14 @@ impl CapabilityStatement<'_> {
     /// the capability statement it claims to implement, so the capability statement
     /// must specify the full capability details.
     pub fn instantiates(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("instantiates") {
-            return Some(
+        match self.value.get("instantiates") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// A legal or geographic region in which the capability statement is intended to be
@@ -439,10 +439,10 @@ impl CapabilityStatement<'_> {
     /// running instance of software, a particular product (kind, not instance of
     /// software) or a class of implementation (e.g. a desired purchase).
     pub fn kind(&self) -> Option<CapabilityStatementKind> {
-        if let Some(Value::String(val)) = self.value.get("kind") {
-            return Some(CapabilityStatementKind::from_string(&val).unwrap());
+        match self.value.get("kind") {
+            Some(Value::String(val)) => CapabilityStatementKind::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The base language in which the resource is written.
@@ -517,14 +517,14 @@ impl CapabilityStatement<'_> {
     /// A list of the patch formats supported by this implementation using their content
     /// types.
     pub fn patch_format(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("patchFormat") {
-            return Some(
+        match self.value.get("patchFormat") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The name of the organization or individual that published the capability
@@ -574,10 +574,10 @@ impl CapabilityStatement<'_> {
     /// The status of this capability statement. Enables tracking the life-cycle of the
     /// content.
     pub fn status(&self) -> Option<CapabilityStatementStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(CapabilityStatementStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => CapabilityStatementStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A human-readable narrative that contains a summary of the resource and can be

@@ -278,14 +278,14 @@ impl Questionnaire<'_> {
 
     /// The URL of a Questionnaire that this Questionnaire is based on.
     pub fn derived_from(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("derivedFrom") {
-            return Some(
+        match self.value.get("derivedFrom") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// A free text natural language description of the questionnaire from a consumer's
@@ -312,10 +312,10 @@ impl Questionnaire<'_> {
     /// purposes (or education/evaluation/marketing) and is not intended to be used for
     /// genuine usage.
     pub fn experimental(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("experimental") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("experimental") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -485,23 +485,23 @@ impl Questionnaire<'_> {
     /// The status of this questionnaire. Enables tracking the life-cycle of the
     /// content.
     pub fn status(&self) -> Option<QuestionnaireStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(QuestionnaireStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => QuestionnaireStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The types of subjects that can be the subject of responses created for the
     /// questionnaire.
     pub fn subject_type(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("subjectType") {
-            return Some(
+        match self.value.get("subjectType") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// A human-readable narrative that contains a summary of the resource and can be

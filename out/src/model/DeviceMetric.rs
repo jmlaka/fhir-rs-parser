@@ -100,10 +100,10 @@ impl DeviceMetric<'_> {
     /// Indicates the category of the observation generation process. A DeviceMetric can
     /// be for example a setting, measurement, or calculation.
     pub fn category(&self) -> Option<DeviceMetricCategory> {
-        if let Some(Value::String(val)) = self.value.get("category") {
-            return Some(DeviceMetricCategory::from_string(&val).unwrap());
+        match self.value.get("category") {
+            Some(Value::String(val)) => DeviceMetricCategory::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Describes the color representation for the metric. This is often used to aid
@@ -112,10 +112,10 @@ impl DeviceMetric<'_> {
     /// displayed in different characteristic colors, such as HR-blue, BP-green, and PR
     /// and SpO2- magenta.
     pub fn color(&self) -> Option<DeviceMetricColor> {
-        if let Some(Value::String(val)) = self.value.get("color") {
-            return Some(DeviceMetricColor::from_string(&val).unwrap());
+        match self.value.get("color") {
+            Some(Value::String(val)) => DeviceMetricColor::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// These resources do not have an independent existence apart from the resource
@@ -252,10 +252,10 @@ impl DeviceMetric<'_> {
     /// Indicates current operational state of the device. For example: On, Off,
     /// Standby, etc.
     pub fn operational_status(&self) -> Option<DeviceMetricOperationalStatus> {
-        if let Some(Value::String(val)) = self.value.get("operationalStatus") {
-            return Some(DeviceMetricOperationalStatus::from_string(&val).unwrap());
+        match self.value.get("operationalStatus") {
+            Some(Value::String(val)) => DeviceMetricOperationalStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Describes the link to the  Device that this DeviceMetric belongs to and that

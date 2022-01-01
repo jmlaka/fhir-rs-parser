@@ -42,10 +42,10 @@ impl MedicationRequest_Substitution<'_> {
     /// True if the prescriber allows a different drug to be dispensed from what was
     /// prescribed.
     pub fn allowed_boolean(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("allowedBoolean") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("allowedBoolean") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// True if the prescriber allows a different drug to be dispensed from what was

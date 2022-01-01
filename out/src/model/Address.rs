@@ -178,14 +178,14 @@ impl Address<'_> {
     /// This component contains the house number, apartment number, street name, street
     /// direction,  P.O. Box number, delivery hints, and similar address information.
     pub fn line(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("line") {
-            return Some(
+        match self.value.get("line") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Time period when address was/is in use.
@@ -227,18 +227,18 @@ impl Address<'_> {
     /// Distinguishes between physical addresses (those you can visit) and mailing
     /// addresses (e.g. PO Boxes and care-of addresses). Most addresses are both.
     pub fn fhir_type(&self) -> Option<AddressType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(AddressType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => AddressType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The purpose of this address.
     pub fn fhir_use(&self) -> Option<AddressUse> {
-        if let Some(Value::String(val)) = self.value.get("use") {
-            return Some(AddressUse::from_string(&val).unwrap());
+        match self.value.get("use") {
+            Some(Value::String(val)) => AddressUse::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

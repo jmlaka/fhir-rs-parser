@@ -280,10 +280,10 @@ impl QuestionnaireResponse<'_> {
 
     /// The position of the questionnaire response within its overall lifecycle.
     pub fn status(&self) -> Option<QuestionnaireResponseStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(QuestionnaireResponseStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => QuestionnaireResponseStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The subject of the questionnaire response.  This could be a patient,

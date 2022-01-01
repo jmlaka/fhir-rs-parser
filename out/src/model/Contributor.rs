@@ -98,10 +98,10 @@ impl Contributor<'_> {
 
     /// The type of contributor.
     pub fn fhir_type(&self) -> Option<ContributorType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(ContributorType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => ContributorType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

@@ -301,10 +301,10 @@ impl Coverage<'_> {
     /// not imply primary, secondary etc. as the specific positioning of coverages
     /// depends upon the episode of care.
     pub fn order(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("order") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("order") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The program or plan underwriter or payor including both insurance and non-
@@ -365,10 +365,10 @@ impl Coverage<'_> {
     /// When 'subrogation=true' this insurance instance has been included not for
     /// adjudication but to provide insurers with the details to recover costs.
     pub fn subrogation(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("subrogation") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("subrogation") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// The party who has signed-up for or 'owns' the contractual relationship to the

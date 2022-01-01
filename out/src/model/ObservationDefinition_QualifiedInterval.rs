@@ -85,12 +85,12 @@ impl ObservationDefinition_QualifiedInterval<'_> {
     /// The category of interval of values for continuous or ordinal observations
     /// conforming to this ObservationDefinition.
     pub fn category(&self) -> Option<ObservationDefinition_QualifiedIntervalCategory> {
-        if let Some(Value::String(val)) = self.value.get("category") {
-            return Some(
-                ObservationDefinition_QualifiedIntervalCategory::from_string(&val).unwrap(),
-            );
+        match self.value.get("category") {
+            Some(Value::String(val)) => {
+                ObservationDefinition_QualifiedIntervalCategory::from_string(&val)
+            }
+            _ => None,
         }
-        return None;
     }
 
     /// Text based condition for which the reference range is valid.
@@ -132,10 +132,12 @@ impl ObservationDefinition_QualifiedInterval<'_> {
 
     /// Sex of the population the range applies to.
     pub fn gender(&self) -> Option<ObservationDefinition_QualifiedIntervalGender> {
-        if let Some(Value::String(val)) = self.value.get("gender") {
-            return Some(ObservationDefinition_QualifiedIntervalGender::from_string(&val).unwrap());
+        match self.value.get("gender") {
+            Some(Value::String(val)) => {
+                ObservationDefinition_QualifiedIntervalGender::from_string(&val)
+            }
+            _ => None,
         }
-        return None;
     }
 
     /// The gestational age to which this reference range is applicable, in the context

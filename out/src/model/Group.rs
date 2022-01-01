@@ -108,19 +108,19 @@ impl Group<'_> {
     /// Indicates whether the record for the group is available for use or is merely
     /// being retained for historical purposes.
     pub fn active(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("active") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("active") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// If true, indicates that the resource refers to a specific group of real
     /// individuals.  If false, the group defines a set of intended individuals.
     pub fn actual(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("actual") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("actual") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Identifies traits whose presence r absence is shared by members of the group.
@@ -296,10 +296,10 @@ impl Group<'_> {
 
     /// A count of the number of resource instances that are part of the group.
     pub fn quantity(&self) -> Option<u64> {
-        if let Some(val) = self.value.get("quantity") {
-            return Some(val.as_u64().unwrap());
+        match self.value.get("quantity") {
+            Some(val) => val.as_u64(),
+            _ => None,
         }
-        return None;
     }
 
     /// A human-readable narrative that contains a summary of the resource and can be
@@ -319,10 +319,10 @@ impl Group<'_> {
 
     /// Identifies the broad classification of the kind of resources the group includes.
     pub fn fhir_type(&self) -> Option<GroupType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(GroupType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => GroupType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

@@ -100,10 +100,10 @@ impl SampledData<'_> {
     /// one, then the dimensions will be interlaced - all the sample points for a point
     /// in time will be recorded at once.
     pub fn dimensions(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("dimensions") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("dimensions") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -127,10 +127,10 @@ impl SampledData<'_> {
     /// A correction factor that is applied to the sampled data points before they are
     /// added to the origin.
     pub fn factor(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("factor") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("factor") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Unique id for the element within a resource (for internal references). This may
@@ -145,10 +145,10 @@ impl SampledData<'_> {
     /// The lower limit of detection of the measured points. This is needed if any of
     /// the data points have the value "L" (lower than detection limit).
     pub fn lower_limit(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("lowerLimit") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("lowerLimit") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The base quantity that a measured value of zero represents. In addition, this
@@ -161,19 +161,19 @@ impl SampledData<'_> {
 
     /// The length of time between sampling times, measured in milliseconds.
     pub fn period(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("period") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("period") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The upper limit of detection of the measured points. This is needed if any of
     /// the data points have the value "U" (higher than detection limit).
     pub fn upper_limit(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("upperLimit") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("upperLimit") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

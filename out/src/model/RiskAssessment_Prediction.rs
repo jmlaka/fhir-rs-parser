@@ -122,10 +122,10 @@ impl RiskAssessment_Prediction<'_> {
 
     /// Indicates how likely the outcome is (in the specified timeframe).
     pub fn probability_decimal(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("probabilityDecimal") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("probabilityDecimal") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Indicates how likely the outcome is (in the specified timeframe).
@@ -162,10 +162,10 @@ impl RiskAssessment_Prediction<'_> {
     /// greater than 1 = higher risk than the population, numbers less than 1 = lower
     /// risk.).
     pub fn relative_risk(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("relativeRisk") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("relativeRisk") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Indicates the period of time or age range of the subject to which the specified

@@ -122,10 +122,10 @@ impl GraphDefinition_Link<'_> {
 
     /// Minimum occurrences for this link.
     pub fn min(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("min") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("min") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

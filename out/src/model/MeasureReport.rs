@@ -271,10 +271,10 @@ impl MeasureReport<'_> {
     /// The MeasureReport status. No data will be available until the MeasureReport
     /// status is complete.
     pub fn status(&self) -> Option<MeasureReportStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(MeasureReportStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => MeasureReportStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Optional subject identifying the individual or individuals the report is for.
@@ -309,10 +309,10 @@ impl MeasureReport<'_> {
     /// each of the criteria in the measure; or a data-collection, which enables the
     /// MeasureReport to be used to exchange the data-of-interest for a quality measure.
     pub fn fhir_type(&self) -> Option<MeasureReportType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(MeasureReportType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => MeasureReportType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

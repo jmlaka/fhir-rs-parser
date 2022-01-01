@@ -89,10 +89,10 @@ impl TerminologyCapabilities_ValidateCode<'_> {
 
     /// Whether translations are validated.
     pub fn translations(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("translations") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("translations") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

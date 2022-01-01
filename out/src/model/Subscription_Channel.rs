@@ -100,14 +100,14 @@ impl Subscription_Channel<'_> {
 
     /// Additional headers / information to send as part of the notification.
     pub fn header(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("header") {
-            return Some(
+        match self.value.get("header") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Unique id for the element within a resource (for internal references). This may
@@ -156,10 +156,10 @@ impl Subscription_Channel<'_> {
 
     /// The type of channel to send notifications on.
     pub fn fhir_type(&self) -> Option<Subscription_ChannelType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(Subscription_ChannelType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => Subscription_ChannelType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

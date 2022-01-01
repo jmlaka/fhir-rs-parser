@@ -164,10 +164,10 @@ impl MolecularSequence_Repository<'_> {
     /// Click and see / RESTful API / Need login to see / RESTful API with
     /// authentication / Other ways to see resource.
     pub fn fhir_type(&self) -> Option<MolecularSequence_RepositoryType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(MolecularSequence_RepositoryType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => MolecularSequence_RepositoryType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// URI of an external repository which contains further details about the genetics

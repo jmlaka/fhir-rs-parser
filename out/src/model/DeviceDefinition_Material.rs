@@ -48,18 +48,18 @@ impl DeviceDefinition_Material<'_> {
 
     /// Whether the substance is a known or suspected allergen.
     pub fn allergenic_indicator(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("allergenicIndicator") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("allergenicIndicator") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Indicates an alternative material of the device.
     pub fn alternate(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("alternate") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("alternate") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

@@ -51,10 +51,10 @@ impl CapabilityStatement_Security<'_> {
     /// Server adds CORS headers when responding to requests - this enables Javascript
     /// applications to use the server.
     pub fn cors(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("cors") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("cors") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// General description of how security works.

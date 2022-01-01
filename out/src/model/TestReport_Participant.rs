@@ -115,10 +115,10 @@ impl TestReport_Participant<'_> {
 
     /// The type of participant.
     pub fn fhir_type(&self) -> Option<TestReport_ParticipantType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(TestReport_ParticipantType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => TestReport_ParticipantType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The uri of the participant. An absolute URL is preferred.

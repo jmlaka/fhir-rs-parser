@@ -222,10 +222,10 @@ impl Media<'_> {
 
     /// The duration of the recording in seconds - for audio and video.
     pub fn duration(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("duration") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("duration") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The encounter that establishes the context for this media.
@@ -262,18 +262,18 @@ impl Media<'_> {
     /// to alert interface software that a multi-frame capable rendering widget is
     /// required.
     pub fn frames(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("frames") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("frames") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Height of the image in pixels (photo/video).
     pub fn height(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("height") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("height") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The logical id of the resource, as used in the URL for the resource. Once
@@ -486,10 +486,10 @@ impl Media<'_> {
 
     /// Width of the image in pixels (photo/video).
     pub fn width(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("width") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("width") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

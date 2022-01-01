@@ -154,10 +154,10 @@ impl ServiceRequest<'_> {
     /// If a CodeableConcept is present, it indicates the pre-condition for performing
     /// the service.  For example "pain", "on flare-up", etc.
     pub fn as_needed_boolean(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("asNeededBoolean") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("asNeededBoolean") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// If a CodeableConcept is present, it indicates the pre-condition for performing
@@ -253,10 +253,10 @@ impl ServiceRequest<'_> {
     /// Set this to true if the record is saying that the service/procedure should NOT
     /// be performed.
     pub fn do_not_perform(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("doNotPerform") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("doNotPerform") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// An encounter that provides additional information about the healthcare context
@@ -326,27 +326,27 @@ impl ServiceRequest<'_> {
     /// The URL pointing to a FHIR-defined protocol, guideline, orderset or other
     /// definition that is adhered to in whole or in part by this ServiceRequest.
     pub fn instantiates_canonical(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("instantiatesCanonical") {
-            return Some(
+        match self.value.get("instantiatesCanonical") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The URL pointing to an externally maintained protocol, guideline, orderset or
     /// other definition that is adhered to in whole or in part by this ServiceRequest.
     pub fn instantiates_uri(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("instantiatesUri") {
-            return Some(
+        match self.value.get("instantiatesUri") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Insurance plans, coverage extensions, pre-authorizations and/or pre-

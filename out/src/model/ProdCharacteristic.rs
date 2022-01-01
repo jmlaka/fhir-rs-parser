@@ -69,14 +69,14 @@ impl ProdCharacteristic<'_> {
     /// Where applicable, the color can be specified An appropriate controlled
     /// vocabulary shall be used The term and the term identifier shall be used.
     pub fn color(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("color") {
-            return Some(
+        match self.value.get("color") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Where applicable, the depth can be specified using a numerical value and its
@@ -162,14 +162,14 @@ impl ProdCharacteristic<'_> {
 
     /// Where applicable, the imprint can be specified as text.
     pub fn imprint(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("imprint") {
-            return Some(
+        match self.value.get("imprint") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

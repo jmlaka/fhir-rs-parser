@@ -236,10 +236,10 @@ impl StructureDefinition<'_> {
     /// whether the structure is not intended to be instantiated. For Resources and Data
     /// types, abstract types will never be exchanged  between systems.
     pub fn fhir_abstract(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("abstract") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("abstract") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// An absolute URI that is the base structure from which this type is derived,
@@ -300,14 +300,14 @@ impl StructureDefinition<'_> {
     /// A set of rules as FHIRPath Invariants about when the extension can be used (e.g.
     /// co-occurrence variants for the extension). All the rules must be true.
     pub fn context_invariant(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("contextInvariant") {
-            return Some(
+        match self.value.get("contextInvariant") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// A copyright statement relating to the structure definition and/or its contents.
@@ -333,10 +333,10 @@ impl StructureDefinition<'_> {
 
     /// How the type relates to the baseDefinition.
     pub fn derivation(&self) -> Option<StructureDefinitionDerivation> {
-        if let Some(Value::String(val)) = self.value.get("derivation") {
-            return Some(StructureDefinitionDerivation::from_string(&val).unwrap());
+        match self.value.get("derivation") {
+            Some(Value::String(val)) => StructureDefinitionDerivation::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A free text natural language description of the structure definition from a
@@ -363,10 +363,10 @@ impl StructureDefinition<'_> {
     /// testing purposes (or education/evaluation/marketing) and is not intended to be
     /// used for genuine usage.
     pub fn experimental(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("experimental") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("experimental") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -391,10 +391,10 @@ impl StructureDefinition<'_> {
     /// - this is the formal version of the specification, without the revision number,
     /// e.g. [publication].[major].[minor], which is 4.0.1. for this version.
     pub fn fhir_version(&self) -> Option<StructureDefinitionFhirVersion> {
-        if let Some(Value::String(val)) = self.value.get("fhirVersion") {
-            return Some(StructureDefinitionFhirVersion::from_string(&val).unwrap());
+        match self.value.get("fhirVersion") {
+            Some(Value::String(val)) => StructureDefinitionFhirVersion::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The logical id of the resource, as used in the URL for the resource. Once
@@ -466,10 +466,10 @@ impl StructureDefinition<'_> {
 
     /// Defines the kind of structure that this definition is describing.
     pub fn kind(&self) -> Option<StructureDefinitionKind> {
-        if let Some(Value::String(val)) = self.value.get("kind") {
-            return Some(StructureDefinitionKind::from_string(&val).unwrap());
+        match self.value.get("kind") {
+            Some(Value::String(val)) => StructureDefinitionKind::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The base language in which the resource is written.
@@ -573,10 +573,10 @@ impl StructureDefinition<'_> {
     /// The status of this structure definition. Enables tracking the life-cycle of the
     /// content.
     pub fn status(&self) -> Option<StructureDefinitionStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(StructureDefinitionStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => StructureDefinitionStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A human-readable narrative that contains a summary of the resource and can be

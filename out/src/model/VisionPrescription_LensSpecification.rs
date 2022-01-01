@@ -131,26 +131,26 @@ impl VisionPrescription_LensSpecification<'_> {
 
     /// Power adjustment for multifocal lenses measured in dioptres (0.25 units).
     pub fn add(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("add") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("add") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Adjustment for astigmatism measured in integer degrees.
     pub fn axis(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("axis") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("axis") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Back curvature measured in millimetres.
     pub fn back_curve(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("backCurve") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("backCurve") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Brand recommendations or restrictions.
@@ -171,18 +171,18 @@ impl VisionPrescription_LensSpecification<'_> {
 
     /// Power adjustment for astigmatism measured in dioptres (0.25 units).
     pub fn cylinder(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("cylinder") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("cylinder") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Contact lens diameter measured in millimetres.
     pub fn diameter(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("diameter") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("diameter") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The recommended maximum wear period for the lens.
@@ -215,10 +215,10 @@ impl VisionPrescription_LensSpecification<'_> {
 
     /// The eye for which the lens specification applies.
     pub fn eye(&self) -> Option<VisionPrescription_LensSpecificationEye> {
-        if let Some(Value::String(val)) = self.value.get("eye") {
-            return Some(VisionPrescription_LensSpecificationEye::from_string(&val).unwrap());
+        match self.value.get("eye") {
+            Some(Value::String(val)) => VisionPrescription_LensSpecificationEye::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Unique id for the element within a resource (for internal references). This may
@@ -270,10 +270,10 @@ impl VisionPrescription_LensSpecification<'_> {
 
     /// Contact lens power measured in dioptres (0.25 units).
     pub fn power(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("power") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("power") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Allows for adjustment on two axis.
@@ -300,10 +300,10 @@ impl VisionPrescription_LensSpecification<'_> {
 
     /// Lens power measured in dioptres (0.25 units).
     pub fn sphere(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("sphere") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("sphere") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

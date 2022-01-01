@@ -164,34 +164,38 @@ impl CapabilityStatement_Resource<'_> {
 
     /// A flag that indicates that the server supports conditional create.
     pub fn conditional_create(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("conditionalCreate") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("conditionalCreate") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// A code that indicates how the server supports conditional delete.
     pub fn conditional_delete(&self) -> Option<CapabilityStatement_ResourceConditionalDelete> {
-        if let Some(Value::String(val)) = self.value.get("conditionalDelete") {
-            return Some(CapabilityStatement_ResourceConditionalDelete::from_string(&val).unwrap());
+        match self.value.get("conditionalDelete") {
+            Some(Value::String(val)) => {
+                CapabilityStatement_ResourceConditionalDelete::from_string(&val)
+            }
+            _ => None,
         }
-        return None;
     }
 
     /// A code that indicates how the server supports conditional read.
     pub fn conditional_read(&self) -> Option<CapabilityStatement_ResourceConditionalRead> {
-        if let Some(Value::String(val)) = self.value.get("conditionalRead") {
-            return Some(CapabilityStatement_ResourceConditionalRead::from_string(&val).unwrap());
+        match self.value.get("conditionalRead") {
+            Some(Value::String(val)) => {
+                CapabilityStatement_ResourceConditionalRead::from_string(&val)
+            }
+            _ => None,
         }
-        return None;
     }
 
     /// A flag that indicates that the server supports conditional update.
     pub fn conditional_update(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("conditionalUpdate") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("conditionalUpdate") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Additional information about the resource type used by the system.
@@ -297,22 +301,22 @@ impl CapabilityStatement_Resource<'_> {
     /// A flag for whether the server is able to return past versions as part of the
     /// vRead operation.
     pub fn read_history(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("readHistory") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("readHistory") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// A list of _include values supported by the server.
     pub fn search_include(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("searchInclude") {
-            return Some(
+        match self.value.get("searchInclude") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Search parameters for implementations to support and/or make use of - either
@@ -333,14 +337,14 @@ impl CapabilityStatement_Resource<'_> {
 
     /// A list of _revinclude (reverse include) values supported by the server.
     pub fn search_rev_include(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("searchRevInclude") {
-            return Some(
+        match self.value.get("searchRevInclude") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// A list of profiles that represent different use cases supported by the system.
@@ -351,14 +355,14 @@ impl CapabilityStatement_Resource<'_> {
     /// according to the guidance implicit in the profile. See further discussion in
     /// [Using Profiles](profiling.html#profile-uses).
     pub fn supported_profile(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("supportedProfile") {
-            return Some(
+        match self.value.get("supportedProfile") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// A type of resource exposed via the restful interface.
@@ -374,10 +378,10 @@ impl CapabilityStatement_Resource<'_> {
     /// is no existing resource). Allowing this operation means that the server allows
     /// the client to create new identities on the server.
     pub fn update_create(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("updateCreate") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("updateCreate") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// This field is set to no-version to specify that the system does not support
@@ -387,10 +391,10 @@ impl CapabilityStatement_Resource<'_> {
     /// supports all the versioning features, including using e-tags for version
     /// integrity in the API.
     pub fn versioning(&self) -> Option<CapabilityStatement_ResourceVersioning> {
-        if let Some(Value::String(val)) = self.value.get("versioning") {
-            return Some(CapabilityStatement_ResourceVersioning::from_string(&val).unwrap());
+        match self.value.get("versioning") {
+            Some(Value::String(val)) => CapabilityStatement_ResourceVersioning::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

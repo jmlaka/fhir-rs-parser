@@ -101,10 +101,10 @@ impl PlanDefinition_Participant<'_> {
 
     /// The type of participant in the action.
     pub fn fhir_type(&self) -> Option<PlanDefinition_ParticipantType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(PlanDefinition_ParticipantType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => PlanDefinition_ParticipantType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

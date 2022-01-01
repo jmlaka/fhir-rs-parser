@@ -63,14 +63,14 @@ impl ImplementationGuide_Page1<'_> {
 
     /// The name of an anchor available on the page.
     pub fn anchor(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("anchor") {
-            return Some(
+        match self.value.get("anchor") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

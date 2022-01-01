@@ -121,10 +121,10 @@ impl Encounter_Location<'_> {
     /// period specified. If the participant is no longer at the location, then the
     /// period will have an end date/time.
     pub fn status(&self) -> Option<Encounter_LocationStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(Encounter_LocationStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => Encounter_LocationStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

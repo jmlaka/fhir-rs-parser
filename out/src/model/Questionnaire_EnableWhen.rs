@@ -122,10 +122,10 @@ impl Questionnaire_EnableWhen<'_> {
     /// A value that the referenced question is tested using the specified operator in
     /// order for the item to be enabled.
     pub fn answer_boolean(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("answerBoolean") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("answerBoolean") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// A value that the referenced question is tested using the specified operator in
@@ -160,19 +160,19 @@ impl Questionnaire_EnableWhen<'_> {
     /// A value that the referenced question is tested using the specified operator in
     /// order for the item to be enabled.
     pub fn answer_decimal(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("answerDecimal") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("answerDecimal") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// A value that the referenced question is tested using the specified operator in
     /// order for the item to be enabled.
     pub fn answer_integer(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("answerInteger") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("answerInteger") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// A value that the referenced question is tested using the specified operator in
@@ -268,10 +268,10 @@ impl Questionnaire_EnableWhen<'_> {
 
     /// Specifies the criteria by which the question is enabled.
     pub fn operator(&self) -> Option<Questionnaire_EnableWhenOperator> {
-        if let Some(Value::String(val)) = self.value.get("operator") {
-            return Some(Questionnaire_EnableWhenOperator::from_string(&val).unwrap());
+        match self.value.get("operator") {
+            Some(Value::String(val)) => Questionnaire_EnableWhenOperator::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The linkId for the question whose answer (or lack of answer) governs whether

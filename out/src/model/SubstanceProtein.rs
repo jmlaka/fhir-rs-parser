@@ -103,14 +103,14 @@ impl SubstanceProtein<'_> {
     /// acids involved. The disulfide linkage positions shall actually contain the amino
     /// acid Cysteine at the respective positions.
     pub fn disulfide_linkage(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("disulfideLinkage") {
-            return Some(
+        match self.value.get("disulfideLinkage") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -200,10 +200,10 @@ impl SubstanceProtein<'_> {
     /// number of subunits constituting the SubstanceProtein shall be described. It is
     /// possible that the number of subunits can be variable.
     pub fn number_of_subunits(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("numberOfSubunits") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("numberOfSubunits") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The SubstanceProtein descriptive elements will only be used when a complete or

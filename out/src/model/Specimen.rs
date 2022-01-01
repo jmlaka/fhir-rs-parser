@@ -306,10 +306,10 @@ impl Specimen<'_> {
 
     /// The availability of the specimen.
     pub fn status(&self) -> Option<SpecimenStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(SpecimenStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => SpecimenStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Where the specimen came from. This may be from patient(s), from a location

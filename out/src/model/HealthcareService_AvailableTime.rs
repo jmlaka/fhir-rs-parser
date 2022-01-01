@@ -70,10 +70,10 @@ impl HealthcareService_AvailableTime<'_> {
 
     /// Is this always available? (hence times are irrelevant) e.g. 24 hour service.
     pub fn all_day(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("allDay") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("allDay") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// The closing time of day. Note: If the AllDay flag is set, then this time is

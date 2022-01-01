@@ -62,10 +62,10 @@ impl FamilyMemberHistory_Condition<'_> {
     /// This condition contributed to the cause of death of the related person. If
     /// contributedToDeath is not populated, then it is unknown.
     pub fn contributed_to_death(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("contributedToDeath") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("contributedToDeath") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

@@ -106,27 +106,27 @@ impl ContactPoint<'_> {
     /// Specifies a preferred order in which to use a set of contacts. ContactPoints
     /// with lower rank values are more preferred than those with higher rank values.
     pub fn rank(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("rank") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("rank") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Telecommunications form for contact point - what communications system is
     /// required to make use of the contact.
     pub fn system(&self) -> Option<ContactPointSystem> {
-        if let Some(Value::String(val)) = self.value.get("system") {
-            return Some(ContactPointSystem::from_string(&val).unwrap());
+        match self.value.get("system") {
+            Some(Value::String(val)) => ContactPointSystem::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Identifies the purpose for the contact point.
     pub fn fhir_use(&self) -> Option<ContactPointUse> {
-        if let Some(Value::String(val)) = self.value.get("use") {
-            return Some(ContactPointUse::from_string(&val).unwrap());
+        match self.value.get("use") {
+            Some(Value::String(val)) => ContactPointUse::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The actual contact point details, in a form that is meaningful to the designated

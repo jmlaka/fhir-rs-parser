@@ -162,10 +162,10 @@ impl CompartmentDefinition<'_> {
 
     /// Which compartment this definition describes.
     pub fn code(&self) -> Option<CompartmentDefinitionCode> {
-        if let Some(Value::String(val)) = self.value.get("code") {
-            return Some(CompartmentDefinitionCode::from_string(&val).unwrap());
+        match self.value.get("code") {
+            Some(Value::String(val)) => CompartmentDefinitionCode::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Contact details to assist a user in finding and communicating with the
@@ -223,10 +223,10 @@ impl CompartmentDefinition<'_> {
     /// testing purposes (or education/evaluation/marketing) and is not intended to be
     /// used for genuine usage.
     pub fn experimental(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("experimental") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("experimental") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -356,19 +356,19 @@ impl CompartmentDefinition<'_> {
 
     /// Whether the search syntax is supported,.
     pub fn search(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("search") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("search") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// The status of this compartment definition. Enables tracking the life-cycle of
     /// the content.
     pub fn status(&self) -> Option<CompartmentDefinitionStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(CompartmentDefinitionStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => CompartmentDefinitionStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A human-readable narrative that contains a summary of the resource and can be

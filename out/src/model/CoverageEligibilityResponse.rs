@@ -306,10 +306,10 @@ impl CoverageEligibilityResponse<'_> {
 
     /// The outcome of the request processing.
     pub fn outcome(&self) -> Option<CoverageEligibilityResponseOutcome> {
-        if let Some(Value::String(val)) = self.value.get("outcome") {
-            return Some(CoverageEligibilityResponseOutcome::from_string(&val).unwrap());
+        match self.value.get("outcome") {
+            Some(Value::String(val)) => CoverageEligibilityResponseOutcome::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The party who is the beneficiary of the supplied coverage and for whom

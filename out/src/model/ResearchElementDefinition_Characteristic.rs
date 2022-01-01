@@ -164,10 +164,10 @@ impl ResearchElementDefinition_Characteristic<'_> {
 
     /// When true, members with this characteristic are excluded from the element.
     pub fn exclude(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("exclude") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("exclude") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -251,10 +251,10 @@ impl ResearchElementDefinition_Characteristic<'_> {
     pub fn participant_effective_group_measure(
         &self,
     ) -> Option<ResearchElementDefinition_CharacteristicParticipantEffectiveGroupMeasure> {
-        if let Some(Value::String(val)) = self.value.get("participantEffectiveGroupMeasure") {
-            return Some(ResearchElementDefinition_CharacteristicParticipantEffectiveGroupMeasure::from_string(&val).unwrap());
-        }
-        return None;
+        match self.value.get("participantEffectiveGroupMeasure") {
+     Some(Value::String(val)) => ResearchElementDefinition_CharacteristicParticipantEffectiveGroupMeasure::from_string(&val),
+ _ => None
+}
     }
 
     /// Indicates what effective period the study covers.
@@ -317,15 +317,14 @@ impl ResearchElementDefinition_Characteristic<'_> {
     pub fn study_effective_group_measure(
         &self,
     ) -> Option<ResearchElementDefinition_CharacteristicStudyEffectiveGroupMeasure> {
-        if let Some(Value::String(val)) = self.value.get("studyEffectiveGroupMeasure") {
-            return Some(
+        match self.value.get("studyEffectiveGroupMeasure") {
+            Some(Value::String(val)) => {
                 ResearchElementDefinition_CharacteristicStudyEffectiveGroupMeasure::from_string(
                     &val,
                 )
-                .unwrap(),
-            );
+            }
+            _ => None,
         }
-        return None;
     }
 
     /// Indicates what effective period the study covers.

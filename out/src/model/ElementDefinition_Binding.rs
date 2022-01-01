@@ -107,10 +107,10 @@ impl ElementDefinition_Binding<'_> {
     /// that is, the degree to which the provided value set must be adhered to in the
     /// instances.
     pub fn strength(&self) -> Option<ElementDefinition_BindingStrength> {
-        if let Some(Value::String(val)) = self.value.get("strength") {
-            return Some(ElementDefinition_BindingStrength::from_string(&val).unwrap());
+        match self.value.get("strength") {
+            Some(Value::String(val)) => ElementDefinition_BindingStrength::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Refers to the value set that identifies the set of codes the binding refers to.

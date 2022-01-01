@@ -71,10 +71,10 @@ impl Narrative<'_> {
     /// defined data or the extensions too), or whether a human authored it and it may
     /// contain additional data.
     pub fn status(&self) -> Option<NarrativeStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(NarrativeStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => NarrativeStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

@@ -246,10 +246,10 @@ impl Substance<'_> {
 
     /// A code to indicate if the substance is actively used.
     pub fn status(&self) -> Option<SubstanceStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(SubstanceStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => SubstanceStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A human-readable narrative that contains a summary of the resource and can be

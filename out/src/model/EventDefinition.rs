@@ -336,10 +336,10 @@ impl EventDefinition<'_> {
     /// purposes (or education/evaluation/marketing) and is not intended to be used for
     /// genuine usage.
     pub fn experimental(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("experimental") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("experimental") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -525,10 +525,10 @@ impl EventDefinition<'_> {
     /// The status of this event definition. Enables tracking the life-cycle of the
     /// content.
     pub fn status(&self) -> Option<EventDefinitionStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(EventDefinitionStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => EventDefinitionStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A code or group definition that describes the intended subject of the event

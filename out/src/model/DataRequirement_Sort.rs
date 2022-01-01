@@ -47,10 +47,10 @@ impl DataRequirement_Sort<'_> {
 
     /// The direction of the sort, ascending or descending.
     pub fn direction(&self) -> Option<DataRequirement_SortDirection> {
-        if let Some(Value::String(val)) = self.value.get("direction") {
-            return Some(DataRequirement_SortDirection::from_string(&val).unwrap());
+        match self.value.get("direction") {
+            Some(Value::String(val)) => DataRequirement_SortDirection::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

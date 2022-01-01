@@ -88,10 +88,10 @@ impl Quantity<'_> {
     /// greater or less than the stated value due to measurement issues; e.g. if the
     /// comparator is "<" , then the real value is < stated value.
     pub fn comparator(&self) -> Option<QuantityComparator> {
-        if let Some(Value::String(val)) = self.value.get("comparator") {
-            return Some(QuantityComparator::from_string(&val).unwrap());
+        match self.value.get("comparator") {
+            Some(Value::String(val)) => QuantityComparator::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -140,10 +140,10 @@ impl Quantity<'_> {
     /// The value of the measured amount. The value includes an implicit precision in
     /// the presentation of the value.
     pub fn value(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("value") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("value") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

@@ -123,10 +123,10 @@ impl TestReport_Operation<'_> {
 
     /// The result of this operation.
     pub fn result(&self) -> Option<TestReport_OperationResult> {
-        if let Some(Value::String(val)) = self.value.get("result") {
-            return Some(TestReport_OperationResult::from_string(&val).unwrap());
+        match self.value.get("result") {
+            Some(Value::String(val)) => TestReport_OperationResult::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

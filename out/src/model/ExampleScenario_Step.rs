@@ -115,10 +115,10 @@ impl ExampleScenario_Step<'_> {
 
     /// If there is a pause in the flow.
     pub fn pause(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("pause") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("pause") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Nested process.

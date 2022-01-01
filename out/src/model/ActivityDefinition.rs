@@ -379,10 +379,10 @@ impl ActivityDefinition<'_> {
     /// reinforce a negative coding. For example NPO as a code with a doNotPerform of
     /// true would still indicate to NOT perform the action.
     pub fn do_not_perform(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("doNotPerform") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("doNotPerform") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Provides detailed dosage instructions in the same way that they are described
@@ -463,10 +463,10 @@ impl ActivityDefinition<'_> {
     /// testing purposes (or education/evaluation/marketing) and is not intended to be
     /// used for genuine usage.
     pub fn experimental(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("experimental") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("experimental") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -577,14 +577,14 @@ impl ActivityDefinition<'_> {
     /// A reference to a Library resource containing any formal logic used by the
     /// activity definition.
     pub fn library(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("library") {
-            return Some(
+        match self.value.get("library") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Identifies the facility where the activity will occur; e.g. home, hospital,
@@ -804,10 +804,10 @@ impl ActivityDefinition<'_> {
     /// The status of this activity definition. Enables tracking the life-cycle of the
     /// content.
     pub fn status(&self) -> Option<ActivityDefinitionStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(ActivityDefinitionStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => ActivityDefinitionStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A code or group definition that describes the intended subject of the activity

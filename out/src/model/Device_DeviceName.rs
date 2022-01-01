@@ -108,10 +108,10 @@ impl Device_DeviceName<'_> {
     /// The type of deviceName.  UDILabelName | UserFriendlyName | PatientReportedName |
     /// ManufactureDeviceName | ModelName.
     pub fn fhir_type(&self) -> Option<Device_DeviceNameType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(Device_DeviceNameType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => Device_DeviceNameType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

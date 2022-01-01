@@ -262,10 +262,10 @@ impl Subscription<'_> {
     /// The status of the subscription, which marks the server state for managing the
     /// subscription.
     pub fn status(&self) -> Option<SubscriptionStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(SubscriptionStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => SubscriptionStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A human-readable narrative that contains a summary of the resource and can be

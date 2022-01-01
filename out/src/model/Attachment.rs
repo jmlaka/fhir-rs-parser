@@ -177,10 +177,10 @@ impl Attachment<'_> {
     /// The number of bytes of data that make up this attachment (before base64
     /// encoding, if that is done).
     pub fn size(&self) -> Option<u64> {
-        if let Some(val) = self.value.get("size") {
-            return Some(val.as_u64().unwrap());
+        match self.value.get("size") {
+            Some(val) => val.as_u64(),
+            _ => None,
         }
-        return None;
     }
 
     /// A label or set of text to display in place of the data.

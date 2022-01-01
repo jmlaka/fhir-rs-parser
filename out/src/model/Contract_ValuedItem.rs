@@ -159,10 +159,10 @@ impl Contract_ValuedItem<'_> {
     /// of the Contract Valued Item delivered. The concept of a Factor allows for a
     /// discount or surcharge multiplier to be applied to a monetary amount.
     pub fn factor(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("factor") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("factor") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Unique id for the element within a resource (for internal references). This may
@@ -187,14 +187,14 @@ impl Contract_ValuedItem<'_> {
     /// Id  of the clause or question text related to the context of this valuedItem in
     /// the referenced form or QuestionnaireResponse.
     pub fn link_id(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("linkId") {
-            return Some(
+        match self.value.get("linkId") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -255,10 +255,10 @@ impl Contract_ValuedItem<'_> {
     /// concept of Points allows for assignment of point values for a Contract Valued
     /// Item, such that a monetary amount can be assigned to each point.
     pub fn points(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("points") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("points") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Specifies the units by which the Contract Valued Item is measured or counted,

@@ -51,10 +51,10 @@ impl ImplementationGuide_Parameter<'_> {
     /// broken-links | generate-xml | generate-json | generate-turtle | html-
     /// template.
     pub fn code(&self) -> Option<ImplementationGuide_ParameterCode> {
-        if let Some(Value::String(val)) = self.value.get("code") {
-            return Some(ImplementationGuide_ParameterCode::from_string(&val).unwrap());
+        match self.value.get("code") {
+            Some(Value::String(val)) => ImplementationGuide_ParameterCode::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

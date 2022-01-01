@@ -74,10 +74,10 @@ impl Schedule<'_> {
     /// Whether this schedule record is in active use or should not be used (such as was
     /// entered in error).
     pub fn active(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("active") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("active") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Slots that reference this schedule resource provide the availability details to

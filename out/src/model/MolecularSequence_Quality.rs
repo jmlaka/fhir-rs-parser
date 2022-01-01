@@ -141,10 +141,10 @@ impl MolecularSequence_Quality<'_> {
     /// exclusive and does not include the last position. If the coordinate system is 1-
     /// base, then end is inclusive and includes the last position.
     pub fn end(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("end") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("end") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -168,20 +168,20 @@ impl MolecularSequence_Quality<'_> {
     /// Harmonic mean of Recall and Precision, computed as: 2 * precision * recall /
     /// (precision + recall).
     pub fn f_score(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("fScore") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("fScore") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The number of false positives where the non-REF alleles in the Truth and Query
     /// Call Sets match (i.e. cases where the truth is 1/1 and the query is 0/1 or
     /// similar).
     pub fn gt_f_p(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("gtFP") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("gtFP") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Unique id for the element within a resource (for internal references). This may
@@ -229,20 +229,20 @@ impl MolecularSequence_Quality<'_> {
 
     /// QUERY.TP / (QUERY.TP + QUERY.FP).
     pub fn precision(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("precision") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("precision") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// False positives, i.e. the number of sites in the Query Call Set for which there
     /// is no path through the Truth Call Set that is consistent with this site. Sites
     /// with correct variant but incorrect genotype are counted here.
     pub fn query_f_p(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("queryFP") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("queryFP") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// True positives, from the perspective of the query data, i.e. the number of sites
@@ -250,18 +250,18 @@ impl MolecularSequence_Quality<'_> {
     /// are consistent with all of the alleles at this site, and for which there is an
     /// accurate genotype call for the event.
     pub fn query_t_p(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("queryTP") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("queryTP") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// TRUTH.TP / (TRUTH.TP + TRUTH.FN).
     pub fn recall(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("recall") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("recall") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Receiver Operator Characteristic (ROC) Curve  to give sensitivity/specificity
@@ -300,10 +300,10 @@ impl MolecularSequence_Quality<'_> {
     /// Start position of the sequence. If the coordinate system is either 0-based or 1-
     /// based, then start position is inclusive.
     pub fn start(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("start") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("start") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// False negatives, i.e. the number of sites in the Truth Call Set for which there
@@ -311,10 +311,10 @@ impl MolecularSequence_Quality<'_> {
     /// at this site, or sites for which there is an inaccurate genotype call for the
     /// event. Sites with correct variant but incorrect genotype are counted here.
     pub fn truth_f_n(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("truthFN") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("truthFN") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// True positives, from the perspective of the truth data, i.e. the number of sites
@@ -322,18 +322,18 @@ impl MolecularSequence_Quality<'_> {
     /// are consistent with all of the alleles at this site, and for which there is an
     /// accurate genotype call for the event.
     pub fn truth_t_p(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("truthTP") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("truthTP") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// INDEL / SNP / Undefined variant.
     pub fn fhir_type(&self) -> Option<MolecularSequence_QualityType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(MolecularSequence_QualityType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => MolecularSequence_QualityType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

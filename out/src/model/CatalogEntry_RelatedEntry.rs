@@ -96,10 +96,10 @@ impl CatalogEntry_RelatedEntry<'_> {
     /// The type of relation to the related item: child, parent, packageContent,
     /// containerPackage, usedIn, uses, requires, etc.
     pub fn relationtype(&self) -> Option<CatalogEntry_RelatedEntryRelationtype> {
-        if let Some(Value::String(val)) = self.value.get("relationtype") {
-            return Some(CatalogEntry_RelatedEntryRelationtype::from_string(&val).unwrap());
+        match self.value.get("relationtype") {
+            Some(Value::String(val)) => CatalogEntry_RelatedEntryRelationtype::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

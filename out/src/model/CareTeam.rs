@@ -309,10 +309,10 @@ impl CareTeam<'_> {
 
     /// Indicates the current state of the care team.
     pub fn status(&self) -> Option<CareTeamStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(CareTeamStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => CareTeamStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Identifies the patient or group whose intended care is handled by the team.

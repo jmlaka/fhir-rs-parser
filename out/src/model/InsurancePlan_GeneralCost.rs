@@ -84,10 +84,10 @@ impl InsurancePlan_GeneralCost<'_> {
 
     /// Number of participants enrolled in the plan.
     pub fn group_size(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("groupSize") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("groupSize") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Unique id for the element within a resource (for internal references). This may

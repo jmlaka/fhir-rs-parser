@@ -280,10 +280,10 @@ impl SupplyDelivery<'_> {
 
     /// A code specifying the state of the dispense event.
     pub fn status(&self) -> Option<SupplyDeliveryStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(SupplyDeliveryStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => SupplyDeliveryStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The item that is being delivered or has been supplied.

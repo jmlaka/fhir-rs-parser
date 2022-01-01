@@ -118,10 +118,10 @@ impl Device_UdiCarrier<'_> {
 
     /// A coded entry to indicate how the data was entered.
     pub fn entry_type(&self) -> Option<Device_UdiCarrierEntryType> {
-        if let Some(Value::String(val)) = self.value.get("entryType") {
-            return Some(Device_UdiCarrierEntryType::from_string(&val).unwrap());
+        match self.value.get("entryType") {
+            Some(Value::String(val)) => Device_UdiCarrierEntryType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

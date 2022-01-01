@@ -422,10 +422,10 @@ impl DiagnosticReport<'_> {
 
     /// The status of the diagnostic report.
     pub fn status(&self) -> Option<DiagnosticReportStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(DiagnosticReportStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => DiagnosticReportStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The subject of the report. Usually, but not always, this is a patient. However,

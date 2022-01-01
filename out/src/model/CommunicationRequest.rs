@@ -177,10 +177,10 @@ impl CommunicationRequest<'_> {
     /// If true indicates that the CommunicationRequest is asking for the specified
     /// action to *not* occur.
     pub fn do_not_perform(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("doNotPerform") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("doNotPerform") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// The Encounter during which this CommunicationRequest was created or to which the

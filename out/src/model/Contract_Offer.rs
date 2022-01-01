@@ -151,14 +151,14 @@ impl Contract_Offer<'_> {
     /// The id of the clause or question text of the offer in the referenced
     /// questionnaire/response.
     pub fn link_id(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("linkId") {
-            return Some(
+        match self.value.get("linkId") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

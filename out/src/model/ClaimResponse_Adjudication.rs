@@ -123,10 +123,10 @@ impl ClaimResponse_Adjudication<'_> {
     /// A non-monetary value associated with the category. Mutually exclusive to the
     /// amount element above.
     pub fn value(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("value") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("value") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

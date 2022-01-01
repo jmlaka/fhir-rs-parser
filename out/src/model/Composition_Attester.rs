@@ -82,10 +82,10 @@ impl Composition_Attester<'_> {
 
     /// The type of attestation the authenticator offers.
     pub fn mode(&self) -> Option<Composition_AttesterMode> {
-        if let Some(Value::String(val)) = self.value.get("mode") {
-            return Some(Composition_AttesterMode::from_string(&val).unwrap());
+        match self.value.get("mode") {
+            Some(Value::String(val)) => Composition_AttesterMode::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

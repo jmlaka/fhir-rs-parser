@@ -122,10 +122,10 @@ impl Expression<'_> {
 
     /// The media type of the language for the expression.
     pub fn language(&self) -> Option<ExpressionLanguage> {
-        if let Some(Value::String(val)) = self.value.get("language") {
-            return Some(ExpressionLanguage::from_string(&val).unwrap());
+        match self.value.get("language") {
+            Some(Value::String(val)) => ExpressionLanguage::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A short name assigned to the expression to allow for multiple reuse of the

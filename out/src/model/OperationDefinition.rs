@@ -240,10 +240,10 @@ impl OperationDefinition<'_> {
     /// Whether the operation affects state. Side effects such as producing audit trail
     /// entries do not count as 'affecting  state'.
     pub fn affects_state(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("affectsState") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("affectsState") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Indicates that this operation definition is a constraining profile on the base.
@@ -325,10 +325,10 @@ impl OperationDefinition<'_> {
     /// testing purposes (or education/evaluation/marketing) and is not intended to be
     /// used for genuine usage.
     pub fn experimental(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("experimental") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("experimental") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -382,10 +382,10 @@ impl OperationDefinition<'_> {
     /// Indicates whether this operation can be invoked on a particular instance of one
     /// of the given types.
     pub fn instance(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("instance") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("instance") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// A legal or geographic region in which the operation definition is intended to be
@@ -405,10 +405,10 @@ impl OperationDefinition<'_> {
 
     /// Whether this is an operation or a named query.
     pub fn kind(&self) -> Option<OperationDefinitionKind> {
-        if let Some(Value::String(val)) = self.value.get("kind") {
-            return Some(OperationDefinitionKind::from_string(&val).unwrap());
+        match self.value.get("kind") {
+            Some(Value::String(val)) => OperationDefinitionKind::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The base language in which the resource is written.
@@ -526,32 +526,32 @@ impl OperationDefinition<'_> {
 
     /// The types on which this operation can be executed.
     pub fn resource(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("resource") {
-            return Some(
+        match self.value.get("resource") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The status of this operation definition. Enables tracking the life-cycle of the
     /// content.
     pub fn status(&self) -> Option<OperationDefinitionStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(OperationDefinitionStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => OperationDefinitionStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Indicates whether this operation or named query can be invoked at the system
     /// level (e.g. without needing to choose a resource type for the context).
     pub fn system(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("system") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("system") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// A human-readable narrative that contains a summary of the resource and can be
@@ -581,10 +581,10 @@ impl OperationDefinition<'_> {
     /// type level for any given resource type level (e.g. without needing to choose a
     /// specific resource id for the context).
     pub fn fhir_type(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("type") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("type") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// An absolute URI that is used to identify this operation definition when it is

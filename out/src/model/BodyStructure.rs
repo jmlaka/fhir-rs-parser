@@ -74,10 +74,10 @@ impl BodyStructure<'_> {
 
     /// Whether this body site is in active use.
     pub fn active(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("active") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("active") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// These resources do not have an independent existence apart from the resource

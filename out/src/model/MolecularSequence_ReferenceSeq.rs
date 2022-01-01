@@ -165,10 +165,12 @@ impl MolecularSequence_ReferenceSeq<'_> {
     /// contains the open reading frame of the gene is the "sense" strand, and the
     /// opposite complementary strand is the "antisense" strand.
     pub fn orientation(&self) -> Option<MolecularSequence_ReferenceSeqOrientation> {
-        if let Some(Value::String(val)) = self.value.get("orientation") {
-            return Some(MolecularSequence_ReferenceSeqOrientation::from_string(&val).unwrap());
+        match self.value.get("orientation") {
+            Some(Value::String(val)) => {
+                MolecularSequence_ReferenceSeqOrientation::from_string(&val)
+            }
+            _ => None,
         }
-        return None;
     }
 
     /// Reference identifier of reference sequence submitted to NCBI. It must match the
@@ -206,10 +208,10 @@ impl MolecularSequence_ReferenceSeq<'_> {
     /// is on the short arm of the chromosome, and the Crick strand as the one whose
     /// 5'-end is on the long arm.
     pub fn strand(&self) -> Option<MolecularSequence_ReferenceSeqStrand> {
-        if let Some(Value::String(val)) = self.value.get("strand") {
-            return Some(MolecularSequence_ReferenceSeqStrand::from_string(&val).unwrap());
+        match self.value.get("strand") {
+            Some(Value::String(val)) => MolecularSequence_ReferenceSeqStrand::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// End position of the window on the reference sequence. If the coordinate system
@@ -217,19 +219,19 @@ impl MolecularSequence_ReferenceSeq<'_> {
     /// coordinate system is 1-base, then end is inclusive and includes the last
     /// position.
     pub fn window_end(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("windowEnd") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("windowEnd") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Start position of the window on the reference sequence. If the coordinate system
     /// is either 0-based or 1-based, then start position is inclusive.
     pub fn window_start(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("windowStart") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("windowStart") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

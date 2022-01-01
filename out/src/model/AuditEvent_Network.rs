@@ -109,10 +109,10 @@ impl AuditEvent_Network<'_> {
     /// An identifier for the type of network access point that originated the audit
     /// event.
     pub fn fhir_type(&self) -> Option<AuditEvent_NetworkType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(AuditEvent_NetworkType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => AuditEvent_NetworkType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

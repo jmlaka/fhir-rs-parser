@@ -135,10 +135,10 @@ impl Patient<'_> {
     /// be marked as inactive for the same reasons, but may be active for some time
     /// after death.
     pub fn active(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("active") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("active") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// An address for the individual.
@@ -210,10 +210,10 @@ impl Patient<'_> {
 
     /// Indicates if the individual is deceased or not.
     pub fn deceased_boolean(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("deceasedBoolean") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("deceasedBoolean") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Indicates if the individual is deceased or not.
@@ -245,10 +245,10 @@ impl Patient<'_> {
     /// Administrative Gender - the gender that the patient is considered to have for
     /// administration and record keeping purposes.
     pub fn gender(&self) -> Option<PatientGender> {
-        if let Some(Value::String(val)) = self.value.get("gender") {
-            return Some(PatientGender::from_string(&val).unwrap());
+        match self.value.get("gender") {
+            Some(Value::String(val)) => PatientGender::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Patient's nominated care provider.
@@ -381,19 +381,19 @@ impl Patient<'_> {
     /// Indicates whether the patient is part of a multiple (boolean) or indicates the
     /// actual birth order (integer).
     pub fn multiple_birth_boolean(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("multipleBirthBoolean") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("multipleBirthBoolean") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Indicates whether the patient is part of a multiple (boolean) or indicates the
     /// actual birth order (integer).
     pub fn multiple_birth_integer(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("multipleBirthInteger") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("multipleBirthInteger") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// A name associated with the individual.

@@ -256,14 +256,14 @@ impl ResearchDefinition<'_> {
 
     /// A human-readable string to clarify or explain concepts about the resource.
     pub fn comment(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("comment") {
-            return Some(
+        match self.value.get("comment") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Contact details to assist a user in finding and communicating with the
@@ -372,10 +372,10 @@ impl ResearchDefinition<'_> {
     /// testing purposes (or education/evaluation/marketing) and is not intended to be
     /// used for genuine usage.
     pub fn experimental(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("experimental") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("experimental") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// A reference to a ResearchElementDefinition resource that defines the exposure
@@ -489,14 +489,14 @@ impl ResearchDefinition<'_> {
     /// A reference to a Library resource containing the formal logic used by the
     /// ResearchDefinition.
     pub fn library(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("library") {
-            return Some(
+        match self.value.get("library") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The metadata about the resource. This is content that is maintained by the
@@ -625,10 +625,10 @@ impl ResearchDefinition<'_> {
     /// The status of this research definition. Enables tracking the life-cycle of the
     /// content.
     pub fn status(&self) -> Option<ResearchDefinitionStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(ResearchDefinitionStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => ResearchDefinitionStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The intended subjects for the ResearchDefinition. If this element is not

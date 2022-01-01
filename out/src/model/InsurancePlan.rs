@@ -103,14 +103,14 @@ impl InsurancePlan<'_> {
     /// A list of alternate names that the product is known as, or was known as in the
     /// past.
     pub fn alias(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("alias") {
-            return Some(
+        match self.value.get("alias") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The contact for the health insurance product for a certain purpose.
@@ -344,10 +344,10 @@ impl InsurancePlan<'_> {
 
     /// The current state of the health insurance product.
     pub fn status(&self) -> Option<InsurancePlanStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(InsurancePlanStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => InsurancePlanStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A human-readable narrative that contains a summary of the resource and can be

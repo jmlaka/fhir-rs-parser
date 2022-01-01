@@ -140,14 +140,14 @@ impl CodeSystem_Filter<'_> {
 
     /// A list of operators that can be used with the filter.
     pub fn operator(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("operator") {
-            return Some(
+        match self.value.get("operator") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// A description of what the value for the filter should be.

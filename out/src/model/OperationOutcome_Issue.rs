@@ -88,10 +88,10 @@ impl OperationOutcome_Issue<'_> {
     /// SHALL choose the most applicable code from the IssueType value set, and may
     /// additional provide its own code for the error in the details element.
     pub fn code(&self) -> Option<OperationOutcome_IssueCode> {
-        if let Some(Value::String(val)) = self.value.get("code") {
-            return Some(OperationOutcome_IssueCode::from_string(&val).unwrap());
+        match self.value.get("code") {
+            Some(Value::String(val)) => OperationOutcome_IssueCode::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Additional details about the error. This may be a text description of the error
@@ -117,14 +117,14 @@ impl OperationOutcome_Issue<'_> {
     /// repetition indicators and the default child accessor that identifies one of the
     /// elements in the resource that caused this issue to be raised.
     pub fn expression(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("expression") {
-            return Some(
+        match self.value.get("expression") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -161,14 +161,14 @@ impl OperationOutcome_Issue<'_> {
     /// elements in the resource that caused this issue to be raised.  For HTTP errors,
     /// will be "http." + the parameter name.
     pub fn location(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("location") {
-            return Some(
+        match self.value.get("location") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -197,10 +197,10 @@ impl OperationOutcome_Issue<'_> {
 
     /// Indicates whether the issue indicates a variation from successful processing.
     pub fn severity(&self) -> Option<OperationOutcome_IssueSeverity> {
-        if let Some(Value::String(val)) = self.value.get("severity") {
-            return Some(OperationOutcome_IssueSeverity::from_string(&val).unwrap());
+        match self.value.get("severity") {
+            Some(Value::String(val)) => OperationOutcome_IssueSeverity::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

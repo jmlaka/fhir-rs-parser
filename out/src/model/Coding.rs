@@ -131,10 +131,10 @@ impl Coding<'_> {
     /// Indicates that this coding was chosen by a user directly - e.g. off a pick list
     /// of available items (codes or displays).
     pub fn user_selected(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("userSelected") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("userSelected") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// The version of the code system which was used when choosing this code. Note that

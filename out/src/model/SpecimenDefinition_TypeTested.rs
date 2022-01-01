@@ -112,10 +112,10 @@ impl SpecimenDefinition_TypeTested<'_> {
 
     /// Primary of secondary specimen.
     pub fn is_derived(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("isDerived") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("isDerived") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -144,10 +144,10 @@ impl SpecimenDefinition_TypeTested<'_> {
 
     /// The preference for this type of conditioned specimen.
     pub fn preference(&self) -> Option<SpecimenDefinition_TypeTestedPreference> {
-        if let Some(Value::String(val)) = self.value.get("preference") {
-            return Some(SpecimenDefinition_TypeTestedPreference::from_string(&val).unwrap());
+        match self.value.get("preference") {
+            Some(Value::String(val)) => SpecimenDefinition_TypeTestedPreference::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Criterion for rejection of the specimen in its container by the laboratory.

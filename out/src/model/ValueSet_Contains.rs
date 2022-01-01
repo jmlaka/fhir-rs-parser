@@ -91,10 +91,10 @@ impl ValueSet_Contains<'_> {
     /// If true, this entry is included in the expansion for navigational purposes, and
     /// the user cannot select the code directly as a proper value.
     pub fn fhir_abstract(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("abstract") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("abstract") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// The code for this item in the expansion hierarchy. If this code is missing the
@@ -177,10 +177,10 @@ impl ValueSet_Contains<'_> {
     /// for understanding legacy data. It might not be known or specified whether an
     /// concept is inactive (and it may depend on the context of use).
     pub fn inactive(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("inactive") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("inactive") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

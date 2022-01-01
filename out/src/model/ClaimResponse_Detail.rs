@@ -67,10 +67,10 @@ impl ClaimResponse_Detail<'_> {
 
     /// A number to uniquely reference the claim detail entry.
     pub fn detail_sequence(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("detailSequence") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("detailSequence") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

@@ -109,14 +109,14 @@ impl StructureMap_Dependent<'_> {
 
     /// Variable to pass to the rule or group.
     pub fn variable(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("variable") {
-            return Some(
+        match self.value.get("variable") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

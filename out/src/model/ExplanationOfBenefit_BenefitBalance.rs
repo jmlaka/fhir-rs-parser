@@ -77,10 +77,10 @@ impl ExplanationOfBenefit_BenefitBalance<'_> {
     /// True if the indicated class of service is excluded from the plan, missing or
     /// False indicates the product or service is included in the coverage.
     pub fn excluded(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("excluded") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("excluded") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

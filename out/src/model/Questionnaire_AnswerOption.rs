@@ -108,10 +108,10 @@ impl Questionnaire_AnswerOption<'_> {
     /// Indicates whether the answer value is selected when the list of possible answers
     /// is initially shown.
     pub fn initial_selected(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("initialSelected") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("initialSelected") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -158,10 +158,10 @@ impl Questionnaire_AnswerOption<'_> {
 
     /// A potential answer that's allowed as the answer to this question.
     pub fn value_integer(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("valueInteger") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("valueInteger") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// A potential answer that's allowed as the answer to this question.

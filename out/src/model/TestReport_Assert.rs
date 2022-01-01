@@ -123,10 +123,10 @@ impl TestReport_Assert<'_> {
 
     /// The result of this assertion.
     pub fn result(&self) -> Option<TestReport_AssertResult> {
-        if let Some(Value::String(val)) = self.value.get("result") {
-            return Some(TestReport_AssertResult::from_string(&val).unwrap());
+        match self.value.get("result") {
+            Some(Value::String(val)) => TestReport_AssertResult::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

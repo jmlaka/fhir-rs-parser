@@ -176,10 +176,10 @@ impl ImmunizationEvaluation<'_> {
 
     /// Nominal position in a series.
     pub fn dose_number_positive_int(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("doseNumberPositiveInt") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("doseNumberPositiveInt") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Nominal position in a series.
@@ -335,10 +335,10 @@ impl ImmunizationEvaluation<'_> {
 
     /// The recommended number of doses to achieve immunity.
     pub fn series_doses_positive_int(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("seriesDosesPositiveInt") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("seriesDosesPositiveInt") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The recommended number of doses to achieve immunity.

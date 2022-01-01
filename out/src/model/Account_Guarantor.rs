@@ -91,10 +91,10 @@ impl Account_Guarantor<'_> {
     /// A guarantor may be placed on credit hold or otherwise have their role
     /// temporarily suspended.
     pub fn on_hold(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("onHold") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("onHold") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// The entity who is responsible.

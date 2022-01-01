@@ -546,10 +546,10 @@ impl RiskEvidenceSynthesis<'_> {
     /// The status of this risk evidence synthesis. Enables tracking the life-cycle of
     /// the content.
     pub fn status(&self) -> Option<RiskEvidenceSynthesisStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(RiskEvidenceSynthesisStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => RiskEvidenceSynthesisStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Type of study eg randomized trial.

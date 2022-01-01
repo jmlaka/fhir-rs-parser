@@ -182,18 +182,18 @@ impl Bundle<'_> {
     /// 'outcome' entries and it does not provide a count of the number of entries in
     /// the Bundle.
     pub fn total(&self) -> Option<u64> {
-        if let Some(val) = self.value.get("total") {
-            return Some(val.as_u64().unwrap());
+        match self.value.get("total") {
+            Some(val) => val.as_u64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Indicates the purpose of this bundle - how it is intended to be used.
     pub fn fhir_type(&self) -> Option<BundleType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(BundleType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => BundleType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

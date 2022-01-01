@@ -97,10 +97,10 @@ impl Linkage_Item<'_> {
     /// Distinguishes which item is "source of truth" (if any) and which items are no
     /// longer considered to be current representations.
     pub fn fhir_type(&self) -> Option<Linkage_ItemType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(Linkage_ItemType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => Linkage_ItemType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

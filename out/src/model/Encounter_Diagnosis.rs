@@ -100,10 +100,10 @@ impl Encounter_Diagnosis<'_> {
 
     /// Ranking of the diagnosis (for each role type).
     pub fn rank(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("rank") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("rank") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Role that this diagnosis has within the encounter (e.g. admission, billing,

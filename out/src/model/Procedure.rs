@@ -312,27 +312,27 @@ impl Procedure<'_> {
     /// The URL pointing to a FHIR-defined protocol, guideline, order set or other
     /// definition that is adhered to in whole or in part by this Procedure.
     pub fn instantiates_canonical(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("instantiatesCanonical") {
-            return Some(
+        match self.value.get("instantiatesCanonical") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The URL pointing to an externally maintained protocol, guideline, order set or
     /// other definition that is adhered to in whole or in part by this Procedure.
     pub fn instantiates_uri(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("instantiatesUri") {
-            return Some(
+        match self.value.get("instantiatesUri") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The base language in which the resource is written.

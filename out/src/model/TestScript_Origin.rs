@@ -66,10 +66,10 @@ impl TestScript_Origin<'_> {
     /// Abstract name given to an origin server in this test script.  The name is
     /// provided as a number starting at 1.
     pub fn index(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("index") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("index") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

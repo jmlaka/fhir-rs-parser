@@ -103,10 +103,10 @@ impl MessageDefinition_Focus<'_> {
     /// Identifies the minimum number of resources of this type that must be pointed to
     /// by a message in order for it to be valid against this MessageDefinition.
     pub fn min(&self) -> Option<u64> {
-        if let Some(val) = self.value.get("min") {
-            return Some(val.as_u64().unwrap());
+        match self.value.get("min") {
+            Some(val) => val.as_u64(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

@@ -107,10 +107,10 @@ impl DeviceMetric_Calibration<'_> {
 
     /// Describes the state of the calibration.
     pub fn state(&self) -> Option<DeviceMetric_CalibrationState> {
-        if let Some(Value::String(val)) = self.value.get("state") {
-            return Some(DeviceMetric_CalibrationState::from_string(&val).unwrap());
+        match self.value.get("state") {
+            Some(Value::String(val)) => DeviceMetric_CalibrationState::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Describes the time last calibration has been performed.
@@ -123,10 +123,10 @@ impl DeviceMetric_Calibration<'_> {
 
     /// Describes the type of the calibration method.
     pub fn fhir_type(&self) -> Option<DeviceMetric_CalibrationType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(DeviceMetric_CalibrationType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => DeviceMetric_CalibrationType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

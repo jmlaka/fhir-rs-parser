@@ -111,10 +111,10 @@ impl TestScript_Capability<'_> {
 
     /// Which server these requirements apply to.
     pub fn destination(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("destination") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("destination") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -147,14 +147,14 @@ impl TestScript_Capability<'_> {
     /// Links to the FHIR specification that describes this interaction and the
     /// resources involved in more detail.
     pub fn link(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("link") {
-            return Some(
+        match self.value.get("link") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -196,19 +196,19 @@ impl TestScript_Capability<'_> {
     /// Whether or not the test execution will require the given capabilities of the
     /// server in order for this test script to execute.
     pub fn required(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("required") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("required") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Whether or not the test execution will validate the given capabilities of the
     /// server in order for this test script to execute.
     pub fn validated(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("validated") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("validated") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

@@ -101,10 +101,10 @@ impl DeviceRequest_Parameter<'_> {
 
     /// The value of the device detail.
     pub fn value_boolean(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("valueBoolean") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("valueBoolean") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// The value of the device detail.

@@ -115,14 +115,14 @@ impl MedicationKnowledge_PatientCharacteristics<'_> {
 
     /// The specific characteristic (e.g. height, weight, gender, etc.).
     pub fn value(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("value") {
-            return Some(
+        match self.value.get("value") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

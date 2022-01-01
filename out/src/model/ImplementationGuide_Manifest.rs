@@ -96,14 +96,14 @@ impl ImplementationGuide_Manifest<'_> {
 
     /// Indicates a relative path to an image that exists within the IG.
     pub fn image(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("image") {
-            return Some(
+        match self.value.get("image") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -134,14 +134,14 @@ impl ImplementationGuide_Manifest<'_> {
     /// part of the IG - e.g. zip, jar and similar files that could be the target of a
     /// hyperlink in a derived IG.
     pub fn other(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("other") {
-            return Some(
+        match self.value.get("other") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Information about a page within the IG.

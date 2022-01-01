@@ -229,18 +229,18 @@ impl CodeSystem<'_> {
     /// If code comparison is case sensitive when codes within this system are compared
     /// to each other.
     pub fn case_sensitive(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("caseSensitive") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("caseSensitive") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// The code system defines a compositional (post-coordination) grammar.
     pub fn compositional(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("compositional") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("compositional") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Concepts that are in the code system. The concept definitions are inherently
@@ -293,10 +293,10 @@ impl CodeSystem<'_> {
     /// The extent of the content of the code system (the concepts and codes it defines)
     /// are represented in this resource instance.
     pub fn content(&self) -> Option<CodeSystemContent> {
-        if let Some(Value::String(val)) = self.value.get("content") {
-            return Some(CodeSystemContent::from_string(&val).unwrap());
+        match self.value.get("content") {
+            Some(Value::String(val)) => CodeSystemContent::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A copyright statement relating to the code system and/or its contents. Copyright
@@ -313,10 +313,10 @@ impl CodeSystem<'_> {
     /// has a compositional grammar, the basis of this count is defined by the system
     /// steward.
     pub fn count(&self) -> Option<u64> {
-        if let Some(val) = self.value.get("count") {
-            return Some(val.as_u64().unwrap());
+        match self.value.get("count") {
+            Some(val) => val.as_u64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The date  (and optionally time) when the code system was published. The date
@@ -343,10 +343,10 @@ impl CodeSystem<'_> {
     /// purposes (or education/evaluation/marketing) and is not intended to be used for
     /// genuine usage.
     pub fn experimental(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("experimental") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("experimental") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -384,10 +384,10 @@ impl CodeSystem<'_> {
 
     /// The meaning of the hierarchy of concepts as represented in this resource.
     pub fn hierarchy_meaning(&self) -> Option<CodeSystemHierarchyMeaning> {
-        if let Some(Value::String(val)) = self.value.get("hierarchyMeaning") {
-            return Some(CodeSystemHierarchyMeaning::from_string(&val).unwrap());
+        match self.value.get("hierarchyMeaning") {
+            Some(Value::String(val)) => CodeSystemHierarchyMeaning::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The logical id of the resource, as used in the URL for the resource. Once
@@ -530,10 +530,10 @@ impl CodeSystem<'_> {
     /// The date (and optionally time) when the code system resource was created or
     /// revised.
     pub fn status(&self) -> Option<CodeSystemStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(CodeSystemStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => CodeSystemStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The canonical URL of the code system that this code system supplement is adding
@@ -626,10 +626,10 @@ impl CodeSystem<'_> {
     /// permanence across versions. If true, a version must be specified when
     /// referencing this code system.
     pub fn version_needed(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("versionNeeded") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("versionNeeded") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

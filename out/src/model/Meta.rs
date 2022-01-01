@@ -96,14 +96,14 @@ impl Meta<'_> {
     /// resource claims to conform to. The URL is a reference to
     /// [[[StructureDefinition.url]]].
     pub fn profile(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("profile") {
-            return Some(
+        match self.value.get("profile") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Security labels applied to this resource. These tags connect specific resources

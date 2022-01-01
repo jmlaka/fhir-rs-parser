@@ -232,10 +232,10 @@ impl Goal<'_> {
 
     /// The state of the goal throughout its lifecycle.
     pub fn lifecycle_status(&self) -> Option<GoalLifecycleStatus> {
-        if let Some(Value::String(val)) = self.value.get("lifecycleStatus") {
-            return Some(GoalLifecycleStatus::from_string(&val).unwrap());
+        match self.value.get("lifecycleStatus") {
+            Some(Value::String(val)) => GoalLifecycleStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The metadata about the resource. This is content that is maintained by the

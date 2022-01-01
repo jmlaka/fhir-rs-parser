@@ -141,10 +141,10 @@ impl ExampleScenario_Actor<'_> {
 
     /// The type of actor - person or system.
     pub fn fhir_type(&self) -> Option<ExampleScenario_ActorType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(ExampleScenario_ActorType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => ExampleScenario_ActorType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

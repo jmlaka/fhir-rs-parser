@@ -108,10 +108,10 @@ impl Consent_Verification<'_> {
 
     /// Has the instruction been verified.
     pub fn verified(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("verified") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("verified") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Who verified the instruction (Patient, Relative or other Authorized Person).

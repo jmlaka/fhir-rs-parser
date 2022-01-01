@@ -132,10 +132,10 @@ impl PlanDefinition_RelatedAction<'_> {
 
     /// The relationship of this action to the related action.
     pub fn relationship(&self) -> Option<PlanDefinition_RelatedActionRelationship> {
-        if let Some(Value::String(val)) = self.value.get("relationship") {
-            return Some(PlanDefinition_RelatedActionRelationship::from_string(&val).unwrap());
+        match self.value.get("relationship") {
+            Some(Value::String(val)) => PlanDefinition_RelatedActionRelationship::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

@@ -311,10 +311,10 @@ impl DeviceUseStatement<'_> {
     /// the device used that this statement is about.  Generally this will be active or
     /// completed.
     pub fn status(&self) -> Option<DeviceUseStatementStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(DeviceUseStatementStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => DeviceUseStatementStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The patient who used the device.

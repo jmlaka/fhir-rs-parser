@@ -99,10 +99,10 @@ impl Account_Coverage<'_> {
 
     /// The priority of the coverage in the context of this account.
     pub fn priority(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("priority") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("priority") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

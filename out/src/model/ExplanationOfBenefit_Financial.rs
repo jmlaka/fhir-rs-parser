@@ -78,10 +78,10 @@ impl ExplanationOfBenefit_Financial<'_> {
 
     /// The quantity of the benefit which is permitted under the coverage.
     pub fn allowed_unsigned_int(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("allowedUnsignedInt") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("allowedUnsignedInt") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -154,10 +154,10 @@ impl ExplanationOfBenefit_Financial<'_> {
 
     /// The quantity of the benefit which have been consumed to date.
     pub fn used_unsigned_int(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("usedUnsignedInt") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("usedUnsignedInt") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

@@ -81,10 +81,10 @@ impl ExplanationOfBenefit_Insurance<'_> {
     /// A flag to indicate that this Coverage is to be used for adjudication of this
     /// claim when set to true.
     pub fn focal(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("focal") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("focal") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Unique id for the element within a resource (for internal references). This may
@@ -124,14 +124,14 @@ impl ExplanationOfBenefit_Insurance<'_> {
     /// quoted on subsequent claims containing services or products related to the prior
     /// authorization.
     pub fn pre_auth_ref(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("preAuthRef") {
-            return Some(
+        match self.value.get("preAuthRef") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

@@ -41,10 +41,10 @@ impl DocumentReference_RelatesTo<'_> {
 
     /// The type of relationship that this document has with anther document.
     pub fn code(&self) -> Option<DocumentReference_RelatesToCode> {
-        if let Some(Value::String(val)) = self.value.get("code") {
-            return Some(DocumentReference_RelatesToCode::from_string(&val).unwrap());
+        match self.value.get("code") {
+            Some(Value::String(val)) => DocumentReference_RelatesToCode::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

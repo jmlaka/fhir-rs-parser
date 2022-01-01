@@ -114,10 +114,10 @@ impl Task_Restriction<'_> {
 
     /// Indicates the number of times the requested action should occur.
     pub fn repetitions(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("repetitions") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("repetitions") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

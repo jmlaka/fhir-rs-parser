@@ -284,14 +284,14 @@ impl SearchParameter<'_> {
 
     /// The base resource type(s) that this search parameter can be used against.
     pub fn base(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("base") {
-            return Some(
+        match self.value.get("base") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Contains the names of any search parameters which may be chained to the
@@ -301,14 +301,14 @@ impl SearchParameter<'_> {
     /// value. Values for this field should be drawn from SearchParameter.code for a
     /// parameter on the target resource type.
     pub fn chain(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("chain") {
-            return Some(
+        match self.value.get("chain") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The code used in the URL or the parameter name in a parameters resource for this
@@ -400,10 +400,10 @@ impl SearchParameter<'_> {
     /// purposes (or education/evaluation/marketing) and is not intended to be used for
     /// genuine usage.
     pub fn experimental(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("experimental") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("experimental") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// A FHIRPath expression that returns a set of elements for the search parameter.
@@ -515,19 +515,19 @@ impl SearchParameter<'_> {
     /// Whether multiple parameters are allowed - e.g. more than one parameter with the
     /// same name. The search matches if all the parameters match.
     pub fn multiple_and(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("multipleAnd") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("multipleAnd") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Whether multiple values are allowed for each time the parameter exists. Values
     /// are separated by commas, and the parameter matches if any of the values match.
     pub fn multiple_or(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("multipleOr") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("multipleOr") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// A natural language name identifying the search parameter. This name should be
@@ -560,22 +560,22 @@ impl SearchParameter<'_> {
     /// The status of this search parameter. Enables tracking the life-cycle of the
     /// content.
     pub fn status(&self) -> Option<SearchParameterStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(SearchParameterStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => SearchParameterStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Types of resource (if a resource is referenced).
     pub fn target(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("target") {
-            return Some(
+        match self.value.get("target") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// A human-readable narrative that contains a summary of the resource and can be
@@ -596,10 +596,10 @@ impl SearchParameter<'_> {
     /// The type of value that a search parameter may contain, and how the content is
     /// interpreted.
     pub fn fhir_type(&self) -> Option<SearchParameterType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(SearchParameterType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => SearchParameterType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// An absolute URI that is used to identify this search parameter when it is
@@ -657,10 +657,10 @@ impl SearchParameter<'_> {
     /// How the search parameter relates to the set of elements returned by evaluating
     /// the xpath query.
     pub fn xpath_usage(&self) -> Option<SearchParameterXpathUsage> {
-        if let Some(Value::String(val)) = self.value.get("xpathUsage") {
-            return Some(SearchParameterXpathUsage::from_string(&val).unwrap());
+        match self.value.get("xpathUsage") {
+            Some(Value::String(val)) => SearchParameterXpathUsage::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

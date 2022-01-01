@@ -113,10 +113,10 @@ impl ConceptMap_Target<'_> {
     /// dependencies and products). The equivalence is read from target to source (e.g.
     /// the target is 'wider' than the source).
     pub fn equivalence(&self) -> Option<ConceptMap_TargetEquivalence> {
-        if let Some(Value::String(val)) = self.value.get("equivalence") {
-            return Some(ConceptMap_TargetEquivalence::from_string(&val).unwrap());
+        match self.value.get("equivalence") {
+            Some(Value::String(val)) => ConceptMap_TargetEquivalence::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

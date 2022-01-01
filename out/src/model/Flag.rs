@@ -232,10 +232,10 @@ impl Flag<'_> {
 
     /// Supports basic workflow.
     pub fn status(&self) -> Option<FlagStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(FlagStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => FlagStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The patient, location, group, organization, or practitioner etc. this is about

@@ -482,14 +482,14 @@ impl MedicationKnowledge<'_> {
     /// medication in different countries.  For example, acetaminophen and paracetamol
     /// or salbutamol and albuterol.
     pub fn synonym(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("synonym") {
-            return Some(
+        match self.value.get("synonym") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// A human-readable narrative that contains a summary of the resource and can be

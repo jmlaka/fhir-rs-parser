@@ -189,10 +189,10 @@ impl Questionnaire_Item<'_> {
     /// Controls how multiple enableWhen values are interpreted -  whether all or any
     /// must be true.
     pub fn enable_behavior(&self) -> Option<Questionnaire_ItemEnableBehavior> {
-        if let Some(Value::String(val)) = self.value.get("enableBehavior") {
-            return Some(Questionnaire_ItemEnableBehavior::from_string(&val).unwrap());
+        match self.value.get("enableBehavior") {
+            Some(Value::String(val)) => Questionnaire_ItemEnableBehavior::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A constraint indicating that this item should only be enabled (displayed/allow
@@ -278,10 +278,10 @@ impl Questionnaire_Item<'_> {
     /// The maximum number of characters that are permitted in the answer to be
     /// considered a "valid" QuestionnaireResponse.
     pub fn max_length(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("maxLength") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("maxLength") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -320,30 +320,30 @@ impl Questionnaire_Item<'_> {
     /// An indication, when true, that the value cannot be changed by a human respondent
     /// to the Questionnaire.
     pub fn read_only(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("readOnly") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("readOnly") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// An indication, if true, that the item may occur multiple times in the response,
     /// collecting multiple answers for questions or multiple sets of answers for
     /// groups.
     pub fn repeats(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("repeats") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("repeats") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// An indication, if true, that the item must be present in a "completed"
     /// QuestionnaireResponse.  If false, the item may be skipped when answering the
     /// questionnaire.
     pub fn required(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("required") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("required") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// The name of a section, the text of a question or text content for a display
@@ -359,10 +359,10 @@ impl Questionnaire_Item<'_> {
     /// other items or a particular type of data to be captured (string, integer, coded
     /// choice, etc.).
     pub fn fhir_type(&self) -> Option<Questionnaire_ItemType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(Questionnaire_ItemType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => Questionnaire_ItemType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

@@ -109,10 +109,10 @@ impl StructureMap_Target<'_> {
 
     /// How to interpret the context.
     pub fn context_type(&self) -> Option<StructureMap_TargetContextType> {
-        if let Some(Value::String(val)) = self.value.get("contextType") {
-            return Some(StructureMap_TargetContextType::from_string(&val).unwrap());
+        match self.value.get("contextType") {
+            Some(Value::String(val)) => StructureMap_TargetContextType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Field to create in the context.
@@ -198,10 +198,10 @@ impl StructureMap_Target<'_> {
 
     /// How the data is copied / created.
     pub fn transform(&self) -> Option<StructureMap_TargetTransform> {
-        if let Some(Value::String(val)) = self.value.get("transform") {
-            return Some(StructureMap_TargetTransform::from_string(&val).unwrap());
+        match self.value.get("transform") {
+            Some(Value::String(val)) => StructureMap_TargetTransform::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Named context for field, if desired, and a field is specified.

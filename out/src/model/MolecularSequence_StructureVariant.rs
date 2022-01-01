@@ -49,10 +49,10 @@ impl MolecularSequence_StructureVariant<'_> {
 
     /// Used to indicate if the outer and inner start-end values have the same meaning.
     pub fn exact(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("exact") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("exact") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -94,10 +94,10 @@ impl MolecularSequence_StructureVariant<'_> {
 
     /// Length of the variant chromosome.
     pub fn length(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("length") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("length") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

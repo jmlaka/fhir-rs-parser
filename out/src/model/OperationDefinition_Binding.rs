@@ -90,10 +90,10 @@ impl OperationDefinition_Binding<'_> {
     /// that is, the degree to which the provided value set must be adhered to in the
     /// instances.
     pub fn strength(&self) -> Option<OperationDefinition_BindingStrength> {
-        if let Some(Value::String(val)) = self.value.get("strength") {
-            return Some(OperationDefinition_BindingStrength::from_string(&val).unwrap());
+        match self.value.get("strength") {
+            Some(Value::String(val)) => OperationDefinition_BindingStrength::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Points to the value set or external definition (e.g. implicit value set) that

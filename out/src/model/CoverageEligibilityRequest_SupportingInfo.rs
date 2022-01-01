@@ -52,10 +52,10 @@ impl CoverageEligibilityRequest_SupportingInfo<'_> {
     /// The supporting materials are applicable for all detail items, product/servce
     /// categories and specific billing codes.
     pub fn applies_to_all(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("appliesToAll") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("appliesToAll") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -119,10 +119,10 @@ impl CoverageEligibilityRequest_SupportingInfo<'_> {
 
     /// A number to uniquely identify supporting information entries.
     pub fn sequence(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("sequence") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("sequence") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

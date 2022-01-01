@@ -97,10 +97,10 @@ impl AdverseEvent<'_> {
     /// Whether the event actually happened, or just had the potential to. Note that
     /// this is independent of whether anyone was affected or harmed or how severely.
     pub fn actuality(&self) -> Option<AdverseEventActuality> {
-        if let Some(Value::String(val)) = self.value.get("actuality") {
-            return Some(AdverseEventActuality::from_string(&val).unwrap());
+        match self.value.get("actuality") {
+            Some(Value::String(val)) => AdverseEventActuality::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The overall type of event, intended for search and filtering purposes.

@@ -97,10 +97,10 @@ impl ValueSet_Compose<'_> {
     /// the applicable $expand parameters (but generally, inactive codes would be
     /// expected to be included).
     pub fn inactive(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("inactive") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("inactive") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Include one or more codes from a code system or other value set(s).

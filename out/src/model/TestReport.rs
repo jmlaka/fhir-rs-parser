@@ -256,19 +256,19 @@ impl TestReport<'_> {
 
     /// The overall result from the execution of the TestScript.
     pub fn result(&self) -> Option<TestReportResult> {
-        if let Some(Value::String(val)) = self.value.get("result") {
-            return Some(TestReportResult::from_string(&val).unwrap());
+        match self.value.get("result") {
+            Some(Value::String(val)) => TestReportResult::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The final score (percentage of tests passed) resulting from the execution of the
     /// TestScript.
     pub fn score(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("score") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("score") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The results of the series of required setup operations before the tests were
@@ -284,10 +284,10 @@ impl TestReport<'_> {
 
     /// The current state of this test report.
     pub fn status(&self) -> Option<TestReportStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(TestReportStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => TestReportStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The results of the series of operations required to clean up after all the tests

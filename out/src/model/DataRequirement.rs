@@ -126,10 +126,10 @@ impl DataRequirement<'_> {
     /// Specifies a maximum number of results that are required (uses the _count search
     /// parameter).
     pub fn limit(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("limit") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("limit") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Indicates that specific elements of the type are referenced by the knowledge
@@ -141,27 +141,27 @@ impl DataRequirement<'_> {
     /// only of identifiers, constant indexers, and .resolve() (see the [Simple FHIRPath
     /// Profile](fhirpath.html#simple) for full details).
     pub fn must_support(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("mustSupport") {
-            return Some(
+        match self.value.get("mustSupport") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The profile of the required data, specified as the uri of the profile
     /// definition.
     pub fn profile(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("profile") {
-            return Some(
+        match self.value.get("profile") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Specifies the order of the results to be returned.

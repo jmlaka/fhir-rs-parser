@@ -228,10 +228,10 @@ impl StructureMap<'_> {
     /// purposes (or education/evaluation/marketing) and is not intended to be used for
     /// genuine usage.
     pub fn experimental(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("experimental") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("experimental") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -305,14 +305,14 @@ impl StructureMap<'_> {
 
     /// Other maps used by this map (canonical URLs).
     pub fn import(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("import") {
-            return Some(
+        match self.value.get("import") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// A legal or geographic region in which the structure map is intended to be used.
@@ -404,10 +404,10 @@ impl StructureMap<'_> {
     /// The status of this structure map. Enables tracking the life-cycle of the
     /// content.
     pub fn status(&self) -> Option<StructureMapStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(StructureMapStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => StructureMapStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A structure definition used by this map. The structure definition may describe

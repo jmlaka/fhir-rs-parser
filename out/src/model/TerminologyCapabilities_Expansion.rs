@@ -87,10 +87,10 @@ impl TerminologyCapabilities_Expansion<'_> {
 
     /// Whether the server can return nested value sets.
     pub fn hierarchical(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("hierarchical") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("hierarchical") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Unique id for the element within a resource (for internal references). This may
@@ -104,10 +104,10 @@ impl TerminologyCapabilities_Expansion<'_> {
 
     /// Allow request for incomplete expansions?
     pub fn incomplete(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("incomplete") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("incomplete") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -136,10 +136,10 @@ impl TerminologyCapabilities_Expansion<'_> {
 
     /// Whether the server supports paging on expansion.
     pub fn paging(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("paging") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("paging") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Supported expansion parameter.

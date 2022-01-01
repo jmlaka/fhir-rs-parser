@@ -101,10 +101,10 @@ impl RelatedPerson_Communication<'_> {
     /// Indicates whether or not the patient prefers this language (over other languages
     /// he masters up a certain level).
     pub fn preferred(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("preferred") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("preferred") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

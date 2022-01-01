@@ -62,10 +62,10 @@ impl ImplementationGuide_Resource1<'_> {
     /// reference is present, indicates that the example is an example of the specified
     /// profile.
     pub fn example_boolean(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("exampleBoolean") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("exampleBoolean") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// If true or a reference, indicates the resource is an example instance.  If a

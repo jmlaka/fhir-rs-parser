@@ -2,7 +2,6 @@ use inflector::Inflector;
 use maplit::hashmap;
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, HashMap, HashSet};
-use std::error::Error;
 use std::fs;
 use std::fs::File;
 use std::io::prelude::*;
@@ -216,13 +215,13 @@ fn write_string_to_file(contents: &str, path_string: &str) -> bool {
   let path = Path::new(&path_string);
   // Open a file in write-only mode, returns `io::Result<File>`
   let mut file = match File::create(&path) {
-    Err(why) => panic!("couldn't create {}: {}", path_string, why.description()),
+    Err(why) => panic!("couldn't create {}: {}", path_string, why),
     Ok(file) => file,
   };
 
   // Write the file contents string to `file`, returns `io::Result<()>`
   match file.write_all(contents.as_bytes()) {
-    Err(why) => panic!("couldn't write to {}: {}", path_string, why.description()),
+    Err(why) => panic!("couldn't write to {}: {}", path_string, why),
     Ok(_) => println!("successfully wrote to {}", path_string),
   }
 
@@ -281,8 +280,7 @@ fn generate_trait(
     impl_string.push_str("  pub fn resource(&self) -> Option<");
     impl_string.push_str(name);
     impl_string.push_str("Enum> {\n");
-    impl_string.push_str("    let fhir_type = self.value[\"resourceType\"].as_str().unwrap();\n");
-    impl_string.push_str("    match fhir_type {\n");
+    impl_string.push_str("    match self.value[\"resourceType\"].as_str() {\n");
 
     let mut validation_string = String::new();
     validation_string.push_str("  pub fn validate(&self) -> bool {\n");
@@ -309,9 +307,9 @@ fn generate_trait(
       inner_string.push_str("(");
       inner_string.push_str(&type_definition.name);
       inner_string.push_str("<'a>),\n");
-      impl_string.push_str("      \"");
+      impl_string.push_str("      Some(\"");
       impl_string.push_str(&original_name);
-      impl_string.push_str("\" => Some(");
+      impl_string.push_str("\") => Some(");
       impl_string.push_str(name);
       impl_string.push_str("Enum::Resource");
       impl_string.push_str(&type_definition.name);
@@ -847,10 +845,13 @@ fn write_property(
         }
       } else {
         if type_definition.name == "&str" {
-          inner_string.push_str("    if let Some(Value::Array(val)) = self.value.get(\"");
+          inner_string.push_str("    match self.value.get(\"");
           inner_string.push_str(&property_name);
           inner_string
-            .push_str("\") {\n      return Some(val.into_iter().map(|e| e.as_str().unwrap()).collect::<Vec<_>>());\n    }\n    return None;\n");
+            .push_str("\") {\n      Some(Value::Array(val)) => Some(val.into_iter()
+                  .filter_map(|e| e.as_str())\n
+                  .collect::<Vec<_>>(),\n
+          ),\n _ => None\n}");
         } else {
           inner_string.push_str("    if let Some(Value::Array(val)) = self.value.get(\"");
           inner_string.push_str(&property_name);
@@ -914,11 +915,11 @@ fn write_property(
         inner_string.push_str(&property_name);
         inner_string.push_str("\") {\n      return Some(string);\n    }\n    return None;\n");
       } else {
-        inner_string.push_str("    if let Some(val) = self.value.get(\"");
+        inner_string.push_str("    match self.value.get(\"");
         inner_string.push_str(&property_name);
-        inner_string.push_str("\") {\n      return Some(val.as_");
+        inner_string.push_str("\") {\n      Some(val) => val.as_");
         inner_string.push_str(&type_definition.name);
-        inner_string.push_str("().unwrap());\n    }\n    return None;\n");
+        inner_string.push_str("(),\n    _ => None }\n");
       }
     }
   } else {
@@ -940,11 +941,13 @@ fn write_property(
       }
     } else {
       if type_definition.string_enum {
-        inner_string.push_str("    if let Some(Value::String(val)) = self.value.get(\"");
+        inner_string.push_str("    match self.value.get(\"");
         inner_string.push_str(&property_name);
-        inner_string.push_str("\") {\n      return Some(");
+        inner_string.push_str("\") {\n");
+        inner_string.push_str("     Some(Value::String(val)) => ");
         inner_string.push_str(&type_definition.name);
-        inner_string.push_str("::from_string(&val).unwrap());\n    }\n    return None;\n");
+        inner_string.push_str("::from_string(&val),\n");
+        inner_string.push_str(" _ => None\n}");
       } else {
         inner_string.push_str("    if let Some(val) = self.value.get(\"");
         inner_string.push_str(&property_name);

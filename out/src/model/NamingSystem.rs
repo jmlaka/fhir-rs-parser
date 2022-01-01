@@ -240,10 +240,10 @@ impl NamingSystem<'_> {
     /// Indicates the purpose for the naming system - what kinds of things does it make
     /// unique?
     pub fn kind(&self) -> Option<NamingSystemKind> {
-        if let Some(Value::String(val)) = self.value.get("kind") {
-            return Some(NamingSystemKind::from_string(&val).unwrap());
+        match self.value.get("kind") {
+            Some(Value::String(val)) => NamingSystemKind::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The base language in which the resource is written.
@@ -321,10 +321,10 @@ impl NamingSystem<'_> {
     /// The status of this naming system. Enables tracking the life-cycle of the
     /// content.
     pub fn status(&self) -> Option<NamingSystemStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(NamingSystemStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => NamingSystemStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A human-readable narrative that contains a summary of the resource and can be

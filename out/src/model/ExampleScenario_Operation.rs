@@ -150,10 +150,10 @@ impl ExampleScenario_Operation<'_> {
 
     /// Whether the initiator is deactivated right after the transaction.
     pub fn initiator_active(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("initiatorActive") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("initiatorActive") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -206,10 +206,10 @@ impl ExampleScenario_Operation<'_> {
 
     /// Whether the receiver is deactivated right after the transaction.
     pub fn receiver_active(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("receiverActive") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("receiverActive") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Each resource instance used by the initiator.

@@ -56,14 +56,14 @@ impl CapabilityStatement_Rest<'_> {
     /// system supports. The reference is to a CompartmentDefinition resource by its
     /// canonical URL .
     pub fn compartment(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("compartment") {
-            return Some(
+        match self.value.get("compartment") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Information about the system's restful capabilities that apply across all
@@ -119,10 +119,10 @@ impl CapabilityStatement_Rest<'_> {
     /// Identifies whether this portion of the statement is describing the ability to
     /// initiate or receive restful operations.
     pub fn mode(&self) -> Option<CapabilityStatement_RestMode> {
-        if let Some(Value::String(val)) = self.value.get("mode") {
-            return Some(CapabilityStatement_RestMode::from_string(&val).unwrap());
+        match self.value.get("mode") {
+            Some(Value::String(val)) => CapabilityStatement_RestMode::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

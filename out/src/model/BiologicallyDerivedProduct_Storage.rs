@@ -128,18 +128,18 @@ impl BiologicallyDerivedProduct_Storage<'_> {
 
     /// Temperature scale used.
     pub fn scale(&self) -> Option<BiologicallyDerivedProduct_StorageScale> {
-        if let Some(Value::String(val)) = self.value.get("scale") {
-            return Some(BiologicallyDerivedProduct_StorageScale::from_string(&val).unwrap());
+        match self.value.get("scale") {
+            Some(Value::String(val)) => BiologicallyDerivedProduct_StorageScale::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Storage temperature.
     pub fn temperature(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("temperature") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("temperature") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

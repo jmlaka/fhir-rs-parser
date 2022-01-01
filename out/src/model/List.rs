@@ -238,10 +238,10 @@ impl List<'_> {
     /// of items from another source, or whether it is a prepared list where items may
     /// be marked as added, modified or deleted.
     pub fn mode(&self) -> Option<ListMode> {
-        if let Some(Value::String(val)) = self.value.get("mode") {
-            return Some(ListMode::from_string(&val).unwrap());
+        match self.value.get("mode") {
+            Some(Value::String(val)) => ListMode::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -306,10 +306,10 @@ impl List<'_> {
 
     /// Indicates the current state of this list.
     pub fn status(&self) -> Option<ListStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(ListStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => ListStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The common subject (or patient) of the resources that are in the list if there

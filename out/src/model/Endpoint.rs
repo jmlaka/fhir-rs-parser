@@ -181,14 +181,14 @@ impl Endpoint<'_> {
 
     /// Additional headers / information to send as part of the notification.
     pub fn header(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("header") {
-            return Some(
+        match self.value.get("header") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The logical id of the resource, as used in the URL for the resource. Once
@@ -295,14 +295,14 @@ impl Endpoint<'_> {
     /// application/fhir+json. If the mime type is not specified, then the sender could
     /// send any content (including no content depending on the connectionType).
     pub fn payload_mime_type(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("payloadMimeType") {
-            return Some(
+        match self.value.get("payloadMimeType") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The payload type describes the acceptable content that can be communicated on
@@ -332,10 +332,10 @@ impl Endpoint<'_> {
 
     /// active | suspended | error | off | test.
     pub fn status(&self) -> Option<EndpointStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(EndpointStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => EndpointStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A human-readable narrative that contains a summary of the resource and can be

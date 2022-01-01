@@ -426,10 +426,10 @@ impl Encounter<'_> {
 
     /// planned | arrived | triaged | in-progress | onleave | finished | cancelled +.
     pub fn status(&self) -> Option<EncounterStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(EncounterStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => EncounterStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The status history permits the encounter resource to contain the status history

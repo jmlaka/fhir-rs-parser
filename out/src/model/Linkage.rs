@@ -62,10 +62,10 @@ impl Linkage<'_> {
 
     /// Indicates whether the asserted set of linkages are considered to be "in effect".
     pub fn active(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("active") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("active") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Identifies the user or organization responsible for asserting the linkages as

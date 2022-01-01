@@ -233,10 +233,10 @@ impl Consent_Provision<'_> {
     /// Action  to take - permit or deny - when the rule conditions are met.  Not
     /// permitted in root rule, required in all nested rules.
     pub fn fhir_type(&self) -> Option<Consent_ProvisionType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(Consent_ProvisionType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => Consent_ProvisionType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

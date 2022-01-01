@@ -106,10 +106,10 @@ impl ClaimResponse_Insurance<'_> {
     /// A flag to indicate that this Coverage is to be used for adjudication of this
     /// claim when set to true.
     pub fn focal(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("focal") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("focal") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Unique id for the element within a resource (for internal references). This may
@@ -148,10 +148,10 @@ impl ClaimResponse_Insurance<'_> {
     /// A number to uniquely identify insurance entries and provide a sequence of
     /// coverages to convey coordination of benefit order.
     pub fn sequence(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("sequence") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("sequence") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

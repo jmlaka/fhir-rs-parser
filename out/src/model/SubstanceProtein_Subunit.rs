@@ -131,10 +131,10 @@ impl SubstanceProtein_Subunit<'_> {
 
     /// Length of linear sequences of amino acids contained in the subunit.
     pub fn length(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("length") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("length") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -216,10 +216,10 @@ impl SubstanceProtein_Subunit<'_> {
     /// weight. Subunits that have identical sequences will be repeated and have
     /// sequential subscripts.
     pub fn subunit(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("subunit") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("subunit") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

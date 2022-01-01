@@ -221,10 +221,10 @@ impl MessageDefinition<'_> {
 
     /// The impact of the content of the message.
     pub fn category(&self) -> Option<MessageDefinitionCategory> {
-        if let Some(Value::String(val)) = self.value.get("category") {
-            return Some(MessageDefinitionCategory::from_string(&val).unwrap());
+        match self.value.get("category") {
+            Some(Value::String(val)) => MessageDefinitionCategory::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Contact details to assist a user in finding and communicating with the
@@ -310,10 +310,10 @@ impl MessageDefinition<'_> {
     /// purposes (or education/evaluation/marketing) and is not intended to be used for
     /// genuine usage.
     pub fn experimental(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("experimental") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("experimental") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -355,14 +355,14 @@ impl MessageDefinition<'_> {
     /// are to be added to the bundle when building the document. The GraphDefinition
     /// can also specify profiles that apply to the various resources.
     pub fn graph(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("graph") {
-            return Some(
+        match self.value.get("graph") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The logical id of the resource, as used in the URL for the resource. Once
@@ -474,14 +474,14 @@ impl MessageDefinition<'_> {
     /// Identifies a protocol or workflow that this MessageDefinition represents a step
     /// in.
     pub fn parent(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("parent") {
-            return Some(
+        match self.value.get("parent") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The name of the organization or individual that published the message
@@ -504,32 +504,32 @@ impl MessageDefinition<'_> {
 
     /// A MessageDefinition that is superseded by this definition.
     pub fn replaces(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("replaces") {
-            return Some(
+        match self.value.get("replaces") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Declare at a message definition level whether a response is required or only
     /// upon error or success, or never.
     pub fn response_required(&self) -> Option<MessageDefinitionResponseRequired> {
-        if let Some(Value::String(val)) = self.value.get("responseRequired") {
-            return Some(MessageDefinitionResponseRequired::from_string(&val).unwrap());
+        match self.value.get("responseRequired") {
+            Some(Value::String(val)) => MessageDefinitionResponseRequired::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The status of this message definition. Enables tracking the life-cycle of the
     /// content.
     pub fn status(&self) -> Option<MessageDefinitionStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(MessageDefinitionStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => MessageDefinitionStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A human-readable narrative that contains a summary of the resource and can be

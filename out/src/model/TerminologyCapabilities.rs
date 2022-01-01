@@ -212,10 +212,10 @@ impl TerminologyCapabilities<'_> {
     /// The degree to which the server supports the code search parameter on ValueSet,
     /// if it is supported.
     pub fn code_search(&self) -> Option<TerminologyCapabilitiesCodeSearch> {
-        if let Some(Value::String(val)) = self.value.get("codeSearch") {
-            return Some(TerminologyCapabilitiesCodeSearch::from_string(&val).unwrap());
+        match self.value.get("codeSearch") {
+            Some(Value::String(val)) => TerminologyCapabilitiesCodeSearch::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Identifies a code system that is supported by the server. If there is a no code
@@ -312,10 +312,10 @@ impl TerminologyCapabilities<'_> {
     /// testing purposes (or education/evaluation/marketing) and is not intended to be
     /// used for genuine usage.
     pub fn experimental(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("experimental") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("experimental") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -403,10 +403,10 @@ impl TerminologyCapabilities<'_> {
 
     /// Whether the server supports lockedDate.
     pub fn locked_date(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("lockedDate") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("lockedDate") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// The metadata about the resource. This is content that is maintained by the
@@ -489,10 +489,10 @@ impl TerminologyCapabilities<'_> {
     /// The status of this terminology capabilities. Enables tracking the life-cycle of
     /// the content.
     pub fn status(&self) -> Option<TerminologyCapabilitiesStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(TerminologyCapabilitiesStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => TerminologyCapabilitiesStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A human-readable narrative that contains a summary of the resource and can be

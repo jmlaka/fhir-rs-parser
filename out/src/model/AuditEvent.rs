@@ -98,10 +98,10 @@ impl AuditEvent<'_> {
     /// Indicator for type of action performed during the event that generated the
     /// audit.
     pub fn action(&self) -> Option<AuditEventAction> {
-        if let Some(Value::String(val)) = self.value.get("action") {
-            return Some(AuditEventAction::from_string(&val).unwrap());
+        match self.value.get("action") {
+            Some(Value::String(val)) => AuditEventAction::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// An actor taking an active role in the event or activity that is logged.
@@ -233,10 +233,10 @@ impl AuditEvent<'_> {
 
     /// Indicates whether the event succeeded or failed.
     pub fn outcome(&self) -> Option<AuditEventOutcome> {
-        if let Some(Value::String(val)) = self.value.get("outcome") {
-            return Some(AuditEventOutcome::from_string(&val).unwrap());
+        match self.value.get("outcome") {
+            Some(Value::String(val)) => AuditEventOutcome::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A free text description of the outcome of the event.

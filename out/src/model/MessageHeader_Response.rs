@@ -51,10 +51,10 @@ impl MessageHeader_Response<'_> {
     /// Code that identifies the type of response to the message - whether it was
     /// successful or not, and whether it should be resent or not.
     pub fn code(&self) -> Option<MessageHeader_ResponseCode> {
-        if let Some(Value::String(val)) = self.value.get("code") {
-            return Some(MessageHeader_ResponseCode::from_string(&val).unwrap());
+        match self.value.get("code") {
+            Some(Value::String(val)) => MessageHeader_ResponseCode::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Full details of any issues found in the message.

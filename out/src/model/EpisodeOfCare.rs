@@ -264,10 +264,10 @@ impl EpisodeOfCare<'_> {
 
     /// planned | waitlist | active | onhold | finished | cancelled.
     pub fn status(&self) -> Option<EpisodeOfCareStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(EpisodeOfCareStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => EpisodeOfCareStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The history of statuses that the EpisodeOfCare has been through (without

@@ -117,10 +117,10 @@ impl Immunization_Reaction<'_> {
 
     /// Self-reported indicator.
     pub fn reported(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("reported") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("reported") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

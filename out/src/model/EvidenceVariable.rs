@@ -534,10 +534,10 @@ impl EvidenceVariable<'_> {
     /// The status of this evidence variable. Enables tracking the life-cycle of the
     /// content.
     pub fn status(&self) -> Option<EvidenceVariableStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(EvidenceVariableStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => EvidenceVariableStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// An explanatory or alternate title for the EvidenceVariable giving additional
@@ -590,10 +590,10 @@ impl EvidenceVariable<'_> {
 
     /// The type of evidence element, a population, an exposure, or an outcome.
     pub fn fhir_type(&self) -> Option<EvidenceVariableType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(EvidenceVariableType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => EvidenceVariableType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// An absolute URI that is used to identify this evidence variable when it is

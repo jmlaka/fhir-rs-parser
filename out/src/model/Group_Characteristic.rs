@@ -62,10 +62,10 @@ impl Group_Characteristic<'_> {
     /// If true, indicates the characteristic is one that is NOT held by members of the
     /// group.
     pub fn exclude(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("exclude") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("exclude") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -133,10 +133,10 @@ impl Group_Characteristic<'_> {
     /// The value of the trait that holds (or does not hold - see 'exclude') for members
     /// of the group.
     pub fn value_boolean(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("valueBoolean") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("valueBoolean") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// The value of the trait that holds (or does not hold - see 'exclude') for members

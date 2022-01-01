@@ -92,10 +92,10 @@ impl Organization<'_> {
 
     /// Whether the organization's record is still in active use.
     pub fn active(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("active") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("active") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// An address for the organization.
@@ -115,14 +115,14 @@ impl Organization<'_> {
     /// A list of alternate names that the organization is known as, or was known as in
     /// the past.
     pub fn alias(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("alias") {
-            return Some(
+        match self.value.get("alias") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Contact for the organization for a certain purpose.

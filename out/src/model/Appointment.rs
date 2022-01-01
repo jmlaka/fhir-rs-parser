@@ -317,10 +317,10 @@ impl Appointment<'_> {
     /// 15 minute break in the middle of a long appointment, the duration may be 15
     /// minutes less than the difference between the start and end.
     pub fn minutes_duration(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("minutesDuration") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("minutesDuration") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -377,10 +377,10 @@ impl Appointment<'_> {
     /// needing to re-prioritize appointments. (The iCal Standard specifies 0 as
     /// undefined, 1 as highest, 9 as lowest priority).
     pub fn priority(&self) -> Option<u64> {
-        if let Some(val) = self.value.get("priority") {
-            return Some(val.as_u64().unwrap());
+        match self.value.get("priority") {
+            Some(val) => val.as_u64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The coded reason that this appointment is being scheduled. This is more clinical
@@ -505,10 +505,10 @@ impl Appointment<'_> {
     /// participation status which indicates their involvement in the process, however
     /// this status indicates the shared status.
     pub fn status(&self) -> Option<AppointmentStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(AppointmentStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => AppointmentStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Additional information to support the appointment provided when making the

@@ -270,14 +270,14 @@ impl ChargeItemDefinition<'_> {
     /// The URL pointing to an externally-defined charge item definition that is adhered
     /// to in whole or in part by this definition.
     pub fn derived_from_uri(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("derivedFromUri") {
-            return Some(
+        match self.value.get("derivedFromUri") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// A free text natural language description of the charge item definition from a
@@ -304,10 +304,10 @@ impl ChargeItemDefinition<'_> {
     /// testing purposes (or education/evaluation/marketing) and is not intended to be
     /// used for genuine usage.
     pub fn experimental(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("experimental") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("experimental") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -450,14 +450,14 @@ impl ChargeItemDefinition<'_> {
 
     /// A larger definition of which this particular definition is a component or step.
     pub fn part_of(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("partOf") {
-            return Some(
+        match self.value.get("partOf") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Group of properties which are applicable under the same conditions. If no
@@ -488,22 +488,22 @@ impl ChargeItemDefinition<'_> {
     /// As new versions of a protocol or guideline are defined, allows identification of
     /// what versions are replaced by a new instance.
     pub fn replaces(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("replaces") {
-            return Some(
+        match self.value.get("replaces") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The current state of the ChargeItemDefinition.
     pub fn status(&self) -> Option<ChargeItemDefinitionStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(ChargeItemDefinitionStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => ChargeItemDefinitionStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A human-readable narrative that contains a summary of the resource and can be

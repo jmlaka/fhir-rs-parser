@@ -89,10 +89,10 @@ impl TerminologyCapabilities_Translation<'_> {
 
     /// Whether the client must identify the map.
     pub fn needs_map(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("needsMap") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("needsMap") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

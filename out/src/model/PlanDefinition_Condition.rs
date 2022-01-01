@@ -78,10 +78,10 @@ impl PlanDefinition_Condition<'_> {
 
     /// The kind of condition.
     pub fn kind(&self) -> Option<PlanDefinition_ConditionKind> {
-        if let Some(Value::String(val)) = self.value.get("kind") {
-            return Some(PlanDefinition_ConditionKind::from_string(&val).unwrap());
+        match self.value.get("kind") {
+            Some(Value::String(val)) => PlanDefinition_ConditionKind::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

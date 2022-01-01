@@ -126,14 +126,14 @@ impl HumanName<'_> {
 
     /// Given name.
     pub fn given(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("given") {
-            return Some(
+        match self.value.get("given") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Unique id for the element within a resource (for internal references). This may
@@ -158,27 +158,27 @@ impl HumanName<'_> {
     /// Part of the name that is acquired as a title due to academic, legal, employment
     /// or nobility status, etc. and that appears at the start of the name.
     pub fn prefix(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("prefix") {
-            return Some(
+        match self.value.get("prefix") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Part of the name that is acquired as a title due to academic, legal, employment
     /// or nobility status, etc. and that appears at the end of the name.
     pub fn suffix(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("suffix") {
-            return Some(
+        match self.value.get("suffix") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Specifies the entire name as it should be displayed e.g. on an application UI.
@@ -192,10 +192,10 @@ impl HumanName<'_> {
 
     /// Identifies the purpose for this name.
     pub fn fhir_use(&self) -> Option<HumanNameUse> {
-        if let Some(Value::String(val)) = self.value.get("use") {
-            return Some(HumanNameUse::from_string(&val).unwrap());
+        match self.value.get("use") {
+            Some(Value::String(val)) => HumanNameUse::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

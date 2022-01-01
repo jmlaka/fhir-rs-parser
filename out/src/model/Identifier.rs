@@ -127,10 +127,10 @@ impl Identifier<'_> {
 
     /// The purpose of this identifier.
     pub fn fhir_use(&self) -> Option<IdentifierUse> {
-        if let Some(Value::String(val)) = self.value.get("use") {
-            return Some(IdentifierUse::from_string(&val).unwrap());
+        match self.value.get("use") {
+            Some(Value::String(val)) => IdentifierUse::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The portion of the identifier typically relevant to the user and which is unique

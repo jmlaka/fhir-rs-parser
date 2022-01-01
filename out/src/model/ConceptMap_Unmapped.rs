@@ -107,10 +107,10 @@ impl ConceptMap_Unmapped<'_> {
     /// few codes have changed), use a fixed code (a default code), or alternatively, a
     /// reference to a different concept map can be provided (by canonical URL).
     pub fn mode(&self) -> Option<ConceptMap_UnmappedMode> {
-        if let Some(Value::String(val)) = self.value.get("mode") {
-            return Some(ConceptMap_UnmappedMode::from_string(&val).unwrap());
+        match self.value.get("mode") {
+            Some(Value::String(val)) => ConceptMap_UnmappedMode::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

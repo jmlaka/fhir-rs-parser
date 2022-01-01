@@ -64,10 +64,10 @@ impl MedicinalProductIngredient<'_> {
 
     /// If the ingredient is a known or suspected allergen.
     pub fn allergenic_indicator(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("allergenicIndicator") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("allergenicIndicator") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// These resources do not have an independent existence apart from the resource

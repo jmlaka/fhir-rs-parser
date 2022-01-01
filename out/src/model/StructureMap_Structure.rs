@@ -99,10 +99,10 @@ impl StructureMap_Structure<'_> {
 
     /// How the referenced structure is used in this mapping.
     pub fn mode(&self) -> Option<StructureMap_StructureMode> {
-        if let Some(Value::String(val)) = self.value.get("mode") {
-            return Some(StructureMap_StructureMode::from_string(&val).unwrap());
+        match self.value.get("mode") {
+            Some(Value::String(val)) => StructureMap_StructureMode::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

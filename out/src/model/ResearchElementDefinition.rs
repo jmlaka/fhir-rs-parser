@@ -291,14 +291,14 @@ impl ResearchElementDefinition<'_> {
 
     /// A human-readable string to clarify or explain concepts about the resource.
     pub fn comment(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("comment") {
-            return Some(
+        match self.value.get("comment") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Contact details to assist a user in finding and communicating with the
@@ -407,10 +407,10 @@ impl ResearchElementDefinition<'_> {
     /// for testing purposes (or education/evaluation/marketing) and is not intended to
     /// be used for genuine usage.
     pub fn experimental(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("experimental") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("experimental") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -502,14 +502,14 @@ impl ResearchElementDefinition<'_> {
     /// A reference to a Library resource containing the formal logic used by the
     /// ResearchElementDefinition.
     pub fn library(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("library") {
-            return Some(
+        match self.value.get("library") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The metadata about the resource. This is content that is maintained by the
@@ -619,10 +619,10 @@ impl ResearchElementDefinition<'_> {
     /// The status of this research element definition. Enables tracking the life-cycle
     /// of the content.
     pub fn status(&self) -> Option<ResearchElementDefinitionStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(ResearchElementDefinitionStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => ResearchElementDefinitionStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The intended subjects for the ResearchElementDefinition. If this element is not
@@ -699,10 +699,10 @@ impl ResearchElementDefinition<'_> {
 
     /// The type of research element, a population, an exposure, or an outcome.
     pub fn fhir_type(&self) -> Option<ResearchElementDefinitionType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(ResearchElementDefinitionType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => ResearchElementDefinitionType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// An absolute URI that is used to identify this research element definition when
@@ -748,10 +748,10 @@ impl ResearchElementDefinition<'_> {
 
     /// The type of the outcome (e.g. Dichotomous, Continuous, or Descriptive).
     pub fn variable_type(&self) -> Option<ResearchElementDefinitionVariableType> {
-        if let Some(Value::String(val)) = self.value.get("variableType") {
-            return Some(ResearchElementDefinitionVariableType::from_string(&val).unwrap());
+        match self.value.get("variableType") {
+            Some(Value::String(val)) => ResearchElementDefinitionVariableType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The identifier that is used to identify this version of the research element

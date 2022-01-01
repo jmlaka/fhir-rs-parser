@@ -261,10 +261,10 @@ impl PaymentReconciliation<'_> {
 
     /// The outcome of a request for a reconciliation.
     pub fn outcome(&self) -> Option<PaymentReconciliationOutcome> {
-        if let Some(Value::String(val)) = self.value.get("outcome") {
-            return Some(PaymentReconciliationOutcome::from_string(&val).unwrap());
+        match self.value.get("outcome") {
+            Some(Value::String(val)) => PaymentReconciliationOutcome::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Total payment amount as indicated on the financial instrument.

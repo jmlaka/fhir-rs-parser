@@ -358,10 +358,10 @@ impl DocumentReference<'_> {
 
     /// The status of this document reference.
     pub fn status(&self) -> Option<DocumentReferenceStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(DocumentReferenceStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => DocumentReferenceStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Who or what the document is about. The document can be about a person, (patient

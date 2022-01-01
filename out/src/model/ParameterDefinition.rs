@@ -134,10 +134,10 @@ impl ParameterDefinition<'_> {
     /// The minimum number of times this parameter SHALL appear in the request or
     /// response.
     pub fn min(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("min") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("min") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The name of the parameter used to allow access to the value of the parameter in

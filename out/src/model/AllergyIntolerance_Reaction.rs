@@ -106,6 +106,14 @@ impl AllergyIntolerance_Reaction<'_> {
     /// Clinical symptoms and/or signs that are observed or associated with the adverse
     /// reaction event.
     pub fn manifestation(&self) -> Vec<CodeableConcept> {
+        match self.value.get("manifestation"){
+            Some(val) => ,
+            None => Vec<CodeableConcept>::new()
+        }
+            .
+            
+        
+        /*
         self.value
             .get("manifestation")
             .unwrap()
@@ -115,7 +123,7 @@ impl AllergyIntolerance_Reaction<'_> {
             .map(|e| CodeableConcept {
                 value: Cow::Borrowed(e),
             })
-            .collect::<Vec<_>>()
+            .collect::<Vec<_>>()*/
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -167,10 +175,10 @@ impl AllergyIntolerance_Reaction<'_> {
     /// Clinical assessment of the severity of the reaction event as a whole,
     /// potentially considering multiple different manifestations.
     pub fn severity(&self) -> Option<AllergyIntolerance_ReactionSeverity> {
-        if let Some(Value::String(val)) = self.value.get("severity") {
-            return Some(AllergyIntolerance_ReactionSeverity::from_string(&val).unwrap());
+        match self.value.get("severity") {
+            Some(Value::String(val)) => AllergyIntolerance_ReactionSeverity::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Identification of the specific substance (or pharmaceutical product) considered

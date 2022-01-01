@@ -504,14 +504,14 @@ impl DeviceDefinition<'_> {
 
     /// The available versions of the device, e.g., software versions.
     pub fn version(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("version") {
-            return Some(
+        match self.value.get("version") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

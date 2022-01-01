@@ -154,10 +154,10 @@ impl OperationDefinition_Parameter<'_> {
     /// The minimum number of times this parameter SHALL appear in the request or
     /// response.
     pub fn min(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("min") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("min") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -224,10 +224,10 @@ impl OperationDefinition_Parameter<'_> {
     /// How the parameter is understood as a search parameter. This is only used if the
     /// parameter type is 'string'.
     pub fn search_type(&self) -> Option<OperationDefinition_ParameterSearchType> {
-        if let Some(Value::String(val)) = self.value.get("searchType") {
-            return Some(OperationDefinition_ParameterSearchType::from_string(&val).unwrap());
+        match self.value.get("searchType") {
+            Some(Value::String(val)) => OperationDefinition_ParameterSearchType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Used when the type is "Reference" or "canonical", and identifies a profile
@@ -239,14 +239,14 @@ impl OperationDefinition_Parameter<'_> {
     /// specified, the target resource SHALL conform to at least one profile defined in
     /// the implementation guide.
     pub fn target_profile(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("targetProfile") {
-            return Some(
+        match self.value.get("targetProfile") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The type for this parameter.
@@ -259,10 +259,10 @@ impl OperationDefinition_Parameter<'_> {
 
     /// Whether this is an input or an output parameter.
     pub fn fhir_use(&self) -> Option<OperationDefinition_ParameterUse> {
-        if let Some(Value::String(val)) = self.value.get("use") {
-            return Some(OperationDefinition_ParameterUse::from_string(&val).unwrap());
+        match self.value.get("use") {
+            Some(Value::String(val)) => OperationDefinition_ParameterUse::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

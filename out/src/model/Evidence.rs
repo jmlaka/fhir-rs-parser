@@ -546,10 +546,10 @@ impl Evidence<'_> {
 
     /// The status of this evidence. Enables tracking the life-cycle of the content.
     pub fn status(&self) -> Option<EvidenceStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(EvidenceStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => EvidenceStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// An explanatory or alternate title for the Evidence giving additional information

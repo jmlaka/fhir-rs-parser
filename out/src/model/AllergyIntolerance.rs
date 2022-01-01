@@ -193,10 +193,10 @@ impl AllergyIntolerance<'_> {
     /// Estimate of the potential clinical harm, or seriousness, of the reaction to the
     /// identified substance.
     pub fn criticality(&self) -> Option<AllergyIntoleranceCriticality> {
-        if let Some(Value::String(val)) = self.value.get("criticality") {
-            return Some(AllergyIntoleranceCriticality::from_string(&val).unwrap());
+        match self.value.get("criticality") {
+            Some(Value::String(val)) => AllergyIntoleranceCriticality::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The encounter when the allergy or intolerance was asserted.
@@ -441,10 +441,10 @@ impl AllergyIntolerance<'_> {
 
     /// Identification of the underlying physiological mechanism for the reaction risk.
     pub fn fhir_type(&self) -> Option<AllergyIntoleranceType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(AllergyIntoleranceType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => AllergyIntoleranceType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Assertion about certainty associated with the propensity, or potential risk, of

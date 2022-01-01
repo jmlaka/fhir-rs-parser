@@ -162,22 +162,22 @@ impl Contract_Action<'_> {
     /// Id [identifier??] of the clause or question text related to the requester of
     /// this action in the referenced form or QuestionnaireResponse.
     pub fn context_link_id(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("contextLinkId") {
-            return Some(
+        match self.value.get("contextLinkId") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// True if the term prohibits the  action.
     pub fn do_not_perform(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("doNotPerform") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("doNotPerform") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -217,14 +217,14 @@ impl Contract_Action<'_> {
     /// Id [identifier??] of the clause or question text related to this action in the
     /// referenced form or QuestionnaireResponse.
     pub fn link_id(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("linkId") {
-            return Some(
+        match self.value.get("linkId") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -307,14 +307,14 @@ impl Contract_Action<'_> {
     /// Id [identifier??] of the clause or question text related to the reason type or
     /// reference of this  action in the referenced form or QuestionnaireResponse.
     pub fn performer_link_id(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("performerLinkId") {
-            return Some(
+        match self.value.get("performerLinkId") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The type of role or competency of an individual desired or required to perform
@@ -345,14 +345,14 @@ impl Contract_Action<'_> {
 
     /// Describes why the action is to be performed or not performed in textual form.
     pub fn reason(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("reason") {
-            return Some(
+        match self.value.get("reason") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Rationale for the action to be performed or not performed. Describes why the
@@ -373,14 +373,14 @@ impl Contract_Action<'_> {
     /// Id [identifier??] of the clause or question text related to the reason type or
     /// reference of this  action in the referenced form or QuestionnaireResponse.
     pub fn reason_link_id(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("reasonLinkId") {
-            return Some(
+        match self.value.get("reasonLinkId") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Indicates another resource whose existence justifies permitting or not
@@ -415,14 +415,14 @@ impl Contract_Action<'_> {
     /// Id [identifier??] of the clause or question text related to the requester of
     /// this action in the referenced form or QuestionnaireResponse.
     pub fn requester_link_id(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("requesterLinkId") {
-            return Some(
+        match self.value.get("requesterLinkId") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Security labels that protects the action.

@@ -174,10 +174,10 @@ impl ElementDefinition_Constraint<'_> {
     /// Identifies the impact constraint violation has on the conformance of the
     /// instance.
     pub fn severity(&self) -> Option<ElementDefinition_ConstraintSeverity> {
-        if let Some(Value::String(val)) = self.value.get("severity") {
-            return Some(ElementDefinition_ConstraintSeverity::from_string(&val).unwrap());
+        match self.value.get("severity") {
+            Some(Value::String(val)) => ElementDefinition_ConstraintSeverity::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A reference to the original source of the constraint, for traceability purposes.

@@ -87,10 +87,10 @@ impl CapabilityStatement_Document<'_> {
     /// Mode of this document declaration - whether an application is a producer or
     /// consumer.
     pub fn mode(&self) -> Option<CapabilityStatement_DocumentMode> {
-        if let Some(Value::String(val)) = self.value.get("mode") {
-            return Some(CapabilityStatement_DocumentMode::from_string(&val).unwrap());
+        match self.value.get("mode") {
+            Some(Value::String(val)) => CapabilityStatement_DocumentMode::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

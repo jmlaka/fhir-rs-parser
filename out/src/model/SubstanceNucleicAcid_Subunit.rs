@@ -102,10 +102,10 @@ impl SubstanceNucleicAcid_Subunit<'_> {
 
     /// The length of the sequence shall be captured.
     pub fn length(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("length") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("length") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The linkages between sugar residues will also be captured.
@@ -170,10 +170,10 @@ impl SubstanceNucleicAcid_Subunit<'_> {
     /// Sequences of the same length will be ordered by molecular weight. Subunits that
     /// have identical sequences will be repeated and have sequential subscripts.
     pub fn subunit(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("subunit") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("subunit") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// 5.3.6.8.1 Sugar ID (Mandatory).

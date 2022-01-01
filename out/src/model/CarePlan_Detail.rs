@@ -131,10 +131,10 @@ impl CarePlan_Detail<'_> {
     /// in when following the plan.  If false, or missing, indicates that the described
     /// activity is one that should be engaged in when following the plan.
     pub fn do_not_perform(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("doNotPerform") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("doNotPerform") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -182,28 +182,28 @@ impl CarePlan_Detail<'_> {
     /// The URL pointing to a FHIR-defined protocol, guideline, questionnaire or other
     /// definition that is adhered to in whole or in part by this CarePlan activity.
     pub fn instantiates_canonical(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("instantiatesCanonical") {
-            return Some(
+        match self.value.get("instantiatesCanonical") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The URL pointing to an externally maintained protocol, guideline, questionnaire
     /// or other definition that is adhered to in whole or in part by this CarePlan
     /// activity.
     pub fn instantiates_uri(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("instantiatesUri") {
-            return Some(
+        match self.value.get("instantiatesUri") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// A description of the kind of resource the in-line definition of a care plan
@@ -360,10 +360,10 @@ impl CarePlan_Detail<'_> {
 
     /// Identifies what progress is being made for the specific activity.
     pub fn status(&self) -> Option<CarePlan_DetailStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(CarePlan_DetailStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => CarePlan_DetailStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Provides reason why the activity isn't yet started, is on hold, was cancelled,

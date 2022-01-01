@@ -78,10 +78,10 @@ impl ImplementationGuide_Page<'_> {
 
     /// A code that indicates how the page is generated.
     pub fn generation(&self) -> Option<ImplementationGuide_PageGeneration> {
-        if let Some(Value::String(val)) = self.value.get("generation") {
-            return Some(ImplementationGuide_PageGeneration::from_string(&val).unwrap());
+        match self.value.get("generation") {
+            Some(Value::String(val)) => ImplementationGuide_PageGeneration::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Unique id for the element within a resource (for internal references). This may

@@ -87,10 +87,10 @@ impl Practitioner<'_> {
 
     /// Whether this practitioner's record is in active use.
     pub fn active(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("active") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("active") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Address(es) of the practitioner that are not role specific (typically home
@@ -168,10 +168,10 @@ impl Practitioner<'_> {
     /// Administrative Gender - the gender that the person is considered to have for
     /// administration and record keeping purposes.
     pub fn gender(&self) -> Option<PractitionerGender> {
-        if let Some(Value::String(val)) = self.value.get("gender") {
-            return Some(PractitionerGender::from_string(&val).unwrap());
+        match self.value.get("gender") {
+            Some(Value::String(val)) => PractitionerGender::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The logical id of the resource, as used in the URL for the resource. Once

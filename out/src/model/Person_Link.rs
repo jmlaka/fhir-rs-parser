@@ -38,10 +38,10 @@ impl Person_Link<'_> {
 
     /// Level of assurance that this link is associated with the target resource.
     pub fn assurance(&self) -> Option<Person_LinkAssurance> {
-        if let Some(Value::String(val)) = self.value.get("assurance") {
-            return Some(Person_LinkAssurance::from_string(&val).unwrap());
+        match self.value.get("assurance") {
+            Some(Value::String(val)) => Person_LinkAssurance::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

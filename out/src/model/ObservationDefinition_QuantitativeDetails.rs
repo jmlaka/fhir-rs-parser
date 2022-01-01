@@ -49,10 +49,10 @@ impl ObservationDefinition_QuantitativeDetails<'_> {
     /// Factor for converting value expressed with SI unit to value expressed with
     /// customary unit.
     pub fn conversion_factor(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("conversionFactor") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("conversionFactor") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Customary unit used to report quantitative results of observations conforming to
@@ -69,10 +69,10 @@ impl ObservationDefinition_QuantitativeDetails<'_> {
     /// Number of digits after decimal separator when the results of such observations
     /// are of type Quantity.
     pub fn decimal_precision(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("decimalPrecision") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("decimalPrecision") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

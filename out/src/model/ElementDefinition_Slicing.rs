@@ -137,19 +137,19 @@ impl ElementDefinition_Slicing<'_> {
     /// If the matching elements have to occur in the same order as defined in the
     /// profile.
     pub fn ordered(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("ordered") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("ordered") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Whether additional slices are allowed or not. When the slices are ordered,
     /// profile authors can also say that additional slices are only allowed at the end.
     pub fn rules(&self) -> Option<ElementDefinition_SlicingRules> {
-        if let Some(Value::String(val)) = self.value.get("rules") {
-            return Some(ElementDefinition_SlicingRules::from_string(&val).unwrap());
+        match self.value.get("rules") {
+            Some(Value::String(val)) => ElementDefinition_SlicingRules::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

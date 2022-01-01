@@ -152,10 +152,10 @@ impl RelatedArtifact<'_> {
 
     /// The type of relationship to the related artifact.
     pub fn fhir_type(&self) -> Option<RelatedArtifactType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(RelatedArtifactType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => RelatedArtifactType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A url for the artifact that can be followed to access the actual content.

@@ -144,14 +144,14 @@ impl ValueSet_Include<'_> {
     /// multiple value sets are specified this includes the union of the contents of all
     /// of the referenced value sets.
     pub fn value_set(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("valueSet") {
-            return Some(
+        match self.value.get("valueSet") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The version of the code system that the codes are selected from, or the special

@@ -51,10 +51,10 @@ impl TestScript_Fixture<'_> {
     /// therefore no create operation is required for this fixture in the
     /// TestScript.setup section.
     pub fn autocreate(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("autocreate") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("autocreate") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Whether or not to implicitly delete the fixture during teardown. If true, the
@@ -62,10 +62,10 @@ impl TestScript_Fixture<'_> {
     /// therefore no delete operation is required for this fixture in the
     /// TestScript.teardown section.
     pub fn autodelete(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("autodelete") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("autodelete") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

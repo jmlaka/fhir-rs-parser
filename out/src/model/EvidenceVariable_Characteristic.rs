@@ -171,10 +171,10 @@ impl EvidenceVariable_Characteristic<'_> {
 
     /// When true, members with this characteristic are excluded from the element.
     pub fn exclude(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("exclude") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("exclude") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -197,10 +197,12 @@ impl EvidenceVariable_Characteristic<'_> {
 
     /// Indicates how elements are aggregated within the study effective period.
     pub fn group_measure(&self) -> Option<EvidenceVariable_CharacteristicGroupMeasure> {
-        if let Some(Value::String(val)) = self.value.get("groupMeasure") {
-            return Some(EvidenceVariable_CharacteristicGroupMeasure::from_string(&val).unwrap());
+        match self.value.get("groupMeasure") {
+            Some(Value::String(val)) => {
+                EvidenceVariable_CharacteristicGroupMeasure::from_string(&val)
+            }
+            _ => None,
         }
-        return None;
     }
 
     /// Unique id for the element within a resource (for internal references). This may

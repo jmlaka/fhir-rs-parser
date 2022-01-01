@@ -119,20 +119,20 @@ impl HealthcareService<'_> {
     /// center is closed for maintenance, or for holidays, the notAvailable period is to
     /// be used for this.
     pub fn active(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("active") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("active") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Indicates whether or not a prospective consumer will require an appointment for
     /// a particular service at a site to be provided by the Organization. Indicates if
     /// an appointment is required for access to this service.
     pub fn appointment_required(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("appointmentRequired") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("appointmentRequired") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// A description of site availability exceptions, e.g. public holiday availability.

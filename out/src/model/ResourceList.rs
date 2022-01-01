@@ -316,588 +316,607 @@ impl ResourceList<'_> {
     }
 
     pub fn resource(&self) -> Option<ResourceListEnum> {
-        let fhir_type = self.value["resourceType"].as_str().unwrap();
-        match fhir_type {
-            "Account" => Some(ResourceListEnum::ResourceAccount(Account {
+        match self.value["resourceType"].as_str() {
+            Some("Account") => Some(ResourceListEnum::ResourceAccount(Account {
                 value: self.value.clone(),
             })),
-            "ActivityDefinition" => Some(ResourceListEnum::ResourceActivityDefinition(
+            Some("ActivityDefinition") => Some(ResourceListEnum::ResourceActivityDefinition(
                 ActivityDefinition {
                     value: self.value.clone(),
                 },
             )),
-            "AdverseEvent" => Some(ResourceListEnum::ResourceAdverseEvent(AdverseEvent {
+            Some("AdverseEvent") => Some(ResourceListEnum::ResourceAdverseEvent(AdverseEvent {
                 value: self.value.clone(),
             })),
-            "AllergyIntolerance" => Some(ResourceListEnum::ResourceAllergyIntolerance(
+            Some("AllergyIntolerance") => Some(ResourceListEnum::ResourceAllergyIntolerance(
                 AllergyIntolerance {
                     value: self.value.clone(),
                 },
             )),
-            "Appointment" => Some(ResourceListEnum::ResourceAppointment(Appointment {
+            Some("Appointment") => Some(ResourceListEnum::ResourceAppointment(Appointment {
                 value: self.value.clone(),
             })),
-            "AppointmentResponse" => Some(ResourceListEnum::ResourceAppointmentResponse(
+            Some("AppointmentResponse") => Some(ResourceListEnum::ResourceAppointmentResponse(
                 AppointmentResponse {
                     value: self.value.clone(),
                 },
             )),
-            "AuditEvent" => Some(ResourceListEnum::ResourceAuditEvent(AuditEvent {
+            Some("AuditEvent") => Some(ResourceListEnum::ResourceAuditEvent(AuditEvent {
                 value: self.value.clone(),
             })),
-            "Basic" => Some(ResourceListEnum::ResourceBasic(Basic {
+            Some("Basic") => Some(ResourceListEnum::ResourceBasic(Basic {
                 value: self.value.clone(),
             })),
-            "Binary" => Some(ResourceListEnum::ResourceBinary(Binary {
+            Some("Binary") => Some(ResourceListEnum::ResourceBinary(Binary {
                 value: self.value.clone(),
             })),
-            "BiologicallyDerivedProduct" => Some(
+            Some("BiologicallyDerivedProduct") => Some(
                 ResourceListEnum::ResourceBiologicallyDerivedProduct(BiologicallyDerivedProduct {
                     value: self.value.clone(),
                 }),
             ),
-            "BodyStructure" => Some(ResourceListEnum::ResourceBodyStructure(BodyStructure {
+            Some("BodyStructure") => Some(ResourceListEnum::ResourceBodyStructure(BodyStructure {
                 value: self.value.clone(),
             })),
-            "Bundle" => Some(ResourceListEnum::ResourceBundle(Bundle {
+            Some("Bundle") => Some(ResourceListEnum::ResourceBundle(Bundle {
                 value: self.value.clone(),
             })),
-            "CapabilityStatement" => Some(ResourceListEnum::ResourceCapabilityStatement(
+            Some("CapabilityStatement") => Some(ResourceListEnum::ResourceCapabilityStatement(
                 CapabilityStatement {
                     value: self.value.clone(),
                 },
             )),
-            "CarePlan" => Some(ResourceListEnum::ResourceCarePlan(CarePlan {
+            Some("CarePlan") => Some(ResourceListEnum::ResourceCarePlan(CarePlan {
                 value: self.value.clone(),
             })),
-            "CareTeam" => Some(ResourceListEnum::ResourceCareTeam(CareTeam {
+            Some("CareTeam") => Some(ResourceListEnum::ResourceCareTeam(CareTeam {
                 value: self.value.clone(),
             })),
-            "CatalogEntry" => Some(ResourceListEnum::ResourceCatalogEntry(CatalogEntry {
+            Some("CatalogEntry") => Some(ResourceListEnum::ResourceCatalogEntry(CatalogEntry {
                 value: self.value.clone(),
             })),
-            "ChargeItem" => Some(ResourceListEnum::ResourceChargeItem(ChargeItem {
+            Some("ChargeItem") => Some(ResourceListEnum::ResourceChargeItem(ChargeItem {
                 value: self.value.clone(),
             })),
-            "ChargeItemDefinition" => Some(ResourceListEnum::ResourceChargeItemDefinition(
+            Some("ChargeItemDefinition") => Some(ResourceListEnum::ResourceChargeItemDefinition(
                 ChargeItemDefinition {
                     value: self.value.clone(),
                 },
             )),
-            "Claim" => Some(ResourceListEnum::ResourceClaim(Claim {
+            Some("Claim") => Some(ResourceListEnum::ResourceClaim(Claim {
                 value: self.value.clone(),
             })),
-            "ClaimResponse" => Some(ResourceListEnum::ResourceClaimResponse(ClaimResponse {
+            Some("ClaimResponse") => Some(ResourceListEnum::ResourceClaimResponse(ClaimResponse {
                 value: self.value.clone(),
             })),
-            "ClinicalImpression" => Some(ResourceListEnum::ResourceClinicalImpression(
+            Some("ClinicalImpression") => Some(ResourceListEnum::ResourceClinicalImpression(
                 ClinicalImpression {
                     value: self.value.clone(),
                 },
             )),
-            "CodeSystem" => Some(ResourceListEnum::ResourceCodeSystem(CodeSystem {
+            Some("CodeSystem") => Some(ResourceListEnum::ResourceCodeSystem(CodeSystem {
                 value: self.value.clone(),
             })),
-            "Communication" => Some(ResourceListEnum::ResourceCommunication(Communication {
+            Some("Communication") => Some(ResourceListEnum::ResourceCommunication(Communication {
                 value: self.value.clone(),
             })),
-            "CommunicationRequest" => Some(ResourceListEnum::ResourceCommunicationRequest(
+            Some("CommunicationRequest") => Some(ResourceListEnum::ResourceCommunicationRequest(
                 CommunicationRequest {
                     value: self.value.clone(),
                 },
             )),
-            "CompartmentDefinition" => Some(ResourceListEnum::ResourceCompartmentDefinition(
+            Some("CompartmentDefinition") => Some(ResourceListEnum::ResourceCompartmentDefinition(
                 CompartmentDefinition {
                     value: self.value.clone(),
                 },
             )),
-            "Composition" => Some(ResourceListEnum::ResourceComposition(Composition {
+            Some("Composition") => Some(ResourceListEnum::ResourceComposition(Composition {
                 value: self.value.clone(),
             })),
-            "ConceptMap" => Some(ResourceListEnum::ResourceConceptMap(ConceptMap {
+            Some("ConceptMap") => Some(ResourceListEnum::ResourceConceptMap(ConceptMap {
                 value: self.value.clone(),
             })),
-            "Condition" => Some(ResourceListEnum::ResourceCondition(Condition {
+            Some("Condition") => Some(ResourceListEnum::ResourceCondition(Condition {
                 value: self.value.clone(),
             })),
-            "Consent" => Some(ResourceListEnum::ResourceConsent(Consent {
+            Some("Consent") => Some(ResourceListEnum::ResourceConsent(Consent {
                 value: self.value.clone(),
             })),
-            "Contract" => Some(ResourceListEnum::ResourceContract(Contract {
+            Some("Contract") => Some(ResourceListEnum::ResourceContract(Contract {
                 value: self.value.clone(),
             })),
-            "Coverage" => Some(ResourceListEnum::ResourceCoverage(Coverage {
+            Some("Coverage") => Some(ResourceListEnum::ResourceCoverage(Coverage {
                 value: self.value.clone(),
             })),
-            "CoverageEligibilityRequest" => Some(
+            Some("CoverageEligibilityRequest") => Some(
                 ResourceListEnum::ResourceCoverageEligibilityRequest(CoverageEligibilityRequest {
                     value: self.value.clone(),
                 }),
             ),
-            "CoverageEligibilityResponse" => {
+            Some("CoverageEligibilityResponse") => {
                 Some(ResourceListEnum::ResourceCoverageEligibilityResponse(
                     CoverageEligibilityResponse {
                         value: self.value.clone(),
                     },
                 ))
             }
-            "DetectedIssue" => Some(ResourceListEnum::ResourceDetectedIssue(DetectedIssue {
+            Some("DetectedIssue") => Some(ResourceListEnum::ResourceDetectedIssue(DetectedIssue {
                 value: self.value.clone(),
             })),
-            "Device" => Some(ResourceListEnum::ResourceDevice(Device {
+            Some("Device") => Some(ResourceListEnum::ResourceDevice(Device {
                 value: self.value.clone(),
             })),
-            "DeviceDefinition" => Some(ResourceListEnum::ResourceDeviceDefinition(
+            Some("DeviceDefinition") => Some(ResourceListEnum::ResourceDeviceDefinition(
                 DeviceDefinition {
                     value: self.value.clone(),
                 },
             )),
-            "DeviceMetric" => Some(ResourceListEnum::ResourceDeviceMetric(DeviceMetric {
+            Some("DeviceMetric") => Some(ResourceListEnum::ResourceDeviceMetric(DeviceMetric {
                 value: self.value.clone(),
             })),
-            "DeviceRequest" => Some(ResourceListEnum::ResourceDeviceRequest(DeviceRequest {
+            Some("DeviceRequest") => Some(ResourceListEnum::ResourceDeviceRequest(DeviceRequest {
                 value: self.value.clone(),
             })),
-            "DeviceUseStatement" => Some(ResourceListEnum::ResourceDeviceUseStatement(
+            Some("DeviceUseStatement") => Some(ResourceListEnum::ResourceDeviceUseStatement(
                 DeviceUseStatement {
                     value: self.value.clone(),
                 },
             )),
-            "DiagnosticReport" => Some(ResourceListEnum::ResourceDiagnosticReport(
+            Some("DiagnosticReport") => Some(ResourceListEnum::ResourceDiagnosticReport(
                 DiagnosticReport {
                     value: self.value.clone(),
                 },
             )),
-            "DocumentManifest" => Some(ResourceListEnum::ResourceDocumentManifest(
+            Some("DocumentManifest") => Some(ResourceListEnum::ResourceDocumentManifest(
                 DocumentManifest {
                     value: self.value.clone(),
                 },
             )),
-            "DocumentReference" => Some(ResourceListEnum::ResourceDocumentReference(
+            Some("DocumentReference") => Some(ResourceListEnum::ResourceDocumentReference(
                 DocumentReference {
                     value: self.value.clone(),
                 },
             )),
-            "EffectEvidenceSynthesis" => Some(ResourceListEnum::ResourceEffectEvidenceSynthesis(
-                EffectEvidenceSynthesis {
+            Some("EffectEvidenceSynthesis") => Some(
+                ResourceListEnum::ResourceEffectEvidenceSynthesis(EffectEvidenceSynthesis {
                     value: self.value.clone(),
-                },
-            )),
-            "Encounter" => Some(ResourceListEnum::ResourceEncounter(Encounter {
+                }),
+            ),
+            Some("Encounter") => Some(ResourceListEnum::ResourceEncounter(Encounter {
                 value: self.value.clone(),
             })),
-            "Endpoint" => Some(ResourceListEnum::ResourceEndpoint(Endpoint {
+            Some("Endpoint") => Some(ResourceListEnum::ResourceEndpoint(Endpoint {
                 value: self.value.clone(),
             })),
-            "EnrollmentRequest" => Some(ResourceListEnum::ResourceEnrollmentRequest(
+            Some("EnrollmentRequest") => Some(ResourceListEnum::ResourceEnrollmentRequest(
                 EnrollmentRequest {
                     value: self.value.clone(),
                 },
             )),
-            "EnrollmentResponse" => Some(ResourceListEnum::ResourceEnrollmentResponse(
+            Some("EnrollmentResponse") => Some(ResourceListEnum::ResourceEnrollmentResponse(
                 EnrollmentResponse {
                     value: self.value.clone(),
                 },
             )),
-            "EpisodeOfCare" => Some(ResourceListEnum::ResourceEpisodeOfCare(EpisodeOfCare {
+            Some("EpisodeOfCare") => Some(ResourceListEnum::ResourceEpisodeOfCare(EpisodeOfCare {
                 value: self.value.clone(),
             })),
-            "EventDefinition" => Some(ResourceListEnum::ResourceEventDefinition(EventDefinition {
+            Some("EventDefinition") => {
+                Some(ResourceListEnum::ResourceEventDefinition(EventDefinition {
+                    value: self.value.clone(),
+                }))
+            }
+            Some("Evidence") => Some(ResourceListEnum::ResourceEvidence(Evidence {
                 value: self.value.clone(),
             })),
-            "Evidence" => Some(ResourceListEnum::ResourceEvidence(Evidence {
-                value: self.value.clone(),
-            })),
-            "EvidenceVariable" => Some(ResourceListEnum::ResourceEvidenceVariable(
+            Some("EvidenceVariable") => Some(ResourceListEnum::ResourceEvidenceVariable(
                 EvidenceVariable {
                     value: self.value.clone(),
                 },
             )),
-            "ExampleScenario" => Some(ResourceListEnum::ResourceExampleScenario(ExampleScenario {
-                value: self.value.clone(),
-            })),
-            "ExplanationOfBenefit" => Some(ResourceListEnum::ResourceExplanationOfBenefit(
+            Some("ExampleScenario") => {
+                Some(ResourceListEnum::ResourceExampleScenario(ExampleScenario {
+                    value: self.value.clone(),
+                }))
+            }
+            Some("ExplanationOfBenefit") => Some(ResourceListEnum::ResourceExplanationOfBenefit(
                 ExplanationOfBenefit {
                     value: self.value.clone(),
                 },
             )),
-            "FamilyMemberHistory" => Some(ResourceListEnum::ResourceFamilyMemberHistory(
+            Some("FamilyMemberHistory") => Some(ResourceListEnum::ResourceFamilyMemberHistory(
                 FamilyMemberHistory {
                     value: self.value.clone(),
                 },
             )),
-            "Flag" => Some(ResourceListEnum::ResourceFlag(Flag {
+            Some("Flag") => Some(ResourceListEnum::ResourceFlag(Flag {
                 value: self.value.clone(),
             })),
-            "Goal" => Some(ResourceListEnum::ResourceGoal(Goal {
+            Some("Goal") => Some(ResourceListEnum::ResourceGoal(Goal {
                 value: self.value.clone(),
             })),
-            "GraphDefinition" => Some(ResourceListEnum::ResourceGraphDefinition(GraphDefinition {
+            Some("GraphDefinition") => {
+                Some(ResourceListEnum::ResourceGraphDefinition(GraphDefinition {
+                    value: self.value.clone(),
+                }))
+            }
+            Some("Group") => Some(ResourceListEnum::ResourceGroup(Group {
                 value: self.value.clone(),
             })),
-            "Group" => Some(ResourceListEnum::ResourceGroup(Group {
-                value: self.value.clone(),
-            })),
-            "GuidanceResponse" => Some(ResourceListEnum::ResourceGuidanceResponse(
+            Some("GuidanceResponse") => Some(ResourceListEnum::ResourceGuidanceResponse(
                 GuidanceResponse {
                     value: self.value.clone(),
                 },
             )),
-            "HealthcareService" => Some(ResourceListEnum::ResourceHealthcareService(
+            Some("HealthcareService") => Some(ResourceListEnum::ResourceHealthcareService(
                 HealthcareService {
                     value: self.value.clone(),
                 },
             )),
-            "ImagingStudy" => Some(ResourceListEnum::ResourceImagingStudy(ImagingStudy {
+            Some("ImagingStudy") => Some(ResourceListEnum::ResourceImagingStudy(ImagingStudy {
                 value: self.value.clone(),
             })),
-            "Immunization" => Some(ResourceListEnum::ResourceImmunization(Immunization {
+            Some("Immunization") => Some(ResourceListEnum::ResourceImmunization(Immunization {
                 value: self.value.clone(),
             })),
-            "ImmunizationEvaluation" => Some(ResourceListEnum::ResourceImmunizationEvaluation(
-                ImmunizationEvaluation {
+            Some("ImmunizationEvaluation") => Some(
+                ResourceListEnum::ResourceImmunizationEvaluation(ImmunizationEvaluation {
                     value: self.value.clone(),
-                },
-            )),
-            "ImmunizationRecommendation" => Some(
+                }),
+            ),
+            Some("ImmunizationRecommendation") => Some(
                 ResourceListEnum::ResourceImmunizationRecommendation(ImmunizationRecommendation {
                     value: self.value.clone(),
                 }),
             ),
-            "ImplementationGuide" => Some(ResourceListEnum::ResourceImplementationGuide(
+            Some("ImplementationGuide") => Some(ResourceListEnum::ResourceImplementationGuide(
                 ImplementationGuide {
                     value: self.value.clone(),
                 },
             )),
-            "InsurancePlan" => Some(ResourceListEnum::ResourceInsurancePlan(InsurancePlan {
+            Some("InsurancePlan") => Some(ResourceListEnum::ResourceInsurancePlan(InsurancePlan {
                 value: self.value.clone(),
             })),
-            "Invoice" => Some(ResourceListEnum::ResourceInvoice(Invoice {
+            Some("Invoice") => Some(ResourceListEnum::ResourceInvoice(Invoice {
                 value: self.value.clone(),
             })),
-            "Library" => Some(ResourceListEnum::ResourceLibrary(Library {
+            Some("Library") => Some(ResourceListEnum::ResourceLibrary(Library {
                 value: self.value.clone(),
             })),
-            "Linkage" => Some(ResourceListEnum::ResourceLinkage(Linkage {
+            Some("Linkage") => Some(ResourceListEnum::ResourceLinkage(Linkage {
                 value: self.value.clone(),
             })),
-            "List" => Some(ResourceListEnum::ResourceList(List {
+            Some("List") => Some(ResourceListEnum::ResourceList(List {
                 value: self.value.clone(),
             })),
-            "Location" => Some(ResourceListEnum::ResourceLocation(Location {
+            Some("Location") => Some(ResourceListEnum::ResourceLocation(Location {
                 value: self.value.clone(),
             })),
-            "Measure" => Some(ResourceListEnum::ResourceMeasure(Measure {
+            Some("Measure") => Some(ResourceListEnum::ResourceMeasure(Measure {
                 value: self.value.clone(),
             })),
-            "MeasureReport" => Some(ResourceListEnum::ResourceMeasureReport(MeasureReport {
+            Some("MeasureReport") => Some(ResourceListEnum::ResourceMeasureReport(MeasureReport {
                 value: self.value.clone(),
             })),
-            "Media" => Some(ResourceListEnum::ResourceMedia(Media {
+            Some("Media") => Some(ResourceListEnum::ResourceMedia(Media {
                 value: self.value.clone(),
             })),
-            "Medication" => Some(ResourceListEnum::ResourceMedication(Medication {
+            Some("Medication") => Some(ResourceListEnum::ResourceMedication(Medication {
                 value: self.value.clone(),
             })),
-            "MedicationAdministration" => Some(ResourceListEnum::ResourceMedicationAdministration(
-                MedicationAdministration {
+            Some("MedicationAdministration") => Some(
+                ResourceListEnum::ResourceMedicationAdministration(MedicationAdministration {
                     value: self.value.clone(),
-                },
-            )),
-            "MedicationDispense" => Some(ResourceListEnum::ResourceMedicationDispense(
+                }),
+            ),
+            Some("MedicationDispense") => Some(ResourceListEnum::ResourceMedicationDispense(
                 MedicationDispense {
                     value: self.value.clone(),
                 },
             )),
-            "MedicationKnowledge" => Some(ResourceListEnum::ResourceMedicationKnowledge(
+            Some("MedicationKnowledge") => Some(ResourceListEnum::ResourceMedicationKnowledge(
                 MedicationKnowledge {
                     value: self.value.clone(),
                 },
             )),
-            "MedicationRequest" => Some(ResourceListEnum::ResourceMedicationRequest(
+            Some("MedicationRequest") => Some(ResourceListEnum::ResourceMedicationRequest(
                 MedicationRequest {
                     value: self.value.clone(),
                 },
             )),
-            "MedicationStatement" => Some(ResourceListEnum::ResourceMedicationStatement(
+            Some("MedicationStatement") => Some(ResourceListEnum::ResourceMedicationStatement(
                 MedicationStatement {
                     value: self.value.clone(),
                 },
             )),
-            "MedicinalProduct" => Some(ResourceListEnum::ResourceMedicinalProduct(
+            Some("MedicinalProduct") => Some(ResourceListEnum::ResourceMedicinalProduct(
                 MedicinalProduct {
                     value: self.value.clone(),
                 },
             )),
-            "MedicinalProductAuthorization" => {
+            Some("MedicinalProductAuthorization") => {
                 Some(ResourceListEnum::ResourceMedicinalProductAuthorization(
                     MedicinalProductAuthorization {
                         value: self.value.clone(),
                     },
                 ))
             }
-            "MedicinalProductContraindication" => {
+            Some("MedicinalProductContraindication") => {
                 Some(ResourceListEnum::ResourceMedicinalProductContraindication(
                     MedicinalProductContraindication {
                         value: self.value.clone(),
                     },
                 ))
             }
-            "MedicinalProductIndication" => Some(
+            Some("MedicinalProductIndication") => Some(
                 ResourceListEnum::ResourceMedicinalProductIndication(MedicinalProductIndication {
                     value: self.value.clone(),
                 }),
             ),
-            "MedicinalProductIngredient" => Some(
+            Some("MedicinalProductIngredient") => Some(
                 ResourceListEnum::ResourceMedicinalProductIngredient(MedicinalProductIngredient {
                     value: self.value.clone(),
                 }),
             ),
-            "MedicinalProductInteraction" => {
+            Some("MedicinalProductInteraction") => {
                 Some(ResourceListEnum::ResourceMedicinalProductInteraction(
                     MedicinalProductInteraction {
                         value: self.value.clone(),
                     },
                 ))
             }
-            "MedicinalProductManufactured" => {
+            Some("MedicinalProductManufactured") => {
                 Some(ResourceListEnum::ResourceMedicinalProductManufactured(
                     MedicinalProductManufactured {
                         value: self.value.clone(),
                     },
                 ))
             }
-            "MedicinalProductPackaged" => Some(ResourceListEnum::ResourceMedicinalProductPackaged(
-                MedicinalProductPackaged {
+            Some("MedicinalProductPackaged") => Some(
+                ResourceListEnum::ResourceMedicinalProductPackaged(MedicinalProductPackaged {
                     value: self.value.clone(),
-                },
-            )),
-            "MedicinalProductPharmaceutical" => {
+                }),
+            ),
+            Some("MedicinalProductPharmaceutical") => {
                 Some(ResourceListEnum::ResourceMedicinalProductPharmaceutical(
                     MedicinalProductPharmaceutical {
                         value: self.value.clone(),
                     },
                 ))
             }
-            "MedicinalProductUndesirableEffect" => {
+            Some("MedicinalProductUndesirableEffect") => {
                 Some(ResourceListEnum::ResourceMedicinalProductUndesirableEffect(
                     MedicinalProductUndesirableEffect {
                         value: self.value.clone(),
                     },
                 ))
             }
-            "MessageDefinition" => Some(ResourceListEnum::ResourceMessageDefinition(
+            Some("MessageDefinition") => Some(ResourceListEnum::ResourceMessageDefinition(
                 MessageDefinition {
                     value: self.value.clone(),
                 },
             )),
-            "MessageHeader" => Some(ResourceListEnum::ResourceMessageHeader(MessageHeader {
+            Some("MessageHeader") => Some(ResourceListEnum::ResourceMessageHeader(MessageHeader {
                 value: self.value.clone(),
             })),
-            "MolecularSequence" => Some(ResourceListEnum::ResourceMolecularSequence(
+            Some("MolecularSequence") => Some(ResourceListEnum::ResourceMolecularSequence(
                 MolecularSequence {
                     value: self.value.clone(),
                 },
             )),
-            "NamingSystem" => Some(ResourceListEnum::ResourceNamingSystem(NamingSystem {
+            Some("NamingSystem") => Some(ResourceListEnum::ResourceNamingSystem(NamingSystem {
                 value: self.value.clone(),
             })),
-            "NutritionOrder" => Some(ResourceListEnum::ResourceNutritionOrder(NutritionOrder {
+            Some("NutritionOrder") => {
+                Some(ResourceListEnum::ResourceNutritionOrder(NutritionOrder {
+                    value: self.value.clone(),
+                }))
+            }
+            Some("Observation") => Some(ResourceListEnum::ResourceObservation(Observation {
                 value: self.value.clone(),
             })),
-            "Observation" => Some(ResourceListEnum::ResourceObservation(Observation {
-                value: self.value.clone(),
-            })),
-            "ObservationDefinition" => Some(ResourceListEnum::ResourceObservationDefinition(
+            Some("ObservationDefinition") => Some(ResourceListEnum::ResourceObservationDefinition(
                 ObservationDefinition {
                     value: self.value.clone(),
                 },
             )),
-            "OperationDefinition" => Some(ResourceListEnum::ResourceOperationDefinition(
+            Some("OperationDefinition") => Some(ResourceListEnum::ResourceOperationDefinition(
                 OperationDefinition {
                     value: self.value.clone(),
                 },
             )),
-            "OperationOutcome" => Some(ResourceListEnum::ResourceOperationOutcome(
+            Some("OperationOutcome") => Some(ResourceListEnum::ResourceOperationOutcome(
                 OperationOutcome {
                     value: self.value.clone(),
                 },
             )),
-            "Organization" => Some(ResourceListEnum::ResourceOrganization(Organization {
+            Some("Organization") => Some(ResourceListEnum::ResourceOrganization(Organization {
                 value: self.value.clone(),
             })),
-            "OrganizationAffiliation" => Some(ResourceListEnum::ResourceOrganizationAffiliation(
-                OrganizationAffiliation {
+            Some("OrganizationAffiliation") => Some(
+                ResourceListEnum::ResourceOrganizationAffiliation(OrganizationAffiliation {
                     value: self.value.clone(),
-                },
-            )),
-            "Parameters" => Some(ResourceListEnum::ResourceParameters(Parameters {
+                }),
+            ),
+            Some("Parameters") => Some(ResourceListEnum::ResourceParameters(Parameters {
                 value: self.value.clone(),
             })),
-            "Patient" => Some(ResourceListEnum::ResourcePatient(Patient {
+            Some("Patient") => Some(ResourceListEnum::ResourcePatient(Patient {
                 value: self.value.clone(),
             })),
-            "PaymentNotice" => Some(ResourceListEnum::ResourcePaymentNotice(PaymentNotice {
+            Some("PaymentNotice") => Some(ResourceListEnum::ResourcePaymentNotice(PaymentNotice {
                 value: self.value.clone(),
             })),
-            "PaymentReconciliation" => Some(ResourceListEnum::ResourcePaymentReconciliation(
+            Some("PaymentReconciliation") => Some(ResourceListEnum::ResourcePaymentReconciliation(
                 PaymentReconciliation {
                     value: self.value.clone(),
                 },
             )),
-            "Person" => Some(ResourceListEnum::ResourcePerson(Person {
+            Some("Person") => Some(ResourceListEnum::ResourcePerson(Person {
                 value: self.value.clone(),
             })),
-            "PlanDefinition" => Some(ResourceListEnum::ResourcePlanDefinition(PlanDefinition {
+            Some("PlanDefinition") => {
+                Some(ResourceListEnum::ResourcePlanDefinition(PlanDefinition {
+                    value: self.value.clone(),
+                }))
+            }
+            Some("Practitioner") => Some(ResourceListEnum::ResourcePractitioner(Practitioner {
                 value: self.value.clone(),
             })),
-            "Practitioner" => Some(ResourceListEnum::ResourcePractitioner(Practitioner {
-                value: self.value.clone(),
-            })),
-            "PractitionerRole" => Some(ResourceListEnum::ResourcePractitionerRole(
+            Some("PractitionerRole") => Some(ResourceListEnum::ResourcePractitionerRole(
                 PractitionerRole {
                     value: self.value.clone(),
                 },
             )),
-            "Procedure" => Some(ResourceListEnum::ResourceProcedure(Procedure {
+            Some("Procedure") => Some(ResourceListEnum::ResourceProcedure(Procedure {
                 value: self.value.clone(),
             })),
-            "Provenance" => Some(ResourceListEnum::ResourceProvenance(Provenance {
+            Some("Provenance") => Some(ResourceListEnum::ResourceProvenance(Provenance {
                 value: self.value.clone(),
             })),
-            "Questionnaire" => Some(ResourceListEnum::ResourceQuestionnaire(Questionnaire {
+            Some("Questionnaire") => Some(ResourceListEnum::ResourceQuestionnaire(Questionnaire {
                 value: self.value.clone(),
             })),
-            "QuestionnaireResponse" => Some(ResourceListEnum::ResourceQuestionnaireResponse(
+            Some("QuestionnaireResponse") => Some(ResourceListEnum::ResourceQuestionnaireResponse(
                 QuestionnaireResponse {
                     value: self.value.clone(),
                 },
             )),
-            "RelatedPerson" => Some(ResourceListEnum::ResourceRelatedPerson(RelatedPerson {
+            Some("RelatedPerson") => Some(ResourceListEnum::ResourceRelatedPerson(RelatedPerson {
                 value: self.value.clone(),
             })),
-            "RequestGroup" => Some(ResourceListEnum::ResourceRequestGroup(RequestGroup {
+            Some("RequestGroup") => Some(ResourceListEnum::ResourceRequestGroup(RequestGroup {
                 value: self.value.clone(),
             })),
-            "ResearchDefinition" => Some(ResourceListEnum::ResourceResearchDefinition(
+            Some("ResearchDefinition") => Some(ResourceListEnum::ResourceResearchDefinition(
                 ResearchDefinition {
                     value: self.value.clone(),
                 },
             )),
-            "ResearchElementDefinition" => Some(
+            Some("ResearchElementDefinition") => Some(
                 ResourceListEnum::ResourceResearchElementDefinition(ResearchElementDefinition {
                     value: self.value.clone(),
                 }),
             ),
-            "ResearchStudy" => Some(ResourceListEnum::ResourceResearchStudy(ResearchStudy {
+            Some("ResearchStudy") => Some(ResourceListEnum::ResourceResearchStudy(ResearchStudy {
                 value: self.value.clone(),
             })),
-            "ResearchSubject" => Some(ResourceListEnum::ResourceResearchSubject(ResearchSubject {
-                value: self.value.clone(),
-            })),
-            "RiskAssessment" => Some(ResourceListEnum::ResourceRiskAssessment(RiskAssessment {
-                value: self.value.clone(),
-            })),
-            "RiskEvidenceSynthesis" => Some(ResourceListEnum::ResourceRiskEvidenceSynthesis(
+            Some("ResearchSubject") => {
+                Some(ResourceListEnum::ResourceResearchSubject(ResearchSubject {
+                    value: self.value.clone(),
+                }))
+            }
+            Some("RiskAssessment") => {
+                Some(ResourceListEnum::ResourceRiskAssessment(RiskAssessment {
+                    value: self.value.clone(),
+                }))
+            }
+            Some("RiskEvidenceSynthesis") => Some(ResourceListEnum::ResourceRiskEvidenceSynthesis(
                 RiskEvidenceSynthesis {
                     value: self.value.clone(),
                 },
             )),
-            "Schedule" => Some(ResourceListEnum::ResourceSchedule(Schedule {
+            Some("Schedule") => Some(ResourceListEnum::ResourceSchedule(Schedule {
                 value: self.value.clone(),
             })),
-            "SearchParameter" => Some(ResourceListEnum::ResourceSearchParameter(SearchParameter {
+            Some("SearchParameter") => {
+                Some(ResourceListEnum::ResourceSearchParameter(SearchParameter {
+                    value: self.value.clone(),
+                }))
+            }
+            Some("ServiceRequest") => {
+                Some(ResourceListEnum::ResourceServiceRequest(ServiceRequest {
+                    value: self.value.clone(),
+                }))
+            }
+            Some("Slot") => Some(ResourceListEnum::ResourceSlot(Slot {
                 value: self.value.clone(),
             })),
-            "ServiceRequest" => Some(ResourceListEnum::ResourceServiceRequest(ServiceRequest {
+            Some("Specimen") => Some(ResourceListEnum::ResourceSpecimen(Specimen {
                 value: self.value.clone(),
             })),
-            "Slot" => Some(ResourceListEnum::ResourceSlot(Slot {
-                value: self.value.clone(),
-            })),
-            "Specimen" => Some(ResourceListEnum::ResourceSpecimen(Specimen {
-                value: self.value.clone(),
-            })),
-            "SpecimenDefinition" => Some(ResourceListEnum::ResourceSpecimenDefinition(
+            Some("SpecimenDefinition") => Some(ResourceListEnum::ResourceSpecimenDefinition(
                 SpecimenDefinition {
                     value: self.value.clone(),
                 },
             )),
-            "StructureDefinition" => Some(ResourceListEnum::ResourceStructureDefinition(
+            Some("StructureDefinition") => Some(ResourceListEnum::ResourceStructureDefinition(
                 StructureDefinition {
                     value: self.value.clone(),
                 },
             )),
-            "StructureMap" => Some(ResourceListEnum::ResourceStructureMap(StructureMap {
+            Some("StructureMap") => Some(ResourceListEnum::ResourceStructureMap(StructureMap {
                 value: self.value.clone(),
             })),
-            "Subscription" => Some(ResourceListEnum::ResourceSubscription(Subscription {
+            Some("Subscription") => Some(ResourceListEnum::ResourceSubscription(Subscription {
                 value: self.value.clone(),
             })),
-            "Substance" => Some(ResourceListEnum::ResourceSubstance(Substance {
+            Some("Substance") => Some(ResourceListEnum::ResourceSubstance(Substance {
                 value: self.value.clone(),
             })),
-            "SubstanceNucleicAcid" => Some(ResourceListEnum::ResourceSubstanceNucleicAcid(
+            Some("SubstanceNucleicAcid") => Some(ResourceListEnum::ResourceSubstanceNucleicAcid(
                 SubstanceNucleicAcid {
                     value: self.value.clone(),
                 },
             )),
-            "SubstancePolymer" => Some(ResourceListEnum::ResourceSubstancePolymer(
+            Some("SubstancePolymer") => Some(ResourceListEnum::ResourceSubstancePolymer(
                 SubstancePolymer {
                     value: self.value.clone(),
                 },
             )),
-            "SubstanceProtein" => Some(ResourceListEnum::ResourceSubstanceProtein(
+            Some("SubstanceProtein") => Some(ResourceListEnum::ResourceSubstanceProtein(
                 SubstanceProtein {
                     value: self.value.clone(),
                 },
             )),
-            "SubstanceReferenceInformation" => {
+            Some("SubstanceReferenceInformation") => {
                 Some(ResourceListEnum::ResourceSubstanceReferenceInformation(
                     SubstanceReferenceInformation {
                         value: self.value.clone(),
                     },
                 ))
             }
-            "SubstanceSourceMaterial" => Some(ResourceListEnum::ResourceSubstanceSourceMaterial(
-                SubstanceSourceMaterial {
+            Some("SubstanceSourceMaterial") => Some(
+                ResourceListEnum::ResourceSubstanceSourceMaterial(SubstanceSourceMaterial {
                     value: self.value.clone(),
-                },
-            )),
-            "SubstanceSpecification" => Some(ResourceListEnum::ResourceSubstanceSpecification(
-                SubstanceSpecification {
+                }),
+            ),
+            Some("SubstanceSpecification") => Some(
+                ResourceListEnum::ResourceSubstanceSpecification(SubstanceSpecification {
                     value: self.value.clone(),
-                },
-            )),
-            "SupplyDelivery" => Some(ResourceListEnum::ResourceSupplyDelivery(SupplyDelivery {
-                value: self.value.clone(),
-            })),
-            "SupplyRequest" => Some(ResourceListEnum::ResourceSupplyRequest(SupplyRequest {
-                value: self.value.clone(),
-            })),
-            "Task" => Some(ResourceListEnum::ResourceTask(Task {
-                value: self.value.clone(),
-            })),
-            "TerminologyCapabilities" => Some(ResourceListEnum::ResourceTerminologyCapabilities(
-                TerminologyCapabilities {
+                }),
+            ),
+            Some("SupplyDelivery") => {
+                Some(ResourceListEnum::ResourceSupplyDelivery(SupplyDelivery {
                     value: self.value.clone(),
-                },
-            )),
-            "TestReport" => Some(ResourceListEnum::ResourceTestReport(TestReport {
+                }))
+            }
+            Some("SupplyRequest") => Some(ResourceListEnum::ResourceSupplyRequest(SupplyRequest {
                 value: self.value.clone(),
             })),
-            "TestScript" => Some(ResourceListEnum::ResourceTestScript(TestScript {
+            Some("Task") => Some(ResourceListEnum::ResourceTask(Task {
                 value: self.value.clone(),
             })),
-            "ValueSet" => Some(ResourceListEnum::ResourceValueSet(ValueSet {
+            Some("TerminologyCapabilities") => Some(
+                ResourceListEnum::ResourceTerminologyCapabilities(TerminologyCapabilities {
+                    value: self.value.clone(),
+                }),
+            ),
+            Some("TestReport") => Some(ResourceListEnum::ResourceTestReport(TestReport {
                 value: self.value.clone(),
             })),
-            "VerificationResult" => Some(ResourceListEnum::ResourceVerificationResult(
+            Some("TestScript") => Some(ResourceListEnum::ResourceTestScript(TestScript {
+                value: self.value.clone(),
+            })),
+            Some("ValueSet") => Some(ResourceListEnum::ResourceValueSet(ValueSet {
+                value: self.value.clone(),
+            })),
+            Some("VerificationResult") => Some(ResourceListEnum::ResourceVerificationResult(
                 VerificationResult {
                     value: self.value.clone(),
                 },
             )),
-            "VisionPrescription" => Some(ResourceListEnum::ResourceVisionPrescription(
+            Some("VisionPrescription") => Some(ResourceListEnum::ResourceVisionPrescription(
                 VisionPrescription {
                     value: self.value.clone(),
                 },

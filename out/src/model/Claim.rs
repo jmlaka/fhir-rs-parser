@@ -502,10 +502,10 @@ impl Claim<'_> {
     /// adjudication of the listed products and services which could be provided in the
     /// future.
     pub fn fhir_use(&self) -> Option<ClaimUse> {
-        if let Some(Value::String(val)) = self.value.get("use") {
-            return Some(ClaimUse::from_string(&val).unwrap());
+        match self.value.get("use") {
+            Some(Value::String(val)) => ClaimUse::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

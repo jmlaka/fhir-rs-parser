@@ -152,10 +152,10 @@ impl Bundle_Request<'_> {
     /// In a transaction or batch, this is the HTTP action to be executed for this
     /// entry. In a history bundle, this indicates the HTTP action that occurred.
     pub fn method(&self) -> Option<Bundle_RequestMethod> {
-        if let Some(Value::String(val)) = self.value.get("method") {
-            return Some(Bundle_RequestMethod::from_string(&val).unwrap());
+        match self.value.get("method") {
+            Some(Value::String(val)) => Bundle_RequestMethod::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

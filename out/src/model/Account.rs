@@ -278,10 +278,10 @@ impl Account<'_> {
 
     /// Indicates whether the account is presently used/usable or not.
     pub fn status(&self) -> Option<AccountStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(AccountStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => AccountStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Identifies the entity which incurs the expenses. While the immediate recipients

@@ -174,10 +174,10 @@ impl StructureMap_Group<'_> {
     /// If this is the default rule set to apply for the source type or this combination
     /// of types.
     pub fn type_mode(&self) -> Option<StructureMap_GroupTypeMode> {
-        if let Some(Value::String(val)) = self.value.get("typeMode") {
-            return Some(StructureMap_GroupTypeMode::from_string(&val).unwrap());
+        match self.value.get("typeMode") {
+            Some(Value::String(val)) => StructureMap_GroupTypeMode::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

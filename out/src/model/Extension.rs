@@ -345,10 +345,10 @@ impl Extension<'_> {
     /// Value of extension - must be one of a constrained set of the data types (see
     /// [Extensibility](extensibility.html) for a list).
     pub fn value_boolean(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("valueBoolean") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("valueBoolean") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Value of extension - must be one of a constrained set of the data types (see
@@ -467,10 +467,10 @@ impl Extension<'_> {
     /// Value of extension - must be one of a constrained set of the data types (see
     /// [Extensibility](extensibility.html) for a list).
     pub fn value_decimal(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("valueDecimal") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("valueDecimal") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Value of extension - must be one of a constrained set of the data types (see
@@ -560,10 +560,10 @@ impl Extension<'_> {
     /// Value of extension - must be one of a constrained set of the data types (see
     /// [Extensibility](extensibility.html) for a list).
     pub fn value_integer(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("valueInteger") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("valueInteger") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Value of extension - must be one of a constrained set of the data types (see
@@ -631,10 +631,10 @@ impl Extension<'_> {
     /// Value of extension - must be one of a constrained set of the data types (see
     /// [Extensibility](extensibility.html) for a list).
     pub fn value_positive_int(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("valuePositiveInt") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("valuePositiveInt") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Value of extension - must be one of a constrained set of the data types (see
@@ -757,10 +757,10 @@ impl Extension<'_> {
     /// Value of extension - must be one of a constrained set of the data types (see
     /// [Extensibility](extensibility.html) for a list).
     pub fn value_unsigned_int(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("valueUnsignedInt") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("valueUnsignedInt") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Value of extension - must be one of a constrained set of the data types (see

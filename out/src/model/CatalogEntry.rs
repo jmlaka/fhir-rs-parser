@@ -273,10 +273,10 @@ impl CatalogEntry<'_> {
 
     /// Whether the entry represents an orderable item.
     pub fn orderable(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("orderable") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("orderable") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// The item in a catalog or definition.
@@ -304,10 +304,10 @@ impl CatalogEntry<'_> {
     /// Used to support catalog exchange even for unsupported products, e.g. getting
     /// list of medications even if not prescribable.
     pub fn status(&self) -> Option<CatalogEntryStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(CatalogEntryStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => CatalogEntryStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A human-readable narrative that contains a summary of the resource and can be

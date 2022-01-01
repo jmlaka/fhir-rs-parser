@@ -49,10 +49,10 @@ impl MeasureReport_Population<'_> {
 
     /// The number of members of the population.
     pub fn count(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("count") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("count") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

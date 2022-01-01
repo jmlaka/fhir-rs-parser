@@ -58,12 +58,12 @@ impl EffectEvidenceSynthesis_ResultsByExposure<'_> {
 
     /// Whether these results are for the exposure state or alternative exposure state.
     pub fn exposure_state(&self) -> Option<EffectEvidenceSynthesis_ResultsByExposureExposureState> {
-        if let Some(Value::String(val)) = self.value.get("exposureState") {
-            return Some(
-                EffectEvidenceSynthesis_ResultsByExposureExposureState::from_string(&val).unwrap(),
-            );
+        match self.value.get("exposureState") {
+            Some(Value::String(val)) => {
+                EffectEvidenceSynthesis_ResultsByExposureExposureState::from_string(&val)
+            }
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

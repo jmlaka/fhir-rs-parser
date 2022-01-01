@@ -179,14 +179,14 @@ impl AuditEvent_Agent<'_> {
     /// single activity may have multiple applicable policies, such as patient consent,
     /// guarantor funding, etc. The policy would also indicate the security token used.
     pub fn policy(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("policy") {
-            return Some(
+        match self.value.get("policy") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The reason (purpose of use), specific to this agent, that was used during the
@@ -207,10 +207,10 @@ impl AuditEvent_Agent<'_> {
     /// Indicator that the user is or is not the requestor, or initiator, for the event
     /// being audited.
     pub fn requestor(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("requestor") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("requestor") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// The security role that the user was acting under, that come from local codes

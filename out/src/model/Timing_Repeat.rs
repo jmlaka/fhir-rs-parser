@@ -220,58 +220,58 @@ impl Timing_Repeat<'_> {
     /// entire timing specification. If countMax is present, this element indicates the
     /// lower bound of the allowed range of count values.
     pub fn count(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("count") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("count") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// If present, indicates that the count is a range - so to perform the action
     /// between [count] and [countMax] times.
     pub fn count_max(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("countMax") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("countMax") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// If one or more days of week is provided, then the action happens only on the
     /// specified day(s).
     pub fn day_of_week(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("dayOfWeek") {
-            return Some(
+        match self.value.get("dayOfWeek") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// How long this thing happens for when it happens. If durationMax is present, this
     /// element indicates the lower bound of the allowed range of the duration.
     pub fn duration(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("duration") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("duration") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// If present, indicates that the duration is a range - so to perform the action
     /// between [duration] and [durationMax] time length.
     pub fn duration_max(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("durationMax") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("durationMax") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The units of time for the duration, in UCUM units.
     pub fn duration_unit(&self) -> Option<Timing_RepeatDurationUnit> {
-        if let Some(Value::String(val)) = self.value.get("durationUnit") {
-            return Some(Timing_RepeatDurationUnit::from_string(&val).unwrap());
+        match self.value.get("durationUnit") {
+            Some(Value::String(val)) => Timing_RepeatDurationUnit::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -296,19 +296,19 @@ impl Timing_Repeat<'_> {
     /// frequencyMax is present, this element indicates the lower bound of the allowed
     /// range of the frequency.
     pub fn frequency(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("frequency") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("frequency") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// If present, indicates that the frequency is a range - so to repeat between
     /// [frequency] and [frequencyMax] times within the period or period range.
     pub fn frequency_max(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("frequencyMax") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("frequencyMax") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Unique id for the element within a resource (for internal references). This may
@@ -348,10 +348,10 @@ impl Timing_Repeat<'_> {
     /// whether the minutes is before or after the event, then the offset is assumed to
     /// be after the event.
     pub fn offset(&self) -> Option<u64> {
-        if let Some(val) = self.value.get("offset") {
-            return Some(val.as_u64().unwrap());
+        match self.value.get("offset") {
+            Some(val) => val.as_u64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Indicates the duration of time over which repetitions are to occur; e.g. to
@@ -359,39 +359,39 @@ impl Timing_Repeat<'_> {
     /// period. If periodMax is present, this element indicates the lower bound of the
     /// allowed range of the period length.
     pub fn period(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("period") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("period") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// If present, indicates that the period is a range from [period] to [periodMax],
     /// allowing expressing concepts such as "do this once every 3-5 days.
     pub fn period_max(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("periodMax") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("periodMax") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The units of time for the period in UCUM units.
     pub fn period_unit(&self) -> Option<Timing_RepeatPeriodUnit> {
-        if let Some(Value::String(val)) = self.value.get("periodUnit") {
-            return Some(Timing_RepeatPeriodUnit::from_string(&val).unwrap());
+        match self.value.get("periodUnit") {
+            Some(Value::String(val)) => Timing_RepeatPeriodUnit::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Specified time of day for action to take place.
     pub fn time_of_day(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("timeOfDay") {
-            return Some(
+        match self.value.get("timeOfDay") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

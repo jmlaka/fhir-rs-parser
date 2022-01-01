@@ -49,10 +49,10 @@ impl CapabilityStatement_Interaction1<'_> {
 
     /// A coded identifier of the operation, supported by the system.
     pub fn code(&self) -> Option<CapabilityStatement_Interaction1Code> {
-        if let Some(Value::String(val)) = self.value.get("code") {
-            return Some(CapabilityStatement_Interaction1Code::from_string(&val).unwrap());
+        match self.value.get("code") {
+            Some(Value::String(val)) => CapabilityStatement_Interaction1Code::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Guidance specific to the implementation of this operation, such as limitations

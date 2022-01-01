@@ -130,10 +130,10 @@ impl ClaimResponse_SubDetail<'_> {
 
     /// A number to uniquely reference the claim sub-detail entry.
     pub fn sub_detail_sequence(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("subDetailSequence") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("subDetailSequence") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

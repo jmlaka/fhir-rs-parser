@@ -120,10 +120,10 @@ impl ExplanationOfBenefit_ProcessNote<'_> {
 
     /// A number to uniquely identify a note entry.
     pub fn number(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("number") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("number") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The explanation or description associated with the processing.
@@ -136,10 +136,10 @@ impl ExplanationOfBenefit_ProcessNote<'_> {
 
     /// The business purpose of the note text.
     pub fn fhir_type(&self) -> Option<ExplanationOfBenefit_ProcessNoteType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(ExplanationOfBenefit_ProcessNoteType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => ExplanationOfBenefit_ProcessNoteType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

@@ -283,10 +283,10 @@ impl ImplementationGuide<'_> {
     /// testing purposes (or education/evaluation/marketing) and is not intended to be
     /// used for genuine usage.
     pub fn experimental(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("experimental") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("experimental") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -368,10 +368,10 @@ impl ImplementationGuide<'_> {
     /// The license that applies to this Implementation Guide, using an SPDX license
     /// code, or 'not-open-source'.
     pub fn license(&self) -> Option<ImplementationGuideLicense> {
-        if let Some(Value::String(val)) = self.value.get("license") {
-            return Some(ImplementationGuideLicense::from_string(&val).unwrap());
+        match self.value.get("license") {
+            Some(Value::String(val)) => ImplementationGuideLicense::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Information about an assembled implementation guide, created by the publication
@@ -455,10 +455,10 @@ impl ImplementationGuide<'_> {
     /// The status of this implementation guide. Enables tracking the life-cycle of the
     /// content.
     pub fn status(&self) -> Option<ImplementationGuideStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(ImplementationGuideStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => ImplementationGuideStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A human-readable narrative that contains a summary of the resource and can be

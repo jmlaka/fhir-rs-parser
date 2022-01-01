@@ -89,10 +89,10 @@ impl TerminologyCapabilities_Closure<'_> {
 
     /// If cross-system closure is supported.
     pub fn translation(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("translation") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("translation") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

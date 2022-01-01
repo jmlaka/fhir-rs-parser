@@ -91,10 +91,10 @@ impl MolecularSequence_Variant<'_> {
     /// coordinate system is 1-base, then end is inclusive and includes the last
     /// position.
     pub fn end(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("end") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("end") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -177,10 +177,10 @@ impl MolecularSequence_Variant<'_> {
     /// Start position of the variant on the  reference sequence. If the coordinate
     /// system is either 0-based or 1-based, then start position is inclusive.
     pub fn start(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("start") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("start") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// A pointer to an Observation containing variant information.

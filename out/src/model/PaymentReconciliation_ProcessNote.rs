@@ -106,10 +106,10 @@ impl PaymentReconciliation_ProcessNote<'_> {
 
     /// The business purpose of the note text.
     pub fn fhir_type(&self) -> Option<PaymentReconciliation_ProcessNoteType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(PaymentReconciliation_ProcessNoteType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => PaymentReconciliation_ProcessNoteType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

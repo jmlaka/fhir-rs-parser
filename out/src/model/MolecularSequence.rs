@@ -115,10 +115,10 @@ impl MolecularSequence<'_> {
     /// coordinates, inclusive start, exclusive end) or starting at 1 (1-based
     /// numbering, inclusive start and inclusive end).
     pub fn coordinate_system(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("coordinateSystem") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("coordinateSystem") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The method for sequencing, for example, chip information.
@@ -303,10 +303,10 @@ impl MolecularSequence<'_> {
     /// Coverage (read depth or depth) is the average number of reads representing a
     /// given nucleotide in the reconstructed sequence.
     pub fn read_coverage(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("readCoverage") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("readCoverage") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// A sequence that is used as a reference to describe variants that are present in
@@ -376,10 +376,10 @@ impl MolecularSequence<'_> {
 
     /// Amino Acid Sequence/ DNA Sequence / RNA Sequence.
     pub fn fhir_type(&self) -> Option<MolecularSequenceType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(MolecularSequenceType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => MolecularSequenceType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The definition of variant here originates from Sequence ontology

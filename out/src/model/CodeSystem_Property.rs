@@ -139,10 +139,10 @@ impl CodeSystem_Property<'_> {
     /// The type of the property value. Properties of type "code" contain a code defined
     /// by the code system (e.g. a reference to another defined concept).
     pub fn fhir_type(&self) -> Option<CodeSystem_PropertyType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(CodeSystem_PropertyType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => CodeSystem_PropertyType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Reference to the formal meaning of the property. One possible source of meaning

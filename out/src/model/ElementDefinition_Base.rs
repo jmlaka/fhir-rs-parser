@@ -91,10 +91,10 @@ impl ElementDefinition_Base<'_> {
 
     /// Minimum cardinality of the base element identified by the path.
     pub fn min(&self) -> Option<u64> {
-        if let Some(val) = self.value.get("min") {
-            return Some(val.as_u64().unwrap());
+        match self.value.get("min") {
+            Some(val) => val.as_u64(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

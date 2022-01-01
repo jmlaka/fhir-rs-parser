@@ -204,10 +204,10 @@ impl PlanDefinition_Action<'_> {
 
     /// Defines whether the action can be selected multiple times.
     pub fn cardinality_behavior(&self) -> Option<PlanDefinition_ActionCardinalityBehavior> {
-        if let Some(Value::String(val)) = self.value.get("cardinalityBehavior") {
-            return Some(PlanDefinition_ActionCardinalityBehavior::from_string(&val).unwrap());
+        match self.value.get("cardinalityBehavior") {
+            Some(Value::String(val)) => PlanDefinition_ActionCardinalityBehavior::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A code that provides meaning for the action or action group. For example, a
@@ -321,22 +321,22 @@ impl PlanDefinition_Action<'_> {
     /// Identifies goals that this action supports. The reference must be to a goal
     /// element defined within this plan definition.
     pub fn goal_id(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("goalId") {
-            return Some(
+        match self.value.get("goalId") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Defines the grouping behavior for the action and its children.
     pub fn grouping_behavior(&self) -> Option<PlanDefinition_ActionGroupingBehavior> {
-        if let Some(Value::String(val)) = self.value.get("groupingBehavior") {
-            return Some(PlanDefinition_ActionGroupingBehavior::from_string(&val).unwrap());
+        match self.value.get("groupingBehavior") {
+            Some(Value::String(val)) => PlanDefinition_ActionGroupingBehavior::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Unique id for the element within a resource (for internal references). This may
@@ -416,10 +416,10 @@ impl PlanDefinition_Action<'_> {
 
     /// Defines whether the action should usually be preselected.
     pub fn precheck_behavior(&self) -> Option<PlanDefinition_ActionPrecheckBehavior> {
-        if let Some(Value::String(val)) = self.value.get("precheckBehavior") {
-            return Some(PlanDefinition_ActionPrecheckBehavior::from_string(&val).unwrap());
+        match self.value.get("precheckBehavior") {
+            Some(Value::String(val)) => PlanDefinition_ActionPrecheckBehavior::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A user-visible prefix for the action.
@@ -470,18 +470,18 @@ impl PlanDefinition_Action<'_> {
 
     /// Defines the required behavior for the action.
     pub fn required_behavior(&self) -> Option<PlanDefinition_ActionRequiredBehavior> {
-        if let Some(Value::String(val)) = self.value.get("requiredBehavior") {
-            return Some(PlanDefinition_ActionRequiredBehavior::from_string(&val).unwrap());
+        match self.value.get("requiredBehavior") {
+            Some(Value::String(val)) => PlanDefinition_ActionRequiredBehavior::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Defines the selection behavior for the action and its children.
     pub fn selection_behavior(&self) -> Option<PlanDefinition_ActionSelectionBehavior> {
-        if let Some(Value::String(val)) = self.value.get("selectionBehavior") {
-            return Some(PlanDefinition_ActionSelectionBehavior::from_string(&val).unwrap());
+        match self.value.get("selectionBehavior") {
+            Some(Value::String(val)) => PlanDefinition_ActionSelectionBehavior::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A code or group definition that describes the intended subject of the action and

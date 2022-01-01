@@ -134,14 +134,14 @@ impl Location<'_> {
     /// A list of alternate names that the location is known as, or was known as, in the
     /// past.
     pub fn alias(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("alias") {
-            return Some(
+        match self.value.get("alias") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// A description of when the locations opening ours are different to normal, e.g.
@@ -291,10 +291,10 @@ impl Location<'_> {
     /// Indicates whether a resource instance represents a specific location or a class
     /// of locations.
     pub fn mode(&self) -> Option<LocationMode> {
-        if let Some(Value::String(val)) = self.value.get("mode") {
-            return Some(LocationMode::from_string(&val).unwrap());
+        match self.value.get("mode") {
+            Some(Value::String(val)) => LocationMode::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -378,10 +378,10 @@ impl Location<'_> {
     /// current value which may be covered by the operationStatus, or by a
     /// schedule/slots if they are configured for the location.
     pub fn status(&self) -> Option<LocationStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(LocationStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => LocationStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The contact details of communication devices available at the location. This can

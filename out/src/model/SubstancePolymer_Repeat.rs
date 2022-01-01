@@ -107,10 +107,10 @@ impl SubstancePolymer_Repeat<'_> {
 
     /// Todo.
     pub fn number_of_units(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("numberOfUnits") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("numberOfUnits") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Todo.

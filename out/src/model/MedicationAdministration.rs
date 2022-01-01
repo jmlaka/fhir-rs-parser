@@ -253,14 +253,14 @@ impl MedicationAdministration<'_> {
     /// A protocol, guideline, orderset, or other definition that was adhered to in
     /// whole or in part by this event.
     pub fn instantiates(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("instantiates") {
-            return Some(
+        match self.value.get("instantiates") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The base language in which the resource is written.

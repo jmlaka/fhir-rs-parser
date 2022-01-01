@@ -68,10 +68,10 @@ impl ClaimResponse_Error<'_> {
     /// the error. This value is omitted when the error occurs outside of the item
     /// structure.
     pub fn detail_sequence(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("detailSequence") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("detailSequence") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -104,10 +104,10 @@ impl ClaimResponse_Error<'_> {
     /// The sequence number of the line item submitted which contains the error. This
     /// value is omitted when the error occurs outside of the item structure.
     pub fn item_sequence(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("itemSequence") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("itemSequence") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -138,10 +138,10 @@ impl ClaimResponse_Error<'_> {
     /// submitted which contains the error. This value is omitted when the error occurs
     /// outside of the item structure.
     pub fn sub_detail_sequence(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("subDetailSequence") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("subDetailSequence") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

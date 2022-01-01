@@ -244,10 +244,10 @@ impl Slot<'_> {
     /// This slot has already been overbooked, appointments are unlikely to be accepted
     /// for this time.
     pub fn overbooked(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("overbooked") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("overbooked") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// The schedule resource that this slot defines an interval of status information.
@@ -314,10 +314,10 @@ impl Slot<'_> {
 
     /// busy | free | busy-unavailable | busy-tentative | entered-in-error.
     pub fn status(&self) -> Option<SlotStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(SlotStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => SlotStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A human-readable narrative that contains a summary of the resource and can be

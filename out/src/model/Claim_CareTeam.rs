@@ -119,10 +119,10 @@ impl Claim_CareTeam<'_> {
     /// The party who is billing and/or responsible for the claimed products or
     /// services.
     pub fn responsible(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("responsible") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("responsible") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// The lead, assisting or supervising practitioner and their discipline if a
@@ -138,10 +138,10 @@ impl Claim_CareTeam<'_> {
 
     /// A number to uniquely identify care team entries.
     pub fn sequence(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("sequence") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("sequence") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

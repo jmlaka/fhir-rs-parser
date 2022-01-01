@@ -59,10 +59,10 @@ impl Location_Position<'_> {
     /// Altitude. The value domain and the interpretation are the same as for the text
     /// of the altitude element in KML (see notes below).
     pub fn altitude(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("altitude") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("altitude") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -95,19 +95,19 @@ impl Location_Position<'_> {
     /// Latitude. The value domain and the interpretation are the same as for the text
     /// of the latitude element in KML (see notes below).
     pub fn latitude(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("latitude") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("latitude") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Longitude. The value domain and the interpretation are the same as for the text
     /// of the longitude element in KML (see notes below).
     pub fn longitude(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("longitude") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("longitude") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

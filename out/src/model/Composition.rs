@@ -343,10 +343,10 @@ impl Composition<'_> {
     /// The workflow/clinical status of this composition. The status is a marker for the
     /// clinical standing of the document.
     pub fn status(&self) -> Option<CompositionStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(CompositionStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => CompositionStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Who or what the composition is about. The composition can be about a person,

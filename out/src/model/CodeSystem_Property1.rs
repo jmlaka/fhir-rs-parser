@@ -158,10 +158,10 @@ impl CodeSystem_Property1<'_> {
 
     /// The value of this property.
     pub fn value_boolean(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("valueBoolean") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("valueBoolean") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// The value of this property.
@@ -192,18 +192,18 @@ impl CodeSystem_Property1<'_> {
 
     /// The value of this property.
     pub fn value_decimal(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("valueDecimal") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("valueDecimal") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The value of this property.
     pub fn value_integer(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("valueInteger") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("valueInteger") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The value of this property.

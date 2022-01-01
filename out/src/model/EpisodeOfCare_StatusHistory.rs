@@ -97,10 +97,10 @@ impl EpisodeOfCare_StatusHistory<'_> {
 
     /// planned | waitlist | active | onhold | finished | cancelled.
     pub fn status(&self) -> Option<EpisodeOfCare_StatusHistoryStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(EpisodeOfCare_StatusHistoryStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => EpisodeOfCare_StatusHistoryStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

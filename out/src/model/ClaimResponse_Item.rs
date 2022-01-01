@@ -111,10 +111,10 @@ impl ClaimResponse_Item<'_> {
 
     /// A number to uniquely reference the claim item entries.
     pub fn item_sequence(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("itemSequence") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("itemSequence") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

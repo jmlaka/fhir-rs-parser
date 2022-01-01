@@ -125,18 +125,18 @@ impl Appointment_Participant<'_> {
     /// use-case where two doctors need to meet to discuss the results for a specific
     /// patient, and the patient is not required to be present.
     pub fn required(&self) -> Option<Appointment_ParticipantRequired> {
-        if let Some(Value::String(val)) = self.value.get("required") {
-            return Some(Appointment_ParticipantRequired::from_string(&val).unwrap());
+        match self.value.get("required") {
+            Some(Value::String(val)) => Appointment_ParticipantRequired::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Participation status of the actor.
     pub fn status(&self) -> Option<Appointment_ParticipantStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(Appointment_ParticipantStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => Appointment_ParticipantStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Role of participant in the appointment.

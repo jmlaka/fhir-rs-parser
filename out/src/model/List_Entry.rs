@@ -56,10 +56,10 @@ impl List_Entry<'_> {
 
     /// True if this item is marked as deleted in the list.
     pub fn deleted(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("deleted") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("deleted") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

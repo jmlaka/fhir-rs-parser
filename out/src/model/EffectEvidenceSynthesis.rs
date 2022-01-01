@@ -571,10 +571,10 @@ impl EffectEvidenceSynthesis<'_> {
     /// The status of this effect evidence synthesis. Enables tracking the life-cycle of
     /// the content.
     pub fn status(&self) -> Option<EffectEvidenceSynthesisStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(EffectEvidenceSynthesisStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => EffectEvidenceSynthesisStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Type of study eg randomized trial.

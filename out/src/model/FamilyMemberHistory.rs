@@ -290,10 +290,10 @@ impl FamilyMemberHistory<'_> {
     /// Deceased flag or the actual or approximate age of the relative at the time of
     /// death for the family member history record.
     pub fn deceased_boolean(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("deceasedBoolean") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("deceasedBoolean") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Deceased flag or the actual or approximate age of the relative at the time of
@@ -327,10 +327,10 @@ impl FamilyMemberHistory<'_> {
 
     /// If true, indicates that the age value specified is an estimated value.
     pub fn estimated_age(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("estimatedAge") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("estimatedAge") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -390,28 +390,28 @@ impl FamilyMemberHistory<'_> {
     /// The URL pointing to a FHIR-defined protocol, guideline, orderset or other
     /// definition that is adhered to in whole or in part by this FamilyMemberHistory.
     pub fn instantiates_canonical(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("instantiatesCanonical") {
-            return Some(
+        match self.value.get("instantiatesCanonical") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The URL pointing to an externally maintained protocol, guideline, orderset or
     /// other definition that is adhered to in whole or in part by this
     /// FamilyMemberHistory.
     pub fn instantiates_uri(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("instantiatesUri") {
-            return Some(
+        match self.value.get("instantiatesUri") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The base language in which the resource is written.
@@ -541,10 +541,10 @@ impl FamilyMemberHistory<'_> {
     /// A code specifying the status of the record of the family history of a specific
     /// family member.
     pub fn status(&self) -> Option<FamilyMemberHistoryStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(FamilyMemberHistoryStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => FamilyMemberHistoryStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A human-readable narrative that contains a summary of the resource and can be

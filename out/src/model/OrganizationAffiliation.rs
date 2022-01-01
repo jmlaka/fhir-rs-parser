@@ -65,10 +65,10 @@ impl OrganizationAffiliation<'_> {
 
     /// Whether this organization affiliation record is in active use.
     pub fn active(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("active") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("active") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Definition of the role the participatingOrganization plays in the association.

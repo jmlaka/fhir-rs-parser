@@ -110,10 +110,10 @@ impl ValueSet_Filter<'_> {
 
     /// The kind of operation to perform as a part of the filter criteria.
     pub fn op(&self) -> Option<ValueSet_FilterOp> {
-        if let Some(Value::String(val)) = self.value.get("op") {
-            return Some(ValueSet_FilterOp::from_string(&val).unwrap());
+        match self.value.get("op") {
+            Some(Value::String(val)) => ValueSet_FilterOp::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A code that identifies a property or a filter defined in the code system.

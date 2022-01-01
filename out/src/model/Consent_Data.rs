@@ -66,10 +66,10 @@ impl Consent_Data<'_> {
 
     /// How the resource reference is interpreted when testing consent restrictions.
     pub fn meaning(&self) -> Option<Consent_DataMeaning> {
-        if let Some(Value::String(val)) = self.value.get("meaning") {
-            return Some(Consent_DataMeaning::from_string(&val).unwrap());
+        match self.value.get("meaning") {
+            Some(Value::String(val)) => Consent_DataMeaning::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

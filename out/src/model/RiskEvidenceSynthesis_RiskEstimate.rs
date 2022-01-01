@@ -70,10 +70,10 @@ impl RiskEvidenceSynthesis_RiskEstimate<'_> {
 
     /// The sample size for the group that was measured for this risk estimate.
     pub fn denominator_count(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("denominatorCount") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("denominatorCount") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Human-readable summary of risk estimate.
@@ -137,10 +137,10 @@ impl RiskEvidenceSynthesis_RiskEstimate<'_> {
 
     /// The number of group members with the outcome of interest.
     pub fn numerator_count(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("numeratorCount") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("numeratorCount") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// A description of the precision of the estimate for the effect.
@@ -179,10 +179,10 @@ impl RiskEvidenceSynthesis_RiskEstimate<'_> {
 
     /// The point estimate of the risk estimate.
     pub fn value(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("value") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("value") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

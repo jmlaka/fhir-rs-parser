@@ -420,10 +420,10 @@ impl StructureMap_Source<'_> {
 
     /// A value to use if there is no existing value in the source object.
     pub fn default_value_boolean(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("defaultValueBoolean") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("defaultValueBoolean") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// A value to use if there is no existing value in the source object.
@@ -530,10 +530,10 @@ impl StructureMap_Source<'_> {
 
     /// A value to use if there is no existing value in the source object.
     pub fn default_value_decimal(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("defaultValueDecimal") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("defaultValueDecimal") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// A value to use if there is no existing value in the source object.
@@ -614,10 +614,10 @@ impl StructureMap_Source<'_> {
 
     /// A value to use if there is no existing value in the source object.
     pub fn default_value_integer(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("defaultValueInteger") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("defaultValueInteger") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// A value to use if there is no existing value in the source object.
@@ -678,10 +678,10 @@ impl StructureMap_Source<'_> {
 
     /// A value to use if there is no existing value in the source object.
     pub fn default_value_positive_int(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("defaultValuePositiveInt") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("defaultValuePositiveInt") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// A value to use if there is no existing value in the source object.
@@ -792,10 +792,10 @@ impl StructureMap_Source<'_> {
 
     /// A value to use if there is no existing value in the source object.
     pub fn default_value_unsigned_int(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("defaultValueUnsignedInt") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("defaultValueUnsignedInt") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// A value to use if there is no existing value in the source object.
@@ -869,10 +869,10 @@ impl StructureMap_Source<'_> {
 
     /// How to handle the list mode for this element.
     pub fn list_mode(&self) -> Option<StructureMap_SourceListMode> {
-        if let Some(Value::String(val)) = self.value.get("listMode") {
-            return Some(StructureMap_SourceListMode::from_string(&val).unwrap());
+        match self.value.get("listMode") {
+            Some(Value::String(val)) => StructureMap_SourceListMode::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A FHIRPath expression which specifies a message to put in the transform log when
@@ -897,10 +897,10 @@ impl StructureMap_Source<'_> {
     /// Specified minimum cardinality for the element. This is optional; if present, it
     /// acts an implicit check on the input content.
     pub fn min(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("min") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("min") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

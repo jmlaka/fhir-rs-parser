@@ -117,18 +117,18 @@ impl EffectEvidenceSynthesis_SampleSize<'_> {
 
     /// Number of participants included in this evidence synthesis.
     pub fn number_of_participants(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("numberOfParticipants") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("numberOfParticipants") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Number of studies included in this evidence synthesis.
     pub fn number_of_studies(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("numberOfStudies") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("numberOfStudies") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

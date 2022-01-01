@@ -231,10 +231,10 @@ impl EnrollmentResponse<'_> {
 
     /// Processing status: error, complete.
     pub fn outcome(&self) -> Option<EnrollmentResponseOutcome> {
-        if let Some(Value::String(val)) = self.value.get("outcome") {
-            return Some(EnrollmentResponseOutcome::from_string(&val).unwrap());
+        match self.value.get("outcome") {
+            Some(Value::String(val)) => EnrollmentResponseOutcome::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Original request resource reference.

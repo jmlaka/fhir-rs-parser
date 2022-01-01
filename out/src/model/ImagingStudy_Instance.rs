@@ -112,10 +112,10 @@ impl ImagingStudy_Instance<'_> {
 
     /// The number of instance in the series.
     pub fn number(&self) -> Option<u64> {
-        if let Some(val) = self.value.get("number") {
-            return Some(val.as_u64().unwrap());
+        match self.value.get("number") {
+            Some(val) => val.as_u64(),
+            _ => None,
         }
-        return None;
     }
 
     /// DICOM instance  type.

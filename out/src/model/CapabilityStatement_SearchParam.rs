@@ -140,10 +140,10 @@ impl CapabilityStatement_SearchParam<'_> {
     /// The type of value a search parameter refers to, and how the content is
     /// interpreted.
     pub fn fhir_type(&self) -> Option<CapabilityStatement_SearchParamType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(CapabilityStatement_SearchParamType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => CapabilityStatement_SearchParamType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

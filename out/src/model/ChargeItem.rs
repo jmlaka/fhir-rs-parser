@@ -198,27 +198,27 @@ impl ChargeItem<'_> {
     /// References the source of pricing information, rules of application for the code
     /// this ChargeItem uses.
     pub fn definition_canonical(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("definitionCanonical") {
-            return Some(
+        match self.value.get("definitionCanonical") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// References the (external) source of pricing information, rules of application
     /// for the code this ChargeItem uses.
     pub fn definition_uri(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("definitionUri") {
-            return Some(
+        match self.value.get("definitionUri") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Date the charge item was entered.
@@ -259,10 +259,10 @@ impl ChargeItem<'_> {
 
     /// Factor overriding the factor determined by the rules associated with the code.
     pub fn factor_override(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("factorOverride") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("factorOverride") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The logical id of the resource, as used in the URL for the resource. Once
@@ -516,10 +516,10 @@ impl ChargeItem<'_> {
 
     /// The current state of the ChargeItem.
     pub fn status(&self) -> Option<ChargeItemStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(ChargeItemStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => ChargeItemStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The individual or set of individuals the action is being or was performed on.

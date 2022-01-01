@@ -90,10 +90,10 @@ impl Dosage<'_> {
     /// dosing schedule (Boolean option), or it indicates the precondition for taking
     /// the Medication (CodeableConcept).
     pub fn as_needed_boolean(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("asNeededBoolean") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("asNeededBoolean") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Indicates whether the Medication is only taken when needed within a specific
@@ -234,10 +234,10 @@ impl Dosage<'_> {
     /// Indicates the order in which the dosage instructions should be applied or
     /// interpreted.
     pub fn sequence(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("sequence") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("sequence") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Body site to administer to.

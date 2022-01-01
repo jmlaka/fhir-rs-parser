@@ -131,10 +131,10 @@ impl ExplanationOfBenefit_Procedure<'_> {
 
     /// A number to uniquely identify procedure entries.
     pub fn sequence(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("sequence") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("sequence") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// When the condition was observed or the relative ranking.

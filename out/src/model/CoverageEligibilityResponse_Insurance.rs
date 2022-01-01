@@ -87,10 +87,10 @@ impl CoverageEligibilityResponse_Insurance<'_> {
     /// Flag indicating if the coverage provided is inforce currently if no service
     /// date(s) specified or for the whole duration of the service dates.
     pub fn inforce(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("inforce") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("inforce") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Benefits and optionally current balances, and authorization details by category

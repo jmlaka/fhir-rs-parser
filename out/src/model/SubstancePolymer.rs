@@ -174,14 +174,14 @@ impl SubstancePolymer<'_> {
 
     /// Todo.
     pub fn modification(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("modification") {
-            return Some(
+        match self.value.get("modification") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

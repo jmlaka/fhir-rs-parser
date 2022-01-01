@@ -265,10 +265,10 @@ impl ValueSet<'_> {
     /// (or education/evaluation/marketing) and is not intended to be used for genuine
     /// usage.
     pub fn experimental(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("experimental") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("experimental") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -317,10 +317,10 @@ impl ValueSet<'_> {
     /// If this is set to 'true', then no new versions of the content logical definition
     /// can be created.  Note: Other metadata might still change.
     pub fn immutable(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("immutable") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("immutable") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// A reference to a set of rules that were followed when the resource was
@@ -425,10 +425,10 @@ impl ValueSet<'_> {
     /// (ValueSet.compose) and the associated ValueSet metadata. Expansions do not have
     /// a state.
     pub fn status(&self) -> Option<ValueSetStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(ValueSetStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => ValueSetStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// A human-readable narrative that contains a summary of the resource and can be

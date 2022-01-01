@@ -96,10 +96,10 @@ impl TerminologyCapabilities_Version<'_> {
 
     /// If the compositional grammar defined by the code system is supported.
     pub fn compositional(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("compositional") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("compositional") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -145,22 +145,22 @@ impl TerminologyCapabilities_Version<'_> {
 
     /// If this is the default version for this code system.
     pub fn is_default(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("isDefault") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("isDefault") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Language Displays supported.
     pub fn language(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("language") {
-            return Some(
+        match self.value.get("language") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -189,14 +189,14 @@ impl TerminologyCapabilities_Version<'_> {
 
     /// Properties supported for $lookup.
     pub fn property(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("property") {
-            return Some(
+        match self.value.get("property") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

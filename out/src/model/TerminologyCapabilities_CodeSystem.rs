@@ -90,10 +90,10 @@ impl TerminologyCapabilities_CodeSystem<'_> {
 
     /// True if subsumption is supported for this version of the code system.
     pub fn subsumption(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("subsumption") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("subsumption") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// URI for the Code System.

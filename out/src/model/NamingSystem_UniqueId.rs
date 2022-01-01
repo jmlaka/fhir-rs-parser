@@ -140,18 +140,18 @@ impl NamingSystem_UniqueId<'_> {
 
     /// Indicates whether this identifier is the "preferred" identifier of this type.
     pub fn preferred(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("preferred") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("preferred") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Identifies the unique identifier scheme used for this particular identifier.
     pub fn fhir_type(&self) -> Option<NamingSystem_UniqueIdType> {
-        if let Some(Value::String(val)) = self.value.get("type") {
-            return Some(NamingSystem_UniqueIdType::from_string(&val).unwrap());
+        match self.value.get("type") {
+            Some(Value::String(val)) => NamingSystem_UniqueIdType::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The string that should be sent over the wire to identify the code system or

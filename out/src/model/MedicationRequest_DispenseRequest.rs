@@ -133,10 +133,10 @@ impl MedicationRequest_DispenseRequest<'_> {
     /// 120 tablets.  A prescriber may explicitly say that zero refills are permitted
     /// after the initial dispense.
     pub fn number_of_repeats_allowed(&self) -> Option<u64> {
-        if let Some(val) = self.value.get("numberOfRepeatsAllowed") {
-            return Some(val.as_u64().unwrap());
+        match self.value.get("numberOfRepeatsAllowed") {
+            Some(val) => val.as_u64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Indicates the intended dispensing Organization specified by the prescriber.

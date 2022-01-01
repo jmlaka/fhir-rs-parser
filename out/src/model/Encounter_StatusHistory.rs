@@ -96,10 +96,10 @@ impl Encounter_StatusHistory<'_> {
 
     /// planned | arrived | triaged | in-progress | onleave | finished | cancelled +.
     pub fn status(&self) -> Option<Encounter_StatusHistoryStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(Encounter_StatusHistoryStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => Encounter_StatusHistoryStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

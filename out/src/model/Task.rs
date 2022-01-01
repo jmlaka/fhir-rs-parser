@@ -354,10 +354,10 @@ impl Task<'_> {
     /// Indicates the "level" of actionability associated with the Task, i.e. i+R[9]Cs
     /// this a proposed task, a planned task, an actionable task, etc.
     pub fn intent(&self) -> Option<TaskIntent> {
-        if let Some(Value::String(val)) = self.value.get("intent") {
-            return Some(TaskIntent::from_string(&val).unwrap());
+        match self.value.get("intent") {
+            Some(Value::String(val)) => TaskIntent::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The base language in which the resource is written.
@@ -558,10 +558,10 @@ impl Task<'_> {
 
     /// The current status of the task.
     pub fn status(&self) -> Option<TaskStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(TaskStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => TaskStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// An explanation as to why this task is held, failed, was refused, etc.

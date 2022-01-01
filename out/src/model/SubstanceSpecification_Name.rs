@@ -166,10 +166,10 @@ impl SubstanceSpecification_Name<'_> {
 
     /// If this is the preferred name for this substance.
     pub fn preferred(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("preferred") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("preferred") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Supporting literature.

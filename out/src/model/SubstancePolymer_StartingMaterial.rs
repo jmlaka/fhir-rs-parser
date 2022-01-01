@@ -75,10 +75,10 @@ impl SubstancePolymer_StartingMaterial<'_> {
 
     /// Todo.
     pub fn is_defining(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("isDefining") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("isDefining") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Todo.

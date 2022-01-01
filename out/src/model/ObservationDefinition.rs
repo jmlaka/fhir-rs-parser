@@ -257,10 +257,10 @@ impl ObservationDefinition<'_> {
     /// Multiple results allowed for observations conforming to this
     /// ObservationDefinition.
     pub fn multiple_results_allowed(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("multipleResultsAllowed") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("multipleResultsAllowed") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// The set of normal coded results for the observations conforming to this

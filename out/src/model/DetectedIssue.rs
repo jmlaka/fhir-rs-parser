@@ -334,10 +334,10 @@ impl DetectedIssue<'_> {
     /// Indicates the degree of importance associated with the identified issue based on
     /// the potential impact on the patient.
     pub fn severity(&self) -> Option<DetectedIssueSeverity> {
-        if let Some(Value::String(val)) = self.value.get("severity") {
-            return Some(DetectedIssueSeverity::from_string(&val).unwrap());
+        match self.value.get("severity") {
+            Some(Value::String(val)) => DetectedIssueSeverity::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Indicates the status of the detected issue.

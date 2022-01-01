@@ -334,10 +334,10 @@ impl ImagingStudy<'_> {
     /// security, or other factors. This element should be present if any instance
     /// elements are present.
     pub fn number_of_instances(&self) -> Option<u64> {
-        if let Some(val) = self.value.get("numberOfInstances") {
-            return Some(val.as_u64().unwrap());
+        match self.value.get("numberOfInstances") {
+            Some(val) => val.as_u64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Number of Series in the Study. This value given may be larger than the number of
@@ -345,10 +345,10 @@ impl ImagingStudy<'_> {
     /// or other factors. This element should be present if any series elements are
     /// present.
     pub fn number_of_series(&self) -> Option<u64> {
-        if let Some(val) = self.value.get("numberOfSeries") {
-            return Some(val.as_u64().unwrap());
+        match self.value.get("numberOfSeries") {
+            Some(val) => val.as_u64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The code for the performed procedure type.
@@ -437,10 +437,10 @@ impl ImagingStudy<'_> {
 
     /// The current state of the ImagingStudy.
     pub fn status(&self) -> Option<ImagingStudyStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(ImagingStudyStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => ImagingStudyStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The subject, typically a patient, of the imaging study.

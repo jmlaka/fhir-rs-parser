@@ -78,10 +78,10 @@ impl Goal_Target<'_> {
     /// value is missing, it indicates that the goal is achieved at any focus value at
     /// or above the low value.
     pub fn detail_boolean(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("detailBoolean") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("detailBoolean") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// The target value of the focus to be achieved to signify the fulfillment of the
@@ -106,10 +106,10 @@ impl Goal_Target<'_> {
     /// value is missing, it indicates that the goal is achieved at any focus value at
     /// or above the low value.
     pub fn detail_integer(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("detailInteger") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("detailInteger") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The target value of the focus to be achieved to signify the fulfillment of the

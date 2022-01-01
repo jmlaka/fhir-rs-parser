@@ -267,14 +267,14 @@ impl Provenance<'_> {
     /// have multiple applicable policy documents, such as patient consent, guarantor
     /// funding, etc.
     pub fn policy(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("policy") {
-            return Some(
+        match self.value.get("policy") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The reason that the activity was taking place.

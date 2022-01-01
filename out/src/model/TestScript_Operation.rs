@@ -205,20 +205,20 @@ impl TestScript_Operation<'_> {
     /// The server where the request message is destined for.  Must be one of the server
     /// numbers listed in TestScript.destination section.
     pub fn destination(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("destination") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("destination") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Whether or not to implicitly send the request url in encoded format. The default
     /// is true to match the standard RESTful client behavior. Set to false when
     /// communicating with a server that does not support encoded url paths.
     pub fn encode_request_url(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("encodeRequestUrl") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("encodeRequestUrl") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -259,10 +259,10 @@ impl TestScript_Operation<'_> {
     /// The HTTP method the test engine MUST use for this operation regardless of any
     /// other operation details.
     pub fn method(&self) -> Option<TestScript_OperationMethod> {
-        if let Some(Value::String(val)) = self.value.get("method") {
-            return Some(TestScript_OperationMethod::from_string(&val).unwrap());
+        match self.value.get("method") {
+            Some(Value::String(val)) => TestScript_OperationMethod::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -292,10 +292,10 @@ impl TestScript_Operation<'_> {
     /// The server where the request message originates from.  Must be one of the server
     /// numbers listed in TestScript.origin section.
     pub fn origin(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("origin") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("origin") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Path plus parameters after [type].  Used to set parts of the request URL

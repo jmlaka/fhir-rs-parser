@@ -155,10 +155,10 @@ impl Claim_SupportingInfo<'_> {
 
     /// A number to uniquely identify supporting information entries.
     pub fn sequence(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("sequence") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("sequence") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The date when or period to which this information refers.
@@ -193,10 +193,10 @@ impl Claim_SupportingInfo<'_> {
     /// Additional data or information such as resources, documents, images etc.
     /// including references to the data or the actual inclusion of the data.
     pub fn value_boolean(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("valueBoolean") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("valueBoolean") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Additional data or information such as resources, documents, images etc.

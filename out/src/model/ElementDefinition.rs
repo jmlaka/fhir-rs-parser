@@ -1016,14 +1016,14 @@ impl ElementDefinition<'_> {
 
     /// Identifies additional names by which this element might also be known.
     pub fn alias(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("alias") {
-            return Some(
+        match self.value.get("alias") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Information about the base definition of the element, provided to make it
@@ -1080,14 +1080,14 @@ impl ElementDefinition<'_> {
     /// A reference to an invariant that may make additional statements about the
     /// cardinality or value in the instance.
     pub fn condition(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("condition") {
-            return Some(
+        match self.value.get("condition") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Formal constraints such as co-occurrence and other constraints that can be
@@ -1172,10 +1172,10 @@ impl ElementDefinition<'_> {
     /// The value that should be used if there is no value stated in the instance (e.g.
     /// 'if not otherwise specified, the abstract is false').
     pub fn default_value_boolean(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("defaultValueBoolean") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("defaultValueBoolean") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// The value that should be used if there is no value stated in the instance (e.g.
@@ -1294,10 +1294,10 @@ impl ElementDefinition<'_> {
     /// The value that should be used if there is no value stated in the instance (e.g.
     /// 'if not otherwise specified, the abstract is false').
     pub fn default_value_decimal(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("defaultValueDecimal") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("defaultValueDecimal") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The value that should be used if there is no value stated in the instance (e.g.
@@ -1387,10 +1387,10 @@ impl ElementDefinition<'_> {
     /// The value that should be used if there is no value stated in the instance (e.g.
     /// 'if not otherwise specified, the abstract is false').
     pub fn default_value_integer(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("defaultValueInteger") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("defaultValueInteger") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The value that should be used if there is no value stated in the instance (e.g.
@@ -1458,10 +1458,10 @@ impl ElementDefinition<'_> {
     /// The value that should be used if there is no value stated in the instance (e.g.
     /// 'if not otherwise specified, the abstract is false').
     pub fn default_value_positive_int(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("defaultValuePositiveInt") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("defaultValuePositiveInt") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The value that should be used if there is no value stated in the instance (e.g.
@@ -1584,10 +1584,10 @@ impl ElementDefinition<'_> {
     /// The value that should be used if there is no value stated in the instance (e.g.
     /// 'if not otherwise specified, the abstract is false').
     pub fn default_value_unsigned_int(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("defaultValueUnsignedInt") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("defaultValueUnsignedInt") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The value that should be used if there is no value stated in the instance (e.g.
@@ -1742,10 +1742,10 @@ impl ElementDefinition<'_> {
     /// all values must be an exact match (case and accent sensitive). Missing
     /// elements/attributes must also be missing.
     pub fn fixed_boolean(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("fixedBoolean") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("fixedBoolean") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Specifies a value that SHALL be exactly the value  for this element in the
@@ -1888,10 +1888,10 @@ impl ElementDefinition<'_> {
     /// all values must be an exact match (case and accent sensitive). Missing
     /// elements/attributes must also be missing.
     pub fn fixed_decimal(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("fixedDecimal") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("fixedDecimal") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Specifies a value that SHALL be exactly the value  for this element in the
@@ -1999,10 +1999,10 @@ impl ElementDefinition<'_> {
     /// all values must be an exact match (case and accent sensitive). Missing
     /// elements/attributes must also be missing.
     pub fn fixed_integer(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("fixedInteger") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("fixedInteger") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Specifies a value that SHALL be exactly the value  for this element in the
@@ -2084,10 +2084,10 @@ impl ElementDefinition<'_> {
     /// all values must be an exact match (case and accent sensitive). Missing
     /// elements/attributes must also be missing.
     pub fn fixed_positive_int(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("fixedPositiveInt") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("fixedPositiveInt") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Specifies a value that SHALL be exactly the value  for this element in the
@@ -2234,10 +2234,10 @@ impl ElementDefinition<'_> {
     /// all values must be an exact match (case and accent sensitive). Missing
     /// elements/attributes must also be missing.
     pub fn fixed_unsigned_int(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("fixedUnsignedInt") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("fixedUnsignedInt") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Specifies a value that SHALL be exactly the value  for this element in the
@@ -2302,10 +2302,10 @@ impl ElementDefinition<'_> {
     /// recognize the element and process it, and/or a pre-determination has been made
     /// that it is not relevant to their particular system.
     pub fn is_modifier(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("isModifier") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("isModifier") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Explains how that element affects the interpretation of the resource or element
@@ -2320,10 +2320,10 @@ impl ElementDefinition<'_> {
     /// Whether the element should be included if a client requests a search with the
     /// parameter _summary=true.
     pub fn is_summary(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("isSummary") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("isSummary") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// A single preferred label which is the text to display beside the element
@@ -2363,10 +2363,10 @@ impl ElementDefinition<'_> {
     /// conformant instances and which is expected to be supported by conformant
     /// consumers that support the element.
     pub fn max_length(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("maxLength") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("maxLength") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The maximum allowed value for the element. The value is inclusive. This is
@@ -2393,10 +2393,10 @@ impl ElementDefinition<'_> {
     /// allowed for the types date, dateTime, instant, time, decimal, integer, and
     /// Quantity.
     pub fn max_value_decimal(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("maxValueDecimal") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("maxValueDecimal") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The maximum allowed value for the element. The value is inclusive. This is
@@ -2413,20 +2413,20 @@ impl ElementDefinition<'_> {
     /// allowed for the types date, dateTime, instant, time, decimal, integer, and
     /// Quantity.
     pub fn max_value_integer(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("maxValueInteger") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("maxValueInteger") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The maximum allowed value for the element. The value is inclusive. This is
     /// allowed for the types date, dateTime, instant, time, decimal, integer, and
     /// Quantity.
     pub fn max_value_positive_int(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("maxValuePositiveInt") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("maxValuePositiveInt") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The maximum allowed value for the element. The value is inclusive. This is
@@ -2455,10 +2455,10 @@ impl ElementDefinition<'_> {
     /// allowed for the types date, dateTime, instant, time, decimal, integer, and
     /// Quantity.
     pub fn max_value_unsigned_int(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("maxValueUnsignedInt") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("maxValueUnsignedInt") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The Implicit meaning that is to be understood when this element is missing (e.g.
@@ -2472,10 +2472,10 @@ impl ElementDefinition<'_> {
 
     /// The minimum number of times this element SHALL appear in the instance.
     pub fn min(&self) -> Option<u64> {
-        if let Some(val) = self.value.get("min") {
-            return Some(val.as_u64().unwrap());
+        match self.value.get("min") {
+            Some(val) => val.as_u64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The minimum allowed value for the element. The value is inclusive. This is
@@ -2502,10 +2502,10 @@ impl ElementDefinition<'_> {
     /// allowed for the types date, dateTime, instant, time, decimal, integer, and
     /// Quantity.
     pub fn min_value_decimal(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("minValueDecimal") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("minValueDecimal") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The minimum allowed value for the element. The value is inclusive. This is
@@ -2522,20 +2522,20 @@ impl ElementDefinition<'_> {
     /// allowed for the types date, dateTime, instant, time, decimal, integer, and
     /// Quantity.
     pub fn min_value_integer(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("minValueInteger") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("minValueInteger") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The minimum allowed value for the element. The value is inclusive. This is
     /// allowed for the types date, dateTime, instant, time, decimal, integer, and
     /// Quantity.
     pub fn min_value_positive_int(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("minValuePositiveInt") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("minValuePositiveInt") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// The minimum allowed value for the element. The value is inclusive. This is
@@ -2564,10 +2564,10 @@ impl ElementDefinition<'_> {
     /// allowed for the types date, dateTime, instant, time, decimal, integer, and
     /// Quantity.
     pub fn min_value_unsigned_int(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("minValueUnsignedInt") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("minValueUnsignedInt") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -2599,10 +2599,10 @@ impl ElementDefinition<'_> {
     /// ignored and not supported. If false, whether to populate or use the data element
     /// in any way is at the discretion of the implementation.
     pub fn must_support(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("mustSupport") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("mustSupport") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// If present, indicates that the order of the repeating element has meaning and
@@ -2740,10 +2740,10 @@ impl ElementDefinition<'_> {
     /// value  2. If a complex object: it must match (recursively) the pattern value  3.
     /// If an array: it must match (recursively) the pattern value.
     pub fn pattern_boolean(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("patternBoolean") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("patternBoolean") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Specifies a value that the value in the instance SHALL follow - that is, any
@@ -2982,10 +2982,10 @@ impl ElementDefinition<'_> {
     /// value  2. If a complex object: it must match (recursively) the pattern value  3.
     /// If an array: it must match (recursively) the pattern value.
     pub fn pattern_decimal(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("patternDecimal") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("patternDecimal") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3165,10 +3165,10 @@ impl ElementDefinition<'_> {
     /// value  2. If a complex object: it must match (recursively) the pattern value  3.
     /// If an array: it must match (recursively) the pattern value.
     pub fn pattern_integer(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("patternInteger") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("patternInteger") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3306,10 +3306,10 @@ impl ElementDefinition<'_> {
     /// value  2. If a complex object: it must match (recursively) the pattern value  3.
     /// If an array: it must match (recursively) the pattern value.
     pub fn pattern_positive_int(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("patternPositiveInt") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("patternPositiveInt") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3552,10 +3552,10 @@ impl ElementDefinition<'_> {
     /// value  2. If a complex object: it must match (recursively) the pattern value  3.
     /// If an array: it must match (recursively) the pattern value.
     pub fn pattern_unsigned_int(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("patternUnsignedInt") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("patternUnsignedInt") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Specifies a value that the value in the instance SHALL follow - that is, any
@@ -3661,10 +3661,10 @@ impl ElementDefinition<'_> {
     /// might not be overriding a slice in an inherited profile, depending on the
     /// sliceName.
     pub fn slice_is_constraining(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("sliceIsConstraining") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("sliceIsConstraining") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// The name of this element definition slice, when slicing is working. The name

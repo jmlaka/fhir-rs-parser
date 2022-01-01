@@ -305,10 +305,10 @@ impl DocumentManifest<'_> {
 
     /// The status of this document manifest.
     pub fn status(&self) -> Option<DocumentManifestStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(DocumentManifestStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => DocumentManifestStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Who or what the set of documents is about. The documents can be about a person,

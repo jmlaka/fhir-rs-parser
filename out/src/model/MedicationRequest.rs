@@ -245,10 +245,10 @@ impl MedicationRequest<'_> {
     /// If true indicates that the provider is asking for the medication request not to
     /// occur.
     pub fn do_not_perform(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("doNotPerform") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("doNotPerform") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Indicates how the medication is to be used by the patient.
@@ -364,28 +364,28 @@ impl MedicationRequest<'_> {
     /// The URL pointing to a protocol, guideline, orderset, or other definition that is
     /// adhered to in whole or in part by this MedicationRequest.
     pub fn instantiates_canonical(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("instantiatesCanonical") {
-            return Some(
+        match self.value.get("instantiatesCanonical") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The URL pointing to an externally maintained protocol, guideline, orderset or
     /// other definition that is adhered to in whole or in part by this
     /// MedicationRequest.
     pub fn instantiates_uri(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("instantiatesUri") {
-            return Some(
+        match self.value.get("instantiatesUri") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Insurance plans, coverage extensions, pre-authorizations and/or pre-
@@ -581,10 +581,10 @@ impl MedicationRequest<'_> {
     /// than as an original primary source-of-truth record.  It may also indicate the
     /// source of the report.
     pub fn reported_boolean(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("reportedBoolean") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("reportedBoolean") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Indicates if this record was captured as a secondary 'reported' record rather

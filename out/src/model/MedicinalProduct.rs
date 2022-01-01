@@ -414,14 +414,14 @@ impl MedicinalProduct<'_> {
     /// Whether the Medicinal Product is subject to special measures for regulatory
     /// reasons.
     pub fn special_measures(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("specialMeasures") {
-            return Some(
+        match self.value.get("specialMeasures") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// A human-readable narrative that contains a summary of the resource and can be

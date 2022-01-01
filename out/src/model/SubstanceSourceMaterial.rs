@@ -190,14 +190,14 @@ impl SubstanceSourceMaterial<'_> {
     /// The place/region where the plant is harvested or the places/regions where the
     /// animal source material has its habitat.
     pub fn geographical_location(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("geographicalLocation") {
-            return Some(
+        match self.value.get("geographicalLocation") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The logical id of the resource, as used in the URL for the resource. Once
@@ -315,14 +315,14 @@ impl SubstanceSourceMaterial<'_> {
 
     /// The parent substance of the Herbal Drug, or Herbal preparation.
     pub fn parent_substance_name(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("parentSubstanceName") {
-            return Some(
+        match self.value.get("parentSubstanceName") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// To do.

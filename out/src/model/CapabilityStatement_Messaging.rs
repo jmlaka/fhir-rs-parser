@@ -128,10 +128,10 @@ impl CapabilityStatement_Messaging<'_> {
     /// Length if the receiver's reliable messaging cache in minutes (if a receiver) or
     /// how long the cache length on the receiver should be (if a sender).
     pub fn reliable_cache(&self) -> Option<u64> {
-        if let Some(val) = self.value.get("reliableCache") {
-            return Some(val.as_u64().unwrap());
+        match self.value.get("reliableCache") {
+            Some(val) => val.as_u64(),
+            _ => None,
         }
-        return None;
     }
 
     /// References to message definitions for messages this system can send or receive.

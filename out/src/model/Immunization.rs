@@ -265,10 +265,10 @@ impl Immunization<'_> {
     /// Indication if a dose is considered to be subpotent. By default, a dose should be
     /// considered to be potent.
     pub fn is_subpotent(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("isSubpotent") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("isSubpotent") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// The base language in which the resource is written.
@@ -400,10 +400,10 @@ impl Immunization<'_> {
     /// person who administered the vaccine. This reflects the context under which the
     /// data was originally recorded.
     pub fn primary_source(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("primarySource") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("primarySource") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Indicates a patient's eligibility for a funding program.

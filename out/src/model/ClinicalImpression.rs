@@ -411,14 +411,14 @@ impl ClinicalImpression<'_> {
     /// Reference to a specific published clinical protocol that was followed during
     /// this assessment, and/or that provides evidence in support of the diagnosis.
     pub fn protocol(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("protocol") {
-            return Some(
+        match self.value.get("protocol") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Identifies the workflow status of the assessment.

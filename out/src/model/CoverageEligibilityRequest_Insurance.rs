@@ -88,10 +88,10 @@ impl CoverageEligibilityRequest_Insurance<'_> {
     /// A flag to indicate that this Coverage is to be used for evaluation of this
     /// request when set to true.
     pub fn focal(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("focal") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("focal") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Unique id for the element within a resource (for internal references). This may

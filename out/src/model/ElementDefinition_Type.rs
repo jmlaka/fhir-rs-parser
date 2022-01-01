@@ -128,14 +128,14 @@ impl ElementDefinition_Type<'_> {
     /// specified, the type SHALL conform to at least one profile defined in the
     /// implementation guide.
     pub fn profile(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("profile") {
-            return Some(
+        match self.value.get("profile") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Used when the type is "Reference" or "canonical", and identifies a profile
@@ -147,23 +147,23 @@ impl ElementDefinition_Type<'_> {
     /// specified, the target resource SHALL conform to at least one profile defined in
     /// the implementation guide.
     pub fn target_profile(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("targetProfile") {
-            return Some(
+        match self.value.get("targetProfile") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Whether this reference needs to be version specific or version independent, or
     /// whether either can be used.
     pub fn versioning(&self) -> Option<ElementDefinition_TypeVersioning> {
-        if let Some(Value::String(val)) = self.value.get("versioning") {
-            return Some(ElementDefinition_TypeVersioning::from_string(&val).unwrap());
+        match self.value.get("versioning") {
+            Some(Value::String(val)) => ElementDefinition_TypeVersioning::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

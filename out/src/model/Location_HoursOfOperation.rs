@@ -72,10 +72,10 @@ impl Location_HoursOfOperation<'_> {
 
     /// The Location is open all day.
     pub fn all_day(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("allDay") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("allDay") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// Time that the Location closes.
@@ -88,14 +88,14 @@ impl Location_HoursOfOperation<'_> {
 
     /// Indicates which days of the week are available between the start and end Times.
     pub fn days_of_week(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("daysOfWeek") {
-            return Some(
+        match self.value.get("daysOfWeek") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

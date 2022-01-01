@@ -72,10 +72,10 @@ impl CapabilityStatement_SupportedMessage<'_> {
 
     /// The mode of this event declaration - whether application is sender or receiver.
     pub fn mode(&self) -> Option<CapabilityStatement_SupportedMessageMode> {
-        if let Some(Value::String(val)) = self.value.get("mode") {
-            return Some(CapabilityStatement_SupportedMessageMode::from_string(&val).unwrap());
+        match self.value.get("mode") {
+            Some(Value::String(val)) => CapabilityStatement_SupportedMessageMode::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

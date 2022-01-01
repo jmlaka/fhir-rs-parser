@@ -256,10 +256,12 @@ impl BiologicallyDerivedProduct<'_> {
 
     /// Broad category of this product.
     pub fn product_category(&self) -> Option<BiologicallyDerivedProductProductCategory> {
-        if let Some(Value::String(val)) = self.value.get("productCategory") {
-            return Some(BiologicallyDerivedProductProductCategory::from_string(&val).unwrap());
+        match self.value.get("productCategory") {
+            Some(Value::String(val)) => {
+                BiologicallyDerivedProductProductCategory::from_string(&val)
+            }
+            _ => None,
         }
-        return None;
     }
 
     /// A code that identifies the kind of this biologically derived product (SNOMED
@@ -275,10 +277,10 @@ impl BiologicallyDerivedProduct<'_> {
 
     /// Number of discrete units within this product.
     pub fn quantity(&self) -> Option<i64> {
-        if let Some(val) = self.value.get("quantity") {
-            return Some(val.as_i64().unwrap());
+        match self.value.get("quantity") {
+            Some(val) => val.as_i64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Procedure request to obtain this biologically derived product.
@@ -297,10 +299,10 @@ impl BiologicallyDerivedProduct<'_> {
 
     /// Whether the product is currently available.
     pub fn status(&self) -> Option<BiologicallyDerivedProductStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(BiologicallyDerivedProductStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => BiologicallyDerivedProductStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Product storage.

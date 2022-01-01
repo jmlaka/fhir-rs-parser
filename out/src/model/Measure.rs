@@ -378,14 +378,14 @@ impl Measure<'_> {
 
     /// Provides a description of an individual term used within the measure.
     pub fn definition(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("definition") {
-            return Some(
+        match self.value.get("definition") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// A free text natural language description of the measure from a consumer's
@@ -451,10 +451,10 @@ impl Measure<'_> {
     /// (or education/evaluation/marketing) and is not intended to be used for genuine
     /// usage.
     pub fn experimental(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("experimental") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("experimental") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -580,14 +580,14 @@ impl Measure<'_> {
     /// A reference to a Library resource containing the formal logic used by the
     /// measure.
     pub fn library(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("library") {
-            return Some(
+        match self.value.get("library") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The metadata about the resource. This is content that is maintained by the
@@ -727,10 +727,10 @@ impl Measure<'_> {
 
     /// The status of this measure. Enables tracking the life-cycle of the content.
     pub fn status(&self) -> Option<MeasureStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(MeasureStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => MeasureStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The intended subjects for the measure. If this element is not provided, a

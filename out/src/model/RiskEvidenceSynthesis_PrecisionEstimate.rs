@@ -77,10 +77,10 @@ impl RiskEvidenceSynthesis_PrecisionEstimate<'_> {
 
     /// Lower bound of confidence interval.
     pub fn from(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("from") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("from") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Unique id for the element within a resource (for internal references). This may
@@ -94,10 +94,10 @@ impl RiskEvidenceSynthesis_PrecisionEstimate<'_> {
 
     /// Use 95 for a 95% confidence interval.
     pub fn level(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("level") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("level") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -126,10 +126,10 @@ impl RiskEvidenceSynthesis_PrecisionEstimate<'_> {
 
     /// Upper bound of confidence interval.
     pub fn to(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("to") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("to") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Examples include confidence interval and interquartile range.

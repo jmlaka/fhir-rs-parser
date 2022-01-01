@@ -72,10 +72,10 @@ impl Patient_Contact<'_> {
     /// Administrative Gender - the gender that the contact person is considered to have
     /// for administration and record keeping purposes.
     pub fn gender(&self) -> Option<Patient_ContactGender> {
-        if let Some(Value::String(val)) = self.value.get("gender") {
-            return Some(Patient_ContactGender::from_string(&val).unwrap());
+        match self.value.get("gender") {
+            Some(Value::String(val)) => Patient_ContactGender::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Unique id for the element within a resource (for internal references). This may

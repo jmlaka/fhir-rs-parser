@@ -207,10 +207,10 @@ impl ImagingStudy_Series<'_> {
 
     /// The numeric identifier of this series in the study.
     pub fn number(&self) -> Option<u64> {
-        if let Some(val) = self.value.get("number") {
-            return Some(val.as_u64().unwrap());
+        match self.value.get("number") {
+            Some(val) => val.as_u64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Number of SOP Instances in the Study. The value given may be larger than the
@@ -218,10 +218,10 @@ impl ImagingStudy_Series<'_> {
     /// security, or other factors. This element should be present if any instance
     /// elements are present.
     pub fn number_of_instances(&self) -> Option<u64> {
-        if let Some(val) = self.value.get("numberOfInstances") {
-            return Some(val.as_u64().unwrap());
+        match self.value.get("numberOfInstances") {
+            Some(val) => val.as_u64(),
+            _ => None,
         }
-        return None;
     }
 
     /// Indicates who or what performed the series and how they were involved.

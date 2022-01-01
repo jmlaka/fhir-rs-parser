@@ -75,10 +75,10 @@ impl Bundle_Search<'_> {
     /// because of an _include requirement, or to convey information or warning
     /// information about the search process.
     pub fn mode(&self) -> Option<Bundle_SearchMode> {
-        if let Some(Value::String(val)) = self.value.get("mode") {
-            return Some(Bundle_SearchMode::from_string(&val).unwrap());
+        match self.value.get("mode") {
+            Some(Value::String(val)) => Bundle_SearchMode::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -107,10 +107,10 @@ impl Bundle_Search<'_> {
 
     /// When searching, the server's search ranking score for the entry.
     pub fn score(&self) -> Option<f64> {
-        if let Some(val) = self.value.get("score") {
-            return Some(val.as_f64().unwrap());
+        match self.value.get("score") {
+            Some(val) => val.as_f64(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

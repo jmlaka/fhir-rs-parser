@@ -157,14 +157,14 @@ impl Contract<'_> {
     /// derivative, or instance in any legal state., e.g., a domain specific contract
     /// number related to legislation.
     pub fn alias(&self) -> Option<Vec<&str>> {
-        if let Some(Value::Array(val)) = self.value.get("alias") {
-            return Some(
+        match self.value.get("alias") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_str().unwrap())
+                    .filter_map(|e| e.as_str())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Relevant time or time-period when this Contract is applicable.

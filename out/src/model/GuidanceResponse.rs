@@ -388,10 +388,10 @@ impl GuidanceResponse<'_> {
     /// data was available, the status will be data-requested, and the response will
     /// contain a description of the additional requested information.
     pub fn status(&self) -> Option<GuidanceResponseStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(GuidanceResponseStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => GuidanceResponseStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The patient for which the request was processed.

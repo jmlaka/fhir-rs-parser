@@ -484,10 +484,10 @@ impl Device<'_> {
 
     /// Status of the Device availability.
     pub fn status(&self) -> Option<DeviceStatus> {
-        if let Some(Value::String(val)) = self.value.get("status") {
-            return Some(DeviceStatus::from_string(&val).unwrap());
+        match self.value.get("status") {
+            Some(Value::String(val)) => DeviceStatus::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Reason for the dtatus of the Device availability.

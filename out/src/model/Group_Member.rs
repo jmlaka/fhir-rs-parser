@@ -77,10 +77,10 @@ impl Group_Member<'_> {
     /// A flag to indicate that the member is no longer in the group, but previously may
     /// have been a member.
     pub fn inactive(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("inactive") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("inactive") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic

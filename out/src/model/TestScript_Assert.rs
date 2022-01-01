@@ -294,10 +294,10 @@ impl TestScript_Assert<'_> {
 
     /// The direction to use for the assertion.
     pub fn direction(&self) -> Option<TestScript_AssertDirection> {
-        if let Some(Value::String(val)) = self.value.get("direction") {
-            return Some(TestScript_AssertDirection::from_string(&val).unwrap());
+        match self.value.get("direction") {
+            Some(Value::String(val)) => TestScript_AssertDirection::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The FHIRPath expression to be evaluated against the request or response message
@@ -388,19 +388,19 @@ impl TestScript_Assert<'_> {
     /// Whether or not the test execution performs validation on the bundle navigation
     /// links.
     pub fn navigation_links(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("navigationLinks") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("navigationLinks") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     /// The operator type defines the conditional behavior of the assert. If not
     /// defined, the default is equals.
     pub fn operator(&self) -> Option<TestScript_AssertOperator> {
-        if let Some(Value::String(val)) = self.value.get("operator") {
-            return Some(TestScript_AssertOperator::from_string(&val).unwrap());
+        match self.value.get("operator") {
+            Some(Value::String(val)) => TestScript_AssertOperator::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The XPath or JSONPath expression to be evaluated against the fixture
@@ -415,10 +415,10 @@ impl TestScript_Assert<'_> {
     /// The request method or HTTP operation code to compare against that used by the
     /// client system under test.
     pub fn request_method(&self) -> Option<TestScript_AssertRequestMethod> {
-        if let Some(Value::String(val)) = self.value.get("requestMethod") {
-            return Some(TestScript_AssertRequestMethod::from_string(&val).unwrap());
+        match self.value.get("requestMethod") {
+            Some(Value::String(val)) => TestScript_AssertRequestMethod::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The value to use in a comparison against the request URL path string.
@@ -440,10 +440,10 @@ impl TestScript_Assert<'_> {
     /// okay | created | noContent | notModified | bad | forbidden | notFound |
     /// methodNotAllowed | conflict | gone | preconditionFailed | unprocessable.
     pub fn response(&self) -> Option<TestScript_AssertResponse> {
-        if let Some(Value::String(val)) = self.value.get("response") {
-            return Some(TestScript_AssertResponse::from_string(&val).unwrap());
+        match self.value.get("response") {
+            Some(Value::String(val)) => TestScript_AssertResponse::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// The value of the HTTP response code to be tested.
@@ -481,10 +481,10 @@ impl TestScript_Assert<'_> {
     /// Whether or not the test execution will produce a warning only on error for this
     /// assert.
     pub fn warning_only(&self) -> Option<bool> {
-        if let Some(val) = self.value.get("warningOnly") {
-            return Some(val.as_bool().unwrap());
+        match self.value.get("warningOnly") {
+            Some(val) => val.as_bool(),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

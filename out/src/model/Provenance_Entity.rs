@@ -114,10 +114,10 @@ impl Provenance_Entity<'_> {
 
     /// How the entity was used during the activity.
     pub fn role(&self) -> Option<Provenance_EntityRole> {
-        if let Some(Value::String(val)) = self.value.get("role") {
-            return Some(Provenance_EntityRole::from_string(&val).unwrap());
+        match self.value.get("role") {
+            Some(Value::String(val)) => Provenance_EntityRole::from_string(&val),
+            _ => None,
         }
-        return None;
     }
 
     /// Identity of the  Entity used. May be a logical or physical uri and maybe
