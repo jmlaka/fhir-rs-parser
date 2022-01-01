@@ -1,25 +1,5 @@
-extern crate serde;
-extern crate serde_json;
-
 pub mod model;
-
-use serde_json::Result;
-use std::borrow::Cow;
-
-pub fn fhir_parse(string: &str) -> Option<crate::model::ResourceList::ResourceList> {
-  let parsed: Result<serde_json::value::Value> = serde_json::from_str(string);
-  match parsed {
-    Ok(value) => {
-      let resource = crate::model::ResourceList::ResourceList {
-        value: Cow::Owned(value),
-      };
-      return Some(resource);
-    }
-    Err(_) => {
-      return None;
-    }
-  }
-}
+pub mod parser;
 
 #[cfg(test)]
 mod tests {
@@ -42,7 +22,7 @@ mod tests {
       let schema_contents =
         fs::read_to_string(&unwrapped_path).expect("Something went wrong reading the file");
       let string_parse_begin = Instant::now();
-      let resource = crate::fhir_parse(&schema_contents).unwrap();
+      let resource = crate::parser::fhir_parse(&schema_contents).unwrap();
       println!(
         "Parsed resource {}: {}us",
         &unwrapped_path.to_str().unwrap(),
@@ -87,7 +67,7 @@ mod tests {
   fn test_mutate_json() {
     let schema_contents = fs::read_to_string("examples-json/visionprescription-example.json")
       .expect("Something went wrong reading the file");
-    let resource = crate::fhir_parse(&schema_contents).unwrap();
+    let resource = crate::parser::fhir_parse(&schema_contents).unwrap();
     if let Some(ResourceList::ResourceListEnum::ResourceVisionPrescription(vision_prescription)) =
       resource.resource()
     {
