@@ -106,16 +106,17 @@ impl AllergyIntolerance_Reaction<'_> {
     /// Clinical symptoms and/or signs that are observed or associated with the adverse
     /// reaction event.
     pub fn manifestation(&self) -> Vec<CodeableConcept> {
-        self.value
-            .get("manifestation")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| CodeableConcept {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("manifestation") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| CodeableConcept {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// May be used to represent additional information that is not part of the basic

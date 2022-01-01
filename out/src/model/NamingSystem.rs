@@ -356,16 +356,17 @@ impl NamingSystem<'_> {
     /// Indicates how the system may be identified when referenced in electronic
     /// exchange.
     pub fn unique_id(&self) -> Vec<NamingSystem_UniqueId> {
-        self.value
-            .get("uniqueId")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| NamingSystem_UniqueId {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("uniqueId") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| NamingSystem_UniqueId {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// Provides guidance on the use of the namespace, including the handling of

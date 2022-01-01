@@ -55,16 +55,17 @@ impl ClaimResponse_Item<'_> {
     /// of the detail items. If this item is a simple product or service then this is
     /// the result of the adjudication of this item.
     pub fn adjudication(&self) -> Vec<ClaimResponse_Adjudication> {
-        self.value
-            .get("adjudication")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| ClaimResponse_Adjudication {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("adjudication") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| ClaimResponse_Adjudication {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// A claim detail. Either a simple (a product or service) or a 'group' of sub-

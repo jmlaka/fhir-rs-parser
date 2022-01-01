@@ -308,16 +308,17 @@ impl Endpoint<'_> {
     /// The payload type describes the acceptable content that can be communicated on
     /// the endpoint.
     pub fn payload_type(&self) -> Vec<CodeableConcept> {
-        self.value
-            .get("payloadType")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| CodeableConcept {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("payloadType") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| CodeableConcept {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// The interval during which the endpoint is expected to be operational.

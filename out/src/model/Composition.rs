@@ -119,16 +119,17 @@ impl Composition<'_> {
     /// Identifies who is responsible for the information in the composition, not
     /// necessarily who typed it in.
     pub fn author(&self) -> Vec<Reference> {
-        self.value
-            .get("author")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| Reference {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("author") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| Reference {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// A categorization for the type of the composition - helps for indexing and

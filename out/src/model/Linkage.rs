@@ -138,16 +138,17 @@ impl Linkage<'_> {
     /// occurrence as well as how the items should be evaluated within the collection of
     /// linked items.
     pub fn item(&self) -> Vec<Linkage_Item> {
-        self.value
-            .get("item")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| Linkage_Item {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("item") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| Linkage_Item {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// The base language in which the resource is written.

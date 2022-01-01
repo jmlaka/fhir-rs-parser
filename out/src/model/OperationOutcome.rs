@@ -105,16 +105,17 @@ impl OperationOutcome<'_> {
 
     /// An error, warning, or information message that results from a system action.
     pub fn issue(&self) -> Vec<OperationOutcome_Issue> {
-        self.value
-            .get("issue")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| OperationOutcome_Issue {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("issue") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| OperationOutcome_Issue {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// The base language in which the resource is written.

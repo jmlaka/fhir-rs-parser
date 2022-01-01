@@ -83,16 +83,17 @@ impl Schedule<'_> {
     /// Slots that reference this schedule resource provide the availability details to
     /// these referenced resource(s).
     pub fn actor(&self) -> Vec<Reference> {
-        self.value
-            .get("actor")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| Reference {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("actor") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| Reference {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// Comments on the availability to describe any extended information. Such as

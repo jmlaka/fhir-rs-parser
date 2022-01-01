@@ -27,16 +27,17 @@ impl MedicationKnowledge_Dosage<'_> {
 
     /// Dosage for the medication for the specific guidelines.
     pub fn dosage(&self) -> Vec<Dosage> {
-        self.value
-            .get("dosage")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| Dosage {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("dosage") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| Dosage {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// May be used to represent additional information that is not part of the basic

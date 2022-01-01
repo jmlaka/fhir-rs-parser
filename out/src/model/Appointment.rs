@@ -350,16 +350,17 @@ impl Appointment<'_> {
 
     /// List of participants involved in the appointment.
     pub fn participant(&self) -> Vec<Appointment_Participant> {
-        self.value
-            .get("participant")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| Appointment_Participant {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("participant") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| Appointment_Participant {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// While Appointment.comment contains information for internal use,

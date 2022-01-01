@@ -310,16 +310,17 @@ impl Coverage<'_> {
     /// The program or plan underwriter or payor including both insurance and non-
     /// insurance agreements, such as patient-pay agreements.
     pub fn payor(&self) -> Vec<Reference> {
-        self.value
-            .get("payor")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| Reference {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("payor") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| Reference {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// Time period during which the coverage is in force. A missing start date

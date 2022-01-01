@@ -847,20 +847,25 @@ fn write_property(
         if type_definition.name == "&str" {
           inner_string.push_str("    match self.value.get(\"");
           inner_string.push_str(&property_name);
-          inner_string
-            .push_str("\") {\n      Some(Value::Array(val)) => Some(val.into_iter()
+          inner_string.push_str(
+            "\") {\n      Some(Value::Array(val)) => Some(val.into_iter()
                   .filter_map(|e| e.as_str())\n
                   .collect::<Vec<_>>(),\n
-          ),\n _ => None\n}");
+          ),\n _ => None\n}",
+          );
         } else {
           inner_string.push_str("    match self.value.get(\"");
           inner_string.push_str(&property_name);
-          inner_string.push_str("\") {\n      Some(Value::Array(val)) => Some(val.into_iter()
-                  .filter_map(|e| e.as_");
-          inner_string.push_str(&type_definition.name);        
-          inner_string.push_str(        "())\n
+          inner_string.push_str(
+            "\") {\n      Some(Value::Array(val)) => Some(val.into_iter()
+                  .filter_map(|e| e.as_",
+          );
+          inner_string.push_str(&type_definition.name);
+          inner_string.push_str(
+            "())\n
                   .collect::<Vec<_>>(),\n
-          ),\n _ => None\n}");
+          ),\n _ => None\n}",
+          );
         }
       }
     } else {
@@ -872,11 +877,18 @@ fn write_property(
           inner_string.push_str(&type_definition.name);
           inner_string.push_str("::from_string(&e).unwrap()).collect::<Vec<_>>()\n");
         } else {
-          inner_string.push_str("    self.value.get(\"");
+          inner_string.push_str("if let Some(val) = self.value.get(\"");
           inner_string.push_str(&property_name);
-          inner_string.push_str("\").unwrap().as_array().unwrap().into_iter().map(|e| ");
+          inner_string.push_str(
+            "\"){\n   if let Some(arr) = val.as_array(){
+            return arr.into_iter()
+            .map(|e| ",
+          );
           inner_string.push_str(&type_definition.name);
-          inner_string.push_str(" { value: Cow::Borrowed(e) }).collect::<Vec<_>>()\n");
+          inner_string.push_str(
+            " { value: Cow::Borrowed(e),
+            }).collect::<Vec<_>>(); } } return Vec::new()\n",
+          );
         }
       } else {
         if type_definition.string_enum {

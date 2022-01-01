@@ -416,16 +416,17 @@ impl ExplanationOfBenefit<'_> {
     /// Financial instruments for reimbursement for the health care products and
     /// services specified on the claim.
     pub fn insurance(&self) -> Vec<ExplanationOfBenefit_Insurance> {
-        self.value
-            .get("insurance")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| ExplanationOfBenefit_Insurance {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("insurance") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| ExplanationOfBenefit_Insurance {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// The party responsible for authorization, adjudication and reimbursement.

@@ -604,16 +604,17 @@ impl EventDefinition<'_> {
     /// condition is specified, the event fires whenever any one of the trigger
     /// conditions is met.
     pub fn trigger(&self) -> Vec<TriggerDefinition> {
-        self.value
-            .get("trigger")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| TriggerDefinition {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("trigger") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| TriggerDefinition {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// An absolute URI that is used to identify this event definition when it is

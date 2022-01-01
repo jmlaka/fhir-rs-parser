@@ -105,16 +105,17 @@ impl ValueSet_Compose<'_> {
 
     /// Include one or more codes from a code system or other value set(s).
     pub fn include(&self) -> Vec<ValueSet_Include> {
-        self.value
-            .get("include")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| ValueSet_Include {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("include") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| ValueSet_Include {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// The Locked Date is  the effective date that is used to determine the version of

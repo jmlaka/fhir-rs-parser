@@ -110,16 +110,17 @@ impl Provenance<'_> {
     /// An actor taking a role in an activity  for which it can be assigned some degree
     /// of responsibility for the activity taking place.
     pub fn agent(&self) -> Vec<Provenance_Agent> {
-        self.value
-            .get("agent")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| Provenance_Agent {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("agent") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| Provenance_Agent {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// These resources do not have an independent existence apart from the resource
@@ -318,16 +319,17 @@ impl Provenance<'_> {
     /// this resource. A provenance can point to more than one target if multiple
     /// resources were created/updated by the same activity.
     pub fn target(&self) -> Vec<Reference> {
-        self.value
-            .get("target")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| Reference {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("target") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| Reference {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// A human-readable narrative that contains a summary of the resource and can be

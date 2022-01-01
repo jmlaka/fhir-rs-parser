@@ -106,16 +106,17 @@ impl AuditEvent<'_> {
 
     /// An actor taking an active role in the event or activity that is logged.
     pub fn agent(&self) -> Vec<AuditEvent_Agent> {
-        self.value
-            .get("agent")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| AuditEvent_Agent {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("agent") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| AuditEvent_Agent {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// These resources do not have an independent existence apart from the resource

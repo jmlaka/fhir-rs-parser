@@ -277,16 +277,17 @@ impl ResearchElementDefinition<'_> {
     /// A characteristic that defines the members of the research element. Multiple
     /// characteristics are applied with "and" semantics.
     pub fn characteristic(&self) -> Vec<ResearchElementDefinition_Characteristic> {
-        self.value
-            .get("characteristic")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| ResearchElementDefinition_Characteristic {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("characteristic") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| ResearchElementDefinition_Characteristic {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// A human-readable string to clarify or explain concepts about the resource.

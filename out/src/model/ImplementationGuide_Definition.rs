@@ -126,16 +126,17 @@ impl ImplementationGuide_Definition<'_> {
     /// candidates for inclusion, but any kind of resource can be included as an example
     /// resource.
     pub fn resource(&self) -> Vec<ImplementationGuide_Resource> {
-        self.value
-            .get("resource")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| ImplementationGuide_Resource {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("resource") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| ImplementationGuide_Resource {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// A template for building resources.

@@ -188,16 +188,17 @@ impl VisionPrescription<'_> {
     /// Contain the details of  the individual lens specifications and serves as the
     /// authorization for the fullfillment by certified professionals.
     pub fn lens_specification(&self) -> Vec<VisionPrescription_LensSpecification> {
-        self.value
-            .get("lensSpecification")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| VisionPrescription_LensSpecification {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("lensSpecification") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| VisionPrescription_LensSpecification {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// The metadata about the resource. This is content that is maintained by the

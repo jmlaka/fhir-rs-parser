@@ -79,16 +79,17 @@ impl Consent<'_> {
     /// A classification of the type of consents found in the statement. This element
     /// supports indexing and retrieval of consent statements.
     pub fn category(&self) -> Vec<CodeableConcept> {
-        self.value
-            .get("category")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| CodeableConcept {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("category") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| CodeableConcept {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// These resources do not have an independent existence apart from the resource

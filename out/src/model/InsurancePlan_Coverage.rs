@@ -28,16 +28,17 @@ impl InsurancePlan_Coverage<'_> {
 
     /// Specific benefits under this type of coverage.
     pub fn benefit(&self) -> Vec<InsurancePlan_Benefit> {
-        self.value
-            .get("benefit")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| InsurancePlan_Benefit {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("benefit") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| InsurancePlan_Benefit {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// May be used to represent additional information that is not part of the basic

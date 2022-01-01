@@ -113,16 +113,17 @@ impl StructureMap_Group<'_> {
     /// A name assigned to an instance of data. The instance must be provided when the
     /// mapping is invoked.
     pub fn input(&self) -> Vec<StructureMap_Input> {
-        self.value
-            .get("input")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| StructureMap_Input {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("input") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| StructureMap_Input {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -159,16 +160,17 @@ impl StructureMap_Group<'_> {
 
     /// Transform Rule from source to target.
     pub fn rule(&self) -> Vec<StructureMap_Rule> {
-        self.value
-            .get("rule")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| StructureMap_Rule {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("rule") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| StructureMap_Rule {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// If this is the default rule set to apply for the source type or this combination

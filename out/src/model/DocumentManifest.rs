@@ -125,16 +125,17 @@ impl DocumentManifest<'_> {
 
     /// The list of Resources that consist of the parts of this manifest.
     pub fn content(&self) -> Vec<Reference> {
-        self.value
-            .get("content")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| Reference {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("content") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| Reference {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// When the document manifest was created for submission to the server (not

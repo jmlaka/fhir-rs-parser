@@ -87,16 +87,17 @@ impl Contract_Signer<'_> {
 
     /// Legally binding Contract DSIG signature contents in Base64.
     pub fn signature(&self) -> Vec<Signature> {
-        self.value
-            .get("signature")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| Signature {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("signature") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| Signature {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// Role of this Contract signer, e.g. notary, grantee.

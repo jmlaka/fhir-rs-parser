@@ -27,16 +27,17 @@ impl TestScript_Setup<'_> {
 
     /// Action would contain either an operation or an assertion.
     pub fn action(&self) -> Vec<TestScript_Action> {
-        self.value
-            .get("action")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| TestScript_Action {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("action") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| TestScript_Action {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// May be used to represent additional information that is not part of the basic

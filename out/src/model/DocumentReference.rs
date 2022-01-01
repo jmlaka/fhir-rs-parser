@@ -156,16 +156,17 @@ impl DocumentReference<'_> {
     /// The document and format referenced. There may be multiple content element
     /// repetitions, each with a different format.
     pub fn content(&self) -> Vec<DocumentReference_Content> {
-        self.value
-            .get("content")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| DocumentReference_Content {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("content") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| DocumentReference_Content {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// The clinical context in which the document was prepared.

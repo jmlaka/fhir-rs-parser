@@ -332,16 +332,17 @@ impl MedicinalProduct<'_> {
 
     /// The product's name, including full name and possibly coded parts.
     pub fn name(&self) -> Vec<MedicinalProduct_Name> {
-        self.value
-            .get("name")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| MedicinalProduct_Name {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("name") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| MedicinalProduct_Name {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// Package representation for the product.

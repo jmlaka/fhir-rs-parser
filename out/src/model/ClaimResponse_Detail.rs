@@ -53,16 +53,17 @@ impl ClaimResponse_Detail<'_> {
 
     /// The adjudication results.
     pub fn adjudication(&self) -> Vec<ClaimResponse_Adjudication> {
-        self.value
-            .get("adjudication")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| ClaimResponse_Adjudication {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("adjudication") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| ClaimResponse_Adjudication {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// A number to uniquely reference the claim detail entry.

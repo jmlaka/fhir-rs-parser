@@ -219,16 +219,17 @@ impl MedicinalProductPharmaceutical<'_> {
     pub fn route_of_administration(
         &self,
     ) -> Vec<MedicinalProductPharmaceutical_RouteOfAdministration> {
-        self.value
-            .get("routeOfAdministration")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| MedicinalProductPharmaceutical_RouteOfAdministration {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("routeOfAdministration") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| MedicinalProductPharmaceutical_RouteOfAdministration {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// A human-readable narrative that contains a summary of the resource and can be

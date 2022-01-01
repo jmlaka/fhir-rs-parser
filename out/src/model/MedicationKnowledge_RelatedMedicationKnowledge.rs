@@ -78,16 +78,17 @@ impl MedicationKnowledge_RelatedMedicationKnowledge<'_> {
 
     /// Associated documentation about the associated medication knowledge.
     pub fn reference(&self) -> Vec<Reference> {
-        self.value
-            .get("reference")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| Reference {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("reference") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| Reference {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// The category of the associated medication knowledge reference.

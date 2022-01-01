@@ -144,16 +144,17 @@ impl StructureMap_Rule<'_> {
 
     /// Source inputs to the mapping.
     pub fn source(&self) -> Vec<StructureMap_Source> {
-        self.value
-            .get("source")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| StructureMap_Source {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("source") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| StructureMap_Source {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// Content to create because of this mapping rule.

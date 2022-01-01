@@ -223,16 +223,17 @@ impl EvidenceVariable<'_> {
     /// A characteristic that defines the members of the evidence element. Multiple
     /// characteristics are applied with "and" semantics.
     pub fn characteristic(&self) -> Vec<EvidenceVariable_Characteristic> {
-        self.value
-            .get("characteristic")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| EvidenceVariable_Characteristic {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("characteristic") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| EvidenceVariable_Characteristic {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// Contact details to assist a user in finding and communicating with the

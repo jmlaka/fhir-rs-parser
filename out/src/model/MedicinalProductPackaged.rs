@@ -250,16 +250,17 @@ impl MedicinalProductPackaged<'_> {
     /// A packaging item, as a contained for medicine, possibly with other packaging
     /// items within.
     pub fn package_item(&self) -> Vec<MedicinalProductPackaged_PackageItem> {
-        self.value
-            .get("packageItem")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| MedicinalProductPackaged_PackageItem {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("packageItem") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| MedicinalProductPackaged_PackageItem {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// The product with this is a pack for.

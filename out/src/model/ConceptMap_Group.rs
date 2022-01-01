@@ -71,16 +71,17 @@ impl ConceptMap_Group<'_> {
     /// Mappings for an individual concept in the source to one or more concepts in the
     /// target.
     pub fn element(&self) -> Vec<ConceptMap_Element> {
-        self.value
-            .get("element")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| ConceptMap_Element {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("element") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| ConceptMap_Element {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// May be used to represent additional information that is not part of the basic

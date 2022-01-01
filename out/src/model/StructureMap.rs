@@ -255,16 +255,17 @@ impl StructureMap<'_> {
     /// Organizes the mapping into manageable chunks for human review/ease of
     /// maintenance.
     pub fn group(&self) -> Vec<StructureMap_Group> {
-        self.value
-            .get("group")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| StructureMap_Group {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("group") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| StructureMap_Group {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// The logical id of the resource, as used in the URL for the resource. Once

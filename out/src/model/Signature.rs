@@ -140,16 +140,17 @@ impl Signature<'_> {
     /// explicitly included as part of the signature information and can be used when
     /// determining accountability for various actions concerning the document.
     pub fn fhir_type(&self) -> Vec<Coding> {
-        self.value
-            .get("type")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .into_iter()
-            .map(|e| Coding {
-                value: Cow::Borrowed(e),
-            })
-            .collect::<Vec<_>>()
+        if let Some(val) = self.value.get("type") {
+            if let Some(arr) = val.as_array() {
+                return arr
+                    .into_iter()
+                    .map(|e| Coding {
+                        value: Cow::Borrowed(e),
+                    })
+                    .collect::<Vec<_>>();
+            }
+        }
+        return Vec::new();
     }
 
     /// When the digital signature was signed.
