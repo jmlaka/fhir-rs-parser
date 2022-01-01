@@ -913,11 +913,13 @@ fn write_property(
   // end arrays
   } else if type_definition.builtin {
     if required {
+      // this needs an Option<T> - leads to breaking change
       if type_definition.name == "&str" {
         inner_string.push_str("    self.value.get(\"");
         inner_string.push_str(&property_name);
         inner_string.push_str("\").unwrap().as_str().unwrap()\n");
       } else {
+        // this needs an Option<T> - leads to breaking change
         inner_string.push_str("    self.value.get(\"");
         inner_string.push_str(&property_name);
         inner_string.push_str("\").unwrap().as_");
