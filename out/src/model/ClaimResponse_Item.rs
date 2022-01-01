@@ -144,14 +144,14 @@ impl ClaimResponse_Item<'_> {
     /// The numbers associated with notes below which apply to the adjudication of this
     /// item.
     pub fn note_number(&self) -> Option<Vec<i64>> {
-        if let Some(Value::Array(val)) = self.value.get("noteNumber") {
-            return Some(
+        match self.value.get("noteNumber") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_i64().unwrap())
+                    .filter_map(|e| e.as_i64())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

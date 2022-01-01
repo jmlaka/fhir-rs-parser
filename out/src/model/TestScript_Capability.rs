@@ -183,14 +183,14 @@ impl TestScript_Capability<'_> {
 
     /// Which origin server these requirements apply to.
     pub fn origin(&self) -> Option<Vec<i64>> {
-        if let Some(Value::Array(val)) = self.value.get("origin") {
-            return Some(
+        match self.value.get("origin") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_i64().unwrap())
+                    .filter_map(|e| e.as_i64())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Whether or not the test execution will require the given capabilities of the

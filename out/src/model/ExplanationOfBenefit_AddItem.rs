@@ -151,14 +151,14 @@ impl ExplanationOfBenefit_AddItem<'_> {
     /// The sequence number of the details within the claim item which this line is
     /// intended to replace.
     pub fn detail_sequence(&self) -> Option<Vec<i64>> {
-        if let Some(Value::Array(val)) = self.value.get("detailSequence") {
-            return Some(
+        match self.value.get("detailSequence") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_i64().unwrap())
+                    .filter_map(|e| e.as_i64())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// May be used to represent additional information that is not part of the basic
@@ -200,14 +200,14 @@ impl ExplanationOfBenefit_AddItem<'_> {
 
     /// Claim items which this service line is intended to replace.
     pub fn item_sequence(&self) -> Option<Vec<i64>> {
-        if let Some(Value::Array(val)) = self.value.get("itemSequence") {
-            return Some(
+        match self.value.get("itemSequence") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_i64().unwrap())
+                    .filter_map(|e| e.as_i64())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Where the product or service was provided.
@@ -293,14 +293,14 @@ impl ExplanationOfBenefit_AddItem<'_> {
     /// The numbers associated with notes below which apply to the adjudication of this
     /// item.
     pub fn note_number(&self) -> Option<Vec<i64>> {
-        if let Some(Value::Array(val)) = self.value.get("noteNumber") {
-            return Some(
+        match self.value.get("noteNumber") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_i64().unwrap())
+                    .filter_map(|e| e.as_i64())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// When the value is a group code then this item collects a set of related claim
@@ -373,14 +373,14 @@ impl ExplanationOfBenefit_AddItem<'_> {
     /// The sequence number of the sub-details woithin the details within the claim item
     /// which this line is intended to replace.
     pub fn sub_detail_sequence(&self) -> Option<Vec<i64>> {
-        if let Some(Value::Array(val)) = self.value.get("subDetailSequence") {
-            return Some(
+        match self.value.get("subDetailSequence") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_i64().unwrap())
+                    .filter_map(|e| e.as_i64())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// A region or surface of the bodySite, e.g. limb region or tooth surface(s).

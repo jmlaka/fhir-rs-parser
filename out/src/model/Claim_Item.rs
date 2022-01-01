@@ -131,14 +131,14 @@ impl Claim_Item<'_> {
 
     /// CareTeam members related to this service or product.
     pub fn care_team_sequence(&self) -> Option<Vec<i64>> {
-        if let Some(Value::Array(val)) = self.value.get("careTeamSequence") {
-            return Some(
+        match self.value.get("careTeamSequence") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_i64().unwrap())
+                    .filter_map(|e| e.as_i64())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Code to identify the general type of benefits under which products and services
@@ -169,14 +169,14 @@ impl Claim_Item<'_> {
 
     /// Diagnosis applicable for this service or product.
     pub fn diagnosis_sequence(&self) -> Option<Vec<i64>> {
-        if let Some(Value::Array(val)) = self.value.get("diagnosisSequence") {
-            return Some(
+        match self.value.get("diagnosisSequence") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_i64().unwrap())
+                    .filter_map(|e| e.as_i64())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The Encounters during which this Claim was created or to which the creation of
@@ -234,14 +234,14 @@ impl Claim_Item<'_> {
     /// Exceptions, special conditions and supporting information applicable for this
     /// service or product.
     pub fn information_sequence(&self) -> Option<Vec<i64>> {
-        if let Some(Value::Array(val)) = self.value.get("informationSequence") {
-            return Some(
+        match self.value.get("informationSequence") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_i64().unwrap())
+                    .filter_map(|e| e.as_i64())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Where the product or service was provided.
@@ -326,14 +326,14 @@ impl Claim_Item<'_> {
 
     /// Procedures applicable for this service or product.
     pub fn procedure_sequence(&self) -> Option<Vec<i64>> {
-        if let Some(Value::Array(val)) = self.value.get("procedureSequence") {
-            return Some(
+        match self.value.get("procedureSequence") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_i64().unwrap())
+                    .filter_map(|e| e.as_i64())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// When the value is a group code then this item collects a set of related claim

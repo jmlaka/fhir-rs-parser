@@ -853,11 +853,14 @@ fn write_property(
                   .collect::<Vec<_>>(),\n
           ),\n _ => None\n}");
         } else {
-          inner_string.push_str("    if let Some(Value::Array(val)) = self.value.get(\"");
+          inner_string.push_str("    match self.value.get(\"");
           inner_string.push_str(&property_name);
-          inner_string.push_str("\") {\n      return Some(val.into_iter().map(|e| e.as_");
-          inner_string.push_str(&type_definition.name);
-          inner_string.push_str("().unwrap()).collect::<Vec<_>>());\n    }\n    return None;\n");
+          inner_string.push_str("\") {\n      Some(Value::Array(val)) => Some(val.into_iter()
+                  .filter_map(|e| e.as_");
+          inner_string.push_str(&type_definition.name);        
+          inner_string.push_str(        "())\n
+                  .collect::<Vec<_>>(),\n
+          ),\n _ => None\n}");
         }
       }
     } else {

@@ -106,14 +106,6 @@ impl AllergyIntolerance_Reaction<'_> {
     /// Clinical symptoms and/or signs that are observed or associated with the adverse
     /// reaction event.
     pub fn manifestation(&self) -> Vec<CodeableConcept> {
-        match self.value.get("manifestation"){
-            Some(val) => ,
-            None => Vec<CodeableConcept>::new()
-        }
-            .
-            
-        
-        /*
         self.value
             .get("manifestation")
             .unwrap()
@@ -123,7 +115,7 @@ impl AllergyIntolerance_Reaction<'_> {
             .map(|e| CodeableConcept {
                 value: Cow::Borrowed(e),
             })
-            .collect::<Vec<_>>()*/
+            .collect::<Vec<_>>()
     }
 
     /// May be used to represent additional information that is not part of the basic

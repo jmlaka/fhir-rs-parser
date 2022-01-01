@@ -142,14 +142,14 @@ impl MolecularSequence_Roc<'_> {
 
     /// Calculated fScore if the GQ score threshold was set to "score" field value.
     pub fn f_measure(&self) -> Option<Vec<f64>> {
-        if let Some(Value::Array(val)) = self.value.get("fMeasure") {
-            return Some(
+        match self.value.get("fMeasure") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_f64().unwrap())
+                    .filter_map(|e| e.as_f64())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Unique id for the element within a resource (for internal references). This may
@@ -188,76 +188,76 @@ impl MolecularSequence_Roc<'_> {
     /// The number of false negatives if the GQ score threshold was set to "score" field
     /// value.
     pub fn num_f_n(&self) -> Option<Vec<i64>> {
-        if let Some(Value::Array(val)) = self.value.get("numFN") {
-            return Some(
+        match self.value.get("numFN") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_i64().unwrap())
+                    .filter_map(|e| e.as_i64())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The number of false positives if the GQ score threshold was set to "score" field
     /// value.
     pub fn num_f_p(&self) -> Option<Vec<i64>> {
-        if let Some(Value::Array(val)) = self.value.get("numFP") {
-            return Some(
+        match self.value.get("numFP") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_i64().unwrap())
+                    .filter_map(|e| e.as_i64())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The number of true positives if the GQ score threshold was set to "score" field
     /// value.
     pub fn num_t_p(&self) -> Option<Vec<i64>> {
-        if let Some(Value::Array(val)) = self.value.get("numTP") {
-            return Some(
+        match self.value.get("numTP") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_i64().unwrap())
+                    .filter_map(|e| e.as_i64())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Calculated precision if the GQ score threshold was set to "score" field value.
     pub fn precision(&self) -> Option<Vec<f64>> {
-        if let Some(Value::Array(val)) = self.value.get("precision") {
-            return Some(
+        match self.value.get("precision") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_f64().unwrap())
+                    .filter_map(|e| e.as_f64())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Invidual data point representing the GQ (genotype quality) score threshold.
     pub fn score(&self) -> Option<Vec<i64>> {
-        if let Some(Value::Array(val)) = self.value.get("score") {
-            return Some(
+        match self.value.get("score") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_i64().unwrap())
+                    .filter_map(|e| e.as_i64())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// Calculated sensitivity if the GQ score threshold was set to "score" field value.
     pub fn sensitivity(&self) -> Option<Vec<f64>> {
-        if let Some(Value::Array(val)) = self.value.get("sensitivity") {
-            return Some(
+        match self.value.get("sensitivity") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_f64().unwrap())
+                    .filter_map(|e| e.as_f64())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {

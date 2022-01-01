@@ -295,14 +295,14 @@ impl Contract_ValuedItem<'_> {
     /// A set of security labels that define which terms are controlled by this
     /// condition.
     pub fn security_label_number(&self) -> Option<Vec<u64>> {
-        if let Some(Value::Array(val)) = self.value.get("securityLabelNumber") {
-            return Some(
+        match self.value.get("securityLabelNumber") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_u64().unwrap())
+                    .filter_map(|e| e.as_u64())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// A Contract Valued Item unit valuation measure.

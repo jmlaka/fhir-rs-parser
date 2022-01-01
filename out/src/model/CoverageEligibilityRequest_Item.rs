@@ -196,14 +196,14 @@ impl CoverageEligibilityRequest_Item<'_> {
     /// Exceptions, special conditions and supporting information applicable for this
     /// service or product line.
     pub fn supporting_info_sequence(&self) -> Option<Vec<i64>> {
-        if let Some(Value::Array(val)) = self.value.get("supportingInfoSequence") {
-            return Some(
+        match self.value.get("supportingInfoSequence") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_i64().unwrap())
+                    .filter_map(|e| e.as_i64())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     /// The amount charged to the patient by the provider for a single unit.

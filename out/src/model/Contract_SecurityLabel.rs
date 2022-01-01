@@ -131,14 +131,14 @@ impl Contract_SecurityLabel<'_> {
 
     /// Number used to link this term or term element to the applicable Security Label.
     pub fn number(&self) -> Option<Vec<u64>> {
-        if let Some(Value::Array(val)) = self.value.get("number") {
-            return Some(
+        match self.value.get("number") {
+            Some(Value::Array(val)) => Some(
                 val.into_iter()
-                    .map(|e| e.as_u64().unwrap())
+                    .filter_map(|e| e.as_u64())
                     .collect::<Vec<_>>(),
-            );
+            ),
+            _ => None,
         }
-        return None;
     }
 
     pub fn validate(&self) -> bool {
