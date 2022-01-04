@@ -485,7 +485,8 @@ pub struct ConsentBuilder {
 }
 
 impl ConsentBuilder {
-    pub fn build(&self) -> Consent {
+    pub fn build<'a>(&'a mut self) -> Consent {
+        self.value["resourceType"] = json!("Consent");
         Consent {
             value: Cow::Owned(self.value.clone()),
         }

@@ -748,7 +748,8 @@ pub struct FamilyMemberHistoryBuilder {
 }
 
 impl FamilyMemberHistoryBuilder {
-    pub fn build(&self) -> FamilyMemberHistory {
+    pub fn build<'a>(&'a mut self) -> FamilyMemberHistory {
+        self.value["resourceType"] = json!("FamilyMemberHistory");
         FamilyMemberHistory {
             value: Cow::Owned(self.value.clone()),
         }

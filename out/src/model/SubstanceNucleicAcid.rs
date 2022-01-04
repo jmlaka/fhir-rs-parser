@@ -319,7 +319,8 @@ pub struct SubstanceNucleicAcidBuilder {
 }
 
 impl SubstanceNucleicAcidBuilder {
-    pub fn build(&self) -> SubstanceNucleicAcid {
+    pub fn build<'a>(&'a mut self) -> SubstanceNucleicAcid {
+        self.value["resourceType"] = json!("SubstanceNucleicAcid");
         SubstanceNucleicAcid {
             value: Cow::Owned(self.value.clone()),
         }

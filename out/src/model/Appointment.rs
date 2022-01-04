@@ -713,7 +713,8 @@ pub struct AppointmentBuilder {
 }
 
 impl AppointmentBuilder {
-    pub fn build(&self) -> Appointment {
+    pub fn build<'a>(&'a mut self) -> Appointment {
+        self.value["resourceType"] = json!("Appointment");
         Appointment {
             value: Cow::Owned(self.value.clone()),
         }

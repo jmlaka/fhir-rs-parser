@@ -521,7 +521,8 @@ pub struct NamingSystemBuilder {
 }
 
 impl NamingSystemBuilder {
-    pub fn build(&self) -> NamingSystem {
+    pub fn build<'a>(&'a mut self) -> NamingSystem {
+        self.value["resourceType"] = json!("NamingSystem");
         NamingSystem {
             value: Cow::Owned(self.value.clone()),
         }

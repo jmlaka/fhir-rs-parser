@@ -820,7 +820,8 @@ pub struct CodeSystemBuilder {
 }
 
 impl CodeSystemBuilder {
-    pub fn build(&self) -> CodeSystem {
+    pub fn build<'a>(&'a mut self) -> CodeSystem {
+        self.value["resourceType"] = json!("CodeSystem");
         CodeSystem {
             value: Cow::Owned(self.value.clone()),
         }

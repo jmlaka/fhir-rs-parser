@@ -945,7 +945,8 @@ pub struct ContractBuilder {
 }
 
 impl ContractBuilder {
-    pub fn build(&self) -> Contract {
+    pub fn build<'a>(&'a mut self) -> Contract {
+        self.value["resourceType"] = json!("Contract");
         Contract {
             value: Cow::Owned(self.value.clone()),
         }

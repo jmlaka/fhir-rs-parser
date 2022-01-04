@@ -595,7 +595,8 @@ pub struct RequestGroupBuilder {
 }
 
 impl RequestGroupBuilder {
-    pub fn build(&self) -> RequestGroup {
+    pub fn build<'a>(&'a mut self) -> RequestGroup {
+        self.value["resourceType"] = json!("RequestGroup");
         RequestGroup {
             value: Cow::Owned(self.value.clone()),
         }

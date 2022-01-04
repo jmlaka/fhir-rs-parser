@@ -432,7 +432,8 @@ pub struct AccountBuilder {
 }
 
 impl AccountBuilder {
-    pub fn build(&self) -> Account {
+    pub fn build<'a>(&'a mut self) -> Account {
+        self.value["resourceType"] = json!("Account");
         Account {
             value: Cow::Owned(self.value.clone()),
         }

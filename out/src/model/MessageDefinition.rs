@@ -773,7 +773,8 @@ pub struct MessageDefinitionBuilder {
 }
 
 impl MessageDefinitionBuilder {
-    pub fn build(&self) -> MessageDefinition {
+    pub fn build<'a>(&'a mut self) -> MessageDefinition {
+        self.value["resourceType"] = json!("MessageDefinition");
         MessageDefinition {
             value: Cow::Owned(self.value.clone()),
         }

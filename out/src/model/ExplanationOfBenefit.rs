@@ -1015,7 +1015,8 @@ pub struct ExplanationOfBenefitBuilder {
 }
 
 impl ExplanationOfBenefitBuilder {
-    pub fn build(&self) -> ExplanationOfBenefit {
+    pub fn build<'a>(&'a mut self) -> ExplanationOfBenefit {
+        self.value["resourceType"] = json!("ExplanationOfBenefit");
         ExplanationOfBenefit {
             value: Cow::Owned(self.value.clone()),
         }

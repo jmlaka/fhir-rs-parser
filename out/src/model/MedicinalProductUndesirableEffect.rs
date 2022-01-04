@@ -296,7 +296,8 @@ pub struct MedicinalProductUndesirableEffectBuilder {
 }
 
 impl MedicinalProductUndesirableEffectBuilder {
-    pub fn build(&self) -> MedicinalProductUndesirableEffect {
+    pub fn build<'a>(&'a mut self) -> MedicinalProductUndesirableEffect {
+        self.value["resourceType"] = json!("MedicinalProductUndesirableEffect");
         MedicinalProductUndesirableEffect {
             value: Cow::Owned(self.value.clone()),
         }

@@ -420,7 +420,8 @@ pub struct MessageHeaderBuilder {
 }
 
 impl MessageHeaderBuilder {
-    pub fn build(&self) -> MessageHeader {
+    pub fn build<'a>(&'a mut self) -> MessageHeader {
+        self.value["resourceType"] = json!("MessageHeader");
         MessageHeader {
             value: Cow::Owned(self.value.clone()),
         }

@@ -768,7 +768,8 @@ pub struct TerminologyCapabilitiesBuilder {
 }
 
 impl TerminologyCapabilitiesBuilder {
-    pub fn build(&self) -> TerminologyCapabilities {
+    pub fn build<'a>(&'a mut self) -> TerminologyCapabilities {
+        self.value["resourceType"] = json!("TerminologyCapabilities");
         TerminologyCapabilities {
             value: Cow::Owned(self.value.clone()),
         }

@@ -363,7 +363,8 @@ pub struct BodyStructureBuilder {
 }
 
 impl BodyStructureBuilder {
-    pub fn build(&self) -> BodyStructure {
+    pub fn build<'a>(&'a mut self) -> BodyStructure {
+        self.value["resourceType"] = json!("BodyStructure");
         BodyStructure {
             value: Cow::Owned(self.value.clone()),
         }

@@ -340,7 +340,8 @@ pub struct EnrollmentRequestBuilder {
 }
 
 impl EnrollmentRequestBuilder {
-    pub fn build(&self) -> EnrollmentRequest {
+    pub fn build<'a>(&'a mut self) -> EnrollmentRequest {
+        self.value["resourceType"] = json!("EnrollmentRequest");
         EnrollmentRequest {
             value: Cow::Owned(self.value.clone()),
         }

@@ -135,7 +135,8 @@ pub struct ParametersBuilder {
 }
 
 impl ParametersBuilder {
-    pub fn build(&self) -> Parameters {
+    pub fn build<'a>(&'a mut self) -> Parameters {
+        self.value["resourceType"] = json!("Parameters");
         Parameters {
             value: Cow::Owned(self.value.clone()),
         }

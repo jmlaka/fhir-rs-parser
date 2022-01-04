@@ -518,7 +518,8 @@ pub struct CoverageEligibilityResponseBuilder {
 }
 
 impl CoverageEligibilityResponseBuilder {
-    pub fn build(&self) -> CoverageEligibilityResponse {
+    pub fn build<'a>(&'a mut self) -> CoverageEligibilityResponse {
+        self.value["resourceType"] = json!("CoverageEligibilityResponse");
         CoverageEligibilityResponse {
             value: Cow::Owned(self.value.clone()),
         }

@@ -617,7 +617,8 @@ pub struct ImagingStudyBuilder {
 }
 
 impl ImagingStudyBuilder {
-    pub fn build(&self) -> ImagingStudy {
+    pub fn build<'a>(&'a mut self) -> ImagingStudy {
+        self.value["resourceType"] = json!("ImagingStudy");
         ImagingStudy {
             value: Cow::Owned(self.value.clone()),
         }

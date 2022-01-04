@@ -235,7 +235,8 @@ pub struct OperationOutcomeBuilder {
 }
 
 impl OperationOutcomeBuilder {
-    pub fn build(&self) -> OperationOutcome {
+    pub fn build<'a>(&'a mut self) -> OperationOutcome {
+        self.value["resourceType"] = json!("OperationOutcome");
         OperationOutcome {
             value: Cow::Owned(self.value.clone()),
         }

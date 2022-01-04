@@ -412,7 +412,8 @@ pub struct PaymentNoticeBuilder {
 }
 
 impl PaymentNoticeBuilder {
-    pub fn build(&self) -> PaymentNotice {
+    pub fn build<'a>(&'a mut self) -> PaymentNotice {
+        self.value["resourceType"] = json!("PaymentNotice");
         PaymentNotice {
             value: Cow::Owned(self.value.clone()),
         }

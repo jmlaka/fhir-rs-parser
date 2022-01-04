@@ -959,7 +959,8 @@ pub struct ObservationBuilder {
 }
 
 impl ObservationBuilder {
-    pub fn build(&self) -> Observation {
+    pub fn build<'a>(&'a mut self) -> Observation {
+        self.value["resourceType"] = json!("Observation");
         Observation {
             value: Cow::Owned(self.value.clone()),
         }

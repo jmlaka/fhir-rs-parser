@@ -108,12 +108,12 @@ struct Definition {
 }
 
 fn main() {
-  fs::remove_dir_all("out/src/model").unwrap_or_else(|why| {
+  /*fs::remove_dir_all("out/src/model").unwrap_or_else(|why| {
     println!("! {:?}", why.kind());
   });
   fs::create_dir("out/src/model").unwrap_or_else(|why| {
     println!("! {:?}", why.kind());
-  });
+  });*/
 
   let schema_contents =
     fs::read_to_string("src/fhir.schema.json").expect("Something went wrong reading the file");
@@ -186,18 +186,38 @@ fn main() {
   let mut model_mod_contents = String::new();
   model_mod_contents.push_str("#![allow(non_snake_case)]\n\n");
 
+  // this is a hack to be able to add "resourceType" to Builders 
+
+  let resource_list_definition = &fhir_schema.definitions["ResourceList"];
+  let mut resource_types : Vec<String> = vec!();
+  if let Some(one_of) = &resource_list_definition.one_of {
+    for hash_map in one_of {
+      let fhir_ref = &hash_map["$ref"];
+      let type_definition = type_definition_from_fhir_ref(
+        &fhir_ref,
+        &reference_to_class_name_map,
+        &builtin_type_to_class_map,
+      );
+      resource_types.push(type_definition.name)
+    }
+
+  }
+  println!("Have {} ResourceTypes", resource_types.len());
+
   for (definition_name, definition) in &fhir_schema.definitions {
+    //println!("Defintion name: {}", definition_name);
     let contents = generate_trait(
       &definition_name,
       &definition,
       &reference_to_class_name_map,
       &builtin_type_to_class_map,
       &property_replacement_map,
+      &resource_types
     );
-
+    
     let path_string = format!("out/src/model/{}.rs", definition_name);
     let wrote_file = write_string_to_file(&contents, &path_string);
-
+    
     if wrote_file {
       model_mod_contents.push_str("pub mod ");
       model_mod_contents.push_str(&definition_name);
@@ -242,6 +262,7 @@ fn generate_trait(
   reference_to_class_name_map: &HashMap<String, String>,
   builtin_type_to_class_map: &HashMap<&str, (&str, Option<&str>)>,
   property_replacement_map: &HashMap<&str, &str>,
+  resource_types: &Vec<String>
 ) -> String {
   let mut string = String::new();
 
@@ -291,6 +312,8 @@ fn generate_trait(
     inner_string.push_str("pub enum ");
     inner_string.push_str(name);
     inner_string.push_str("Enum<'a> {\n");
+    //println!("ONE OF has lenght: {}\n", one_of.len());
+    //println!("NAME: {:?}\n",name);
     for hash_map in one_of {
       let fhir_ref = &hash_map["$ref"];
       let original_name = extract_type_from_ref(&fhir_ref);
@@ -377,9 +400,22 @@ fn generate_trait(
     builder_constructor_definition.push_str("impl ");
     builder_constructor_definition.push_str(name);
     builder_constructor_definition.push_str("Builder {\n");
-    builder_constructor_definition.push_str("  pub fn build(&self) -> ");
-    builder_constructor_definition.push_str(name);
-    builder_constructor_definition.push_str(" {\n");
+    
+    if let Some(_s) = resource_types.iter().find(|&x| x == name) {
+      // Builder needs to include a resourceType
+      builder_constructor_definition.push_str("  pub fn build<'a>(&'a mut self) -> ");
+      builder_constructor_definition.push_str(name);
+      builder_constructor_definition.push_str(" {\n");
+      builder_constructor_definition.push_str("self.value[\"resourceType\"] = json!(\"");
+      builder_constructor_definition.push_str(name);
+      builder_constructor_definition.push_str("\");\n");
+    }
+    else{
+      builder_constructor_definition.push_str("  pub fn build(&self) -> ");
+      builder_constructor_definition.push_str(name);
+      builder_constructor_definition.push_str(" {\n");
+    }
+
     builder_constructor_definition.push_str("    ");
     builder_constructor_definition.push_str(name);
     builder_constructor_definition.push_str(" { value: Cow::Owned(self.value.clone()) }\n  }\n\n");
@@ -978,6 +1014,7 @@ fn write_property(
   inner_string.push_str("  }\n\n");
 }
 
+#[derive(Debug)]
 struct TypeDefinition {
   name: String,
   builtin: bool,

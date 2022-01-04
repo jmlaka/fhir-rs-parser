@@ -418,7 +418,8 @@ pub struct DeviceMetricBuilder {
 }
 
 impl DeviceMetricBuilder {
-    pub fn build(&self) -> DeviceMetric {
+    pub fn build<'a>(&'a mut self) -> DeviceMetric {
+        self.value["resourceType"] = json!("DeviceMetric");
         DeviceMetric {
             value: Cow::Owned(self.value.clone()),
         }

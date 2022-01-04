@@ -662,7 +662,8 @@ pub struct MediaBuilder {
 }
 
 impl MediaBuilder {
-    pub fn build(&self) -> Media {
+    pub fn build<'a>(&'a mut self) -> Media {
+        self.value["resourceType"] = json!("Media");
         Media {
             value: Cow::Owned(self.value.clone()),
         }

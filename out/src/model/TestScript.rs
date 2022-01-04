@@ -753,7 +753,8 @@ pub struct TestScriptBuilder {
 }
 
 impl TestScriptBuilder {
-    pub fn build(&self) -> TestScript {
+    pub fn build<'a>(&'a mut self) -> TestScript {
+        self.value["resourceType"] = json!("TestScript");
         TestScript {
             value: Cow::Owned(self.value.clone()),
         }

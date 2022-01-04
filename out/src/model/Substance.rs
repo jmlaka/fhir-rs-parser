@@ -351,7 +351,8 @@ pub struct SubstanceBuilder {
 }
 
 impl SubstanceBuilder {
-    pub fn build(&self) -> Substance {
+    pub fn build<'a>(&'a mut self) -> Substance {
+        self.value["resourceType"] = json!("Substance");
         Substance {
             value: Cow::Owned(self.value.clone()),
         }

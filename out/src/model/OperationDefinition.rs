@@ -819,7 +819,8 @@ pub struct OperationDefinitionBuilder {
 }
 
 impl OperationDefinitionBuilder {
-    pub fn build(&self) -> OperationDefinition {
+    pub fn build<'a>(&'a mut self) -> OperationDefinition {
+        self.value["resourceType"] = json!("OperationDefinition");
         OperationDefinition {
             value: Cow::Owned(self.value.clone()),
         }

@@ -861,7 +861,8 @@ pub struct StructureDefinitionBuilder {
 }
 
 impl StructureDefinitionBuilder {
-    pub fn build(&self) -> StructureDefinition {
+    pub fn build<'a>(&'a mut self) -> StructureDefinition {
+        self.value["resourceType"] = json!("StructureDefinition");
         StructureDefinition {
             value: Cow::Owned(self.value.clone()),
         }

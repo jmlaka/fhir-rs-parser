@@ -559,7 +559,8 @@ pub struct CoverageBuilder {
 }
 
 impl CoverageBuilder {
-    pub fn build(&self) -> Coverage {
+    pub fn build<'a>(&'a mut self) -> Coverage {
+        self.value["resourceType"] = json!("Coverage");
         Coverage {
             value: Cow::Owned(self.value.clone()),
         }

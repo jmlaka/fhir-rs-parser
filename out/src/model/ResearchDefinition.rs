@@ -1000,7 +1000,8 @@ pub struct ResearchDefinitionBuilder {
 }
 
 impl ResearchDefinitionBuilder {
-    pub fn build(&self) -> ResearchDefinition {
+    pub fn build<'a>(&'a mut self) -> ResearchDefinition {
+        self.value["resourceType"] = json!("ResearchDefinition");
         ResearchDefinition {
             value: Cow::Owned(self.value.clone()),
         }

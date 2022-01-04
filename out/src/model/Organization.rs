@@ -432,7 +432,8 @@ pub struct OrganizationBuilder {
 }
 
 impl OrganizationBuilder {
-    pub fn build(&self) -> Organization {
+    pub fn build<'a>(&'a mut self) -> Organization {
+        self.value["resourceType"] = json!("Organization");
         Organization {
             value: Cow::Owned(self.value.clone()),
         }

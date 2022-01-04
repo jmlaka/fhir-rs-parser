@@ -442,7 +442,8 @@ pub struct SlotBuilder {
 }
 
 impl SlotBuilder {
-    pub fn build(&self) -> Slot {
+    pub fn build<'a>(&'a mut self) -> Slot {
+        self.value["resourceType"] = json!("Slot");
         Slot {
             value: Cow::Owned(self.value.clone()),
         }

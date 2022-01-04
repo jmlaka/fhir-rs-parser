@@ -279,7 +279,8 @@ pub struct LinkageBuilder {
 }
 
 impl LinkageBuilder {
-    pub fn build(&self) -> Linkage {
+    pub fn build<'a>(&'a mut self) -> Linkage {
+        self.value["resourceType"] = json!("Linkage");
         Linkage {
             value: Cow::Owned(self.value.clone()),
         }

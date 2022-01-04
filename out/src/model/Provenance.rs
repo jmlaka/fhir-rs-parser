@@ -462,7 +462,8 @@ pub struct ProvenanceBuilder {
 }
 
 impl ProvenanceBuilder {
-    pub fn build(&self) -> Provenance {
+    pub fn build<'a>(&'a mut self) -> Provenance {
+        self.value["resourceType"] = json!("Provenance");
         Provenance {
             value: Cow::Owned(self.value.clone()),
         }

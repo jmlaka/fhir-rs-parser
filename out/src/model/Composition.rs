@@ -524,7 +524,8 @@ pub struct CompositionBuilder {
 }
 
 impl CompositionBuilder {
-    pub fn build(&self) -> Composition {
+    pub fn build<'a>(&'a mut self) -> Composition {
+        self.value["resourceType"] = json!("Composition");
         Composition {
             value: Cow::Owned(self.value.clone()),
         }

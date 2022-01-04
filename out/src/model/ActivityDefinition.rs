@@ -1330,7 +1330,8 @@ pub struct ActivityDefinitionBuilder {
 }
 
 impl ActivityDefinitionBuilder {
-    pub fn build(&self) -> ActivityDefinition {
+    pub fn build<'a>(&'a mut self) -> ActivityDefinition {
+        self.value["resourceType"] = json!("ActivityDefinition");
         ActivityDefinition {
             value: Cow::Owned(self.value.clone()),
         }

@@ -187,7 +187,8 @@ pub struct BinaryBuilder {
 }
 
 impl BinaryBuilder {
-    pub fn build(&self) -> Binary {
+    pub fn build<'a>(&'a mut self) -> Binary {
+        self.value["resourceType"] = json!("Binary");
         Binary {
             value: Cow::Owned(self.value.clone()),
         }

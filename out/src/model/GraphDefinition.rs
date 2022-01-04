@@ -567,7 +567,8 @@ pub struct GraphDefinitionBuilder {
 }
 
 impl GraphDefinitionBuilder {
-    pub fn build(&self) -> GraphDefinition {
+    pub fn build<'a>(&'a mut self) -> GraphDefinition {
+        self.value["resourceType"] = json!("GraphDefinition");
         GraphDefinition {
             value: Cow::Owned(self.value.clone()),
         }

@@ -448,7 +448,8 @@ pub struct SupplyDeliveryBuilder {
 }
 
 impl SupplyDeliveryBuilder {
-    pub fn build(&self) -> SupplyDelivery {
+    pub fn build<'a>(&'a mut self) -> SupplyDelivery {
+        self.value["resourceType"] = json!("SupplyDelivery");
         SupplyDelivery {
             value: Cow::Owned(self.value.clone()),
         }

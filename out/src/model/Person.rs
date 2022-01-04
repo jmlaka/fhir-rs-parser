@@ -416,7 +416,8 @@ pub struct PersonBuilder {
 }
 
 impl PersonBuilder {
-    pub fn build(&self) -> Person {
+    pub fn build<'a>(&'a mut self) -> Person {
+        self.value["resourceType"] = json!("Person");
         Person {
             value: Cow::Owned(self.value.clone()),
         }

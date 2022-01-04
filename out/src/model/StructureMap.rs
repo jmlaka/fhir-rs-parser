@@ -644,7 +644,8 @@ pub struct StructureMapBuilder {
 }
 
 impl StructureMapBuilder {
-    pub fn build(&self) -> StructureMap {
+    pub fn build<'a>(&'a mut self) -> StructureMap {
+        self.value["resourceType"] = json!("StructureMap");
         StructureMap {
             value: Cow::Owned(self.value.clone()),
         }

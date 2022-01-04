@@ -649,7 +649,8 @@ pub struct ValueSetBuilder {
 }
 
 impl ValueSetBuilder {
-    pub fn build(&self) -> ValueSet {
+    pub fn build<'a>(&'a mut self) -> ValueSet {
+        self.value["resourceType"] = json!("ValueSet");
         ValueSet {
             value: Cow::Owned(self.value.clone()),
         }

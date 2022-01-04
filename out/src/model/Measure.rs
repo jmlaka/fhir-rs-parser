@@ -1170,7 +1170,8 @@ pub struct MeasureBuilder {
 }
 
 impl MeasureBuilder {
-    pub fn build(&self) -> Measure {
+    pub fn build<'a>(&'a mut self) -> Measure {
+        self.value["resourceType"] = json!("Measure");
         Measure {
             value: Cow::Owned(self.value.clone()),
         }

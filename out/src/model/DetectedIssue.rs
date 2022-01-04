@@ -482,7 +482,8 @@ pub struct DetectedIssueBuilder {
 }
 
 impl DetectedIssueBuilder {
-    pub fn build(&self) -> DetectedIssue {
+    pub fn build<'a>(&'a mut self) -> DetectedIssue {
+        self.value["resourceType"] = json!("DetectedIssue");
         DetectedIssue {
             value: Cow::Owned(self.value.clone()),
         }

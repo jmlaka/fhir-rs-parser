@@ -334,7 +334,8 @@ pub struct SubstancePolymerBuilder {
 }
 
 impl SubstancePolymerBuilder {
-    pub fn build(&self) -> SubstancePolymer {
+    pub fn build<'a>(&'a mut self) -> SubstancePolymer {
+        self.value["resourceType"] = json!("SubstancePolymer");
         SubstancePolymer {
             value: Cow::Owned(self.value.clone()),
         }

@@ -980,7 +980,8 @@ pub struct ServiceRequestBuilder {
 }
 
 impl ServiceRequestBuilder {
-    pub fn build(&self) -> ServiceRequest {
+    pub fn build<'a>(&'a mut self) -> ServiceRequest {
+        self.value["resourceType"] = json!("ServiceRequest");
         ServiceRequest {
             value: Cow::Owned(self.value.clone()),
         }

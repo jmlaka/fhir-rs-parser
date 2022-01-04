@@ -448,7 +448,8 @@ pub struct ObservationDefinitionBuilder {
 }
 
 impl ObservationDefinitionBuilder {
-    pub fn build(&self) -> ObservationDefinition {
+    pub fn build<'a>(&'a mut self) -> ObservationDefinition {
+        self.value["resourceType"] = json!("ObservationDefinition");
         ObservationDefinition {
             value: Cow::Owned(self.value.clone()),
         }

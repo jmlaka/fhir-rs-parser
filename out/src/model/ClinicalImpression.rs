@@ -643,7 +643,8 @@ pub struct ClinicalImpressionBuilder {
 }
 
 impl ClinicalImpressionBuilder {
-    pub fn build(&self) -> ClinicalImpression {
+    pub fn build<'a>(&'a mut self) -> ClinicalImpression {
+        self.value["resourceType"] = json!("ClinicalImpression");
         ClinicalImpression {
             value: Cow::Owned(self.value.clone()),
         }

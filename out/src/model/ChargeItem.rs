@@ -754,7 +754,8 @@ pub struct ChargeItemBuilder {
 }
 
 impl ChargeItemBuilder {
-    pub fn build(&self) -> ChargeItem {
+    pub fn build<'a>(&'a mut self) -> ChargeItem {
+        self.value["resourceType"] = json!("ChargeItem");
         ChargeItem {
             value: Cow::Owned(self.value.clone()),
         }

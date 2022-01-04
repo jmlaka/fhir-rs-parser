@@ -601,7 +601,8 @@ pub struct DiagnosticReportBuilder {
 }
 
 impl DiagnosticReportBuilder {
-    pub fn build(&self) -> DiagnosticReport {
+    pub fn build<'a>(&'a mut self) -> DiagnosticReport {
+        self.value["resourceType"] = json!("DiagnosticReport");
         DiagnosticReport {
             value: Cow::Owned(self.value.clone()),
         }

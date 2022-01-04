@@ -702,7 +702,8 @@ pub struct ConceptMapBuilder {
 }
 
 impl ConceptMapBuilder {
-    pub fn build(&self) -> ConceptMap {
+    pub fn build<'a>(&'a mut self) -> ConceptMap {
+        self.value["resourceType"] = json!("ConceptMap");
         ConceptMap {
             value: Cow::Owned(self.value.clone()),
         }

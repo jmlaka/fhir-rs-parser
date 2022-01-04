@@ -305,7 +305,8 @@ pub struct ImmunizationRecommendationBuilder {
 }
 
 impl ImmunizationRecommendationBuilder {
-    pub fn build(&self) -> ImmunizationRecommendation {
+    pub fn build<'a>(&'a mut self) -> ImmunizationRecommendation {
+        self.value["resourceType"] = json!("ImmunizationRecommendation");
         ImmunizationRecommendation {
             value: Cow::Owned(self.value.clone()),
         }

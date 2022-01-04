@@ -430,7 +430,8 @@ pub struct PractitionerBuilder {
 }
 
 impl PractitionerBuilder {
-    pub fn build(&self) -> Practitioner {
+    pub fn build<'a>(&'a mut self) -> Practitioner {
+        self.value["resourceType"] = json!("Practitioner");
         Practitioner {
             value: Cow::Owned(self.value.clone()),
         }

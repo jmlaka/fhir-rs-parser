@@ -680,7 +680,8 @@ pub struct CommunicationBuilder {
 }
 
 impl CommunicationBuilder {
-    pub fn build(&self) -> Communication {
+    pub fn build<'a>(&'a mut self) -> Communication {
+        self.value["resourceType"] = json!("Communication");
         Communication {
             value: Cow::Owned(self.value.clone()),
         }

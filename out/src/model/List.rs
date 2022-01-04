@@ -464,7 +464,8 @@ pub struct ListBuilder {
 }
 
 impl ListBuilder {
-    pub fn build(&self) -> List {
+    pub fn build<'a>(&'a mut self) -> List {
+        self.value["resourceType"] = json!("List");
         List {
             value: Cow::Owned(self.value.clone()),
         }

@@ -301,7 +301,8 @@ pub struct BasicBuilder {
 }
 
 impl BasicBuilder {
-    pub fn build(&self) -> Basic {
+    pub fn build<'a>(&'a mut self) -> Basic {
+        self.value["resourceType"] = json!("Basic");
         Basic {
             value: Cow::Owned(self.value.clone()),
         }

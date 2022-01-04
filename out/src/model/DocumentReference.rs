@@ -541,7 +541,8 @@ pub struct DocumentReferenceBuilder {
 }
 
 impl DocumentReferenceBuilder {
-    pub fn build(&self) -> DocumentReference {
+    pub fn build<'a>(&'a mut self) -> DocumentReference {
+        self.value["resourceType"] = json!("DocumentReference");
         DocumentReference {
             value: Cow::Owned(self.value.clone()),
         }

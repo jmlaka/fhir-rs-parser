@@ -561,7 +561,8 @@ pub struct CompartmentDefinitionBuilder {
 }
 
 impl CompartmentDefinitionBuilder {
-    pub fn build(&self) -> CompartmentDefinition {
+    pub fn build<'a>(&'a mut self) -> CompartmentDefinition {
+        self.value["resourceType"] = json!("CompartmentDefinition");
         CompartmentDefinition {
             value: Cow::Owned(self.value.clone()),
         }

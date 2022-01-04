@@ -535,7 +535,8 @@ pub struct GoalBuilder {
 }
 
 impl GoalBuilder {
-    pub fn build(&self) -> Goal {
+    pub fn build<'a>(&'a mut self) -> Goal {
+        self.value["resourceType"] = json!("Goal");
         Goal {
             value: Cow::Owned(self.value.clone()),
         }

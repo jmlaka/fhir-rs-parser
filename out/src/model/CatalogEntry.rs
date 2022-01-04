@@ -469,7 +469,8 @@ pub struct CatalogEntryBuilder {
 }
 
 impl CatalogEntryBuilder {
-    pub fn build(&self) -> CatalogEntry {
+    pub fn build<'a>(&'a mut self) -> CatalogEntry {
+        self.value["resourceType"] = json!("CatalogEntry");
         CatalogEntry {
             value: Cow::Owned(self.value.clone()),
         }

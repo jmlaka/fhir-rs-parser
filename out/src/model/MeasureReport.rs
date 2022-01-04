@@ -415,7 +415,8 @@ pub struct MeasureReportBuilder {
 }
 
 impl MeasureReportBuilder {
-    pub fn build(&self) -> MeasureReport {
+    pub fn build<'a>(&'a mut self) -> MeasureReport {
+        self.value["resourceType"] = json!("MeasureReport");
         MeasureReport {
             value: Cow::Owned(self.value.clone()),
         }

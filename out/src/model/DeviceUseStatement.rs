@@ -490,7 +490,8 @@ pub struct DeviceUseStatementBuilder {
 }
 
 impl DeviceUseStatementBuilder {
-    pub fn build(&self) -> DeviceUseStatement {
+    pub fn build<'a>(&'a mut self) -> DeviceUseStatement {
+        self.value["resourceType"] = json!("DeviceUseStatement");
         DeviceUseStatement {
             value: Cow::Owned(self.value.clone()),
         }

@@ -867,7 +867,8 @@ pub struct RiskEvidenceSynthesisBuilder {
 }
 
 impl RiskEvidenceSynthesisBuilder {
-    pub fn build(&self) -> RiskEvidenceSynthesis {
+    pub fn build<'a>(&'a mut self) -> RiskEvidenceSynthesis {
+        self.value["resourceType"] = json!("RiskEvidenceSynthesis");
         RiskEvidenceSynthesis {
             value: Cow::Owned(self.value.clone()),
         }

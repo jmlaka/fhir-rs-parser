@@ -605,7 +605,8 @@ pub struct MedicinalProductBuilder {
 }
 
 impl MedicinalProductBuilder {
-    pub fn build(&self) -> MedicinalProduct {
+    pub fn build<'a>(&'a mut self) -> MedicinalProduct {
+        self.value["resourceType"] = json!("MedicinalProduct");
         MedicinalProduct {
             value: Cow::Owned(self.value.clone()),
         }

@@ -686,7 +686,8 @@ pub struct ConditionBuilder {
 }
 
 impl ConditionBuilder {
-    pub fn build(&self) -> Condition {
+    pub fn build<'a>(&'a mut self) -> Condition {
+        self.value["resourceType"] = json!("Condition");
         Condition {
             value: Cow::Owned(self.value.clone()),
         }

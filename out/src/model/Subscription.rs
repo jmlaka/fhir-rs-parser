@@ -370,7 +370,8 @@ pub struct SubscriptionBuilder {
 }
 
 impl SubscriptionBuilder {
-    pub fn build(&self) -> Subscription {
+    pub fn build<'a>(&'a mut self) -> Subscription {
+        self.value["resourceType"] = json!("Subscription");
         Subscription {
             value: Cow::Owned(self.value.clone()),
         }

@@ -324,7 +324,8 @@ pub struct SpecimenDefinitionBuilder {
 }
 
 impl SpecimenDefinitionBuilder {
-    pub fn build(&self) -> SpecimenDefinition {
+    pub fn build<'a>(&'a mut self) -> SpecimenDefinition {
+        self.value["resourceType"] = json!("SpecimenDefinition");
         SpecimenDefinition {
             value: Cow::Owned(self.value.clone()),
         }

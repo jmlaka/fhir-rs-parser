@@ -357,7 +357,8 @@ pub struct ResearchSubjectBuilder {
 }
 
 impl ResearchSubjectBuilder {
-    pub fn build(&self) -> ResearchSubject {
+    pub fn build<'a>(&'a mut self) -> ResearchSubject {
+        self.value["resourceType"] = json!("ResearchSubject");
         ResearchSubject {
             value: Cow::Owned(self.value.clone()),
         }

@@ -934,7 +934,8 @@ pub struct LibraryBuilder {
 }
 
 impl LibraryBuilder {
-    pub fn build(&self) -> Library {
+    pub fn build<'a>(&'a mut self) -> Library {
+        self.value["resourceType"] = json!("Library");
         Library {
             value: Cow::Owned(self.value.clone()),
         }

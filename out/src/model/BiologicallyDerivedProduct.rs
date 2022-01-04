@@ -441,7 +441,8 @@ pub struct BiologicallyDerivedProductBuilder {
 }
 
 impl BiologicallyDerivedProductBuilder {
-    pub fn build(&self) -> BiologicallyDerivedProduct {
+    pub fn build<'a>(&'a mut self) -> BiologicallyDerivedProduct {
+        self.value["resourceType"] = json!("BiologicallyDerivedProduct");
         BiologicallyDerivedProduct {
             value: Cow::Owned(self.value.clone()),
         }

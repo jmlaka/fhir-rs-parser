@@ -263,7 +263,8 @@ pub struct BundleBuilder {
 }
 
 impl BundleBuilder {
-    pub fn build(&self) -> Bundle {
+    pub fn build<'a>(&'a mut self) -> Bundle {
+        self.value["resourceType"] = json!("Bundle");
         Bundle {
             value: Cow::Owned(self.value.clone()),
         }

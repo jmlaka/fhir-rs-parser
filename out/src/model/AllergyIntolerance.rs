@@ -611,7 +611,8 @@ pub struct AllergyIntoleranceBuilder {
 }
 
 impl AllergyIntoleranceBuilder {
-    pub fn build(&self) -> AllergyIntolerance {
+    pub fn build<'a>(&'a mut self) -> AllergyIntolerance {
+        self.value["resourceType"] = json!("AllergyIntolerance");
         AllergyIntolerance {
             value: Cow::Owned(self.value.clone()),
         }

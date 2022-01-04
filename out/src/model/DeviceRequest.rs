@@ -742,7 +742,8 @@ pub struct DeviceRequestBuilder {
 }
 
 impl DeviceRequestBuilder {
-    pub fn build(&self) -> DeviceRequest {
+    pub fn build<'a>(&'a mut self) -> DeviceRequest {
+        self.value["resourceType"] = json!("DeviceRequest");
         DeviceRequest {
             value: Cow::Owned(self.value.clone()),
         }

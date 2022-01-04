@@ -840,7 +840,8 @@ pub struct CapabilityStatementBuilder {
 }
 
 impl CapabilityStatementBuilder {
-    pub fn build(&self) -> CapabilityStatement {
+    pub fn build<'a>(&'a mut self) -> CapabilityStatement {
+        self.value["resourceType"] = json!("CapabilityStatement");
         CapabilityStatement {
             value: Cow::Owned(self.value.clone()),
         }

@@ -503,7 +503,8 @@ pub struct InsurancePlanBuilder {
 }
 
 impl InsurancePlanBuilder {
-    pub fn build(&self) -> InsurancePlan {
+    pub fn build<'a>(&'a mut self) -> InsurancePlan {
+        self.value["resourceType"] = json!("InsurancePlan");
         InsurancePlan {
             value: Cow::Owned(self.value.clone()),
         }

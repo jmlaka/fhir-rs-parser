@@ -717,7 +717,8 @@ pub struct ClaimResponseBuilder {
 }
 
 impl ClaimResponseBuilder {
-    pub fn build(&self) -> ClaimResponse {
+    pub fn build<'a>(&'a mut self) -> ClaimResponse {
+        self.value["resourceType"] = json!("ClaimResponse");
         ClaimResponse {
             value: Cow::Owned(self.value.clone()),
         }

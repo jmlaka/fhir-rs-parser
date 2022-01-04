@@ -590,7 +590,8 @@ pub struct AdverseEventBuilder {
 }
 
 impl AdverseEventBuilder {
-    pub fn build(&self) -> AdverseEvent {
+    pub fn build<'a>(&'a mut self) -> AdverseEvent {
+        self.value["resourceType"] = json!("AdverseEvent");
         AdverseEvent {
             value: Cow::Owned(self.value.clone()),
         }

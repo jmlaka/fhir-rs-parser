@@ -690,7 +690,8 @@ pub struct ImplementationGuideBuilder {
 }
 
 impl ImplementationGuideBuilder {
-    pub fn build(&self) -> ImplementationGuide {
+    pub fn build<'a>(&'a mut self) -> ImplementationGuide {
+        self.value["resourceType"] = json!("ImplementationGuide");
         ImplementationGuide {
             value: Cow::Owned(self.value.clone()),
         }

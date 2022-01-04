@@ -497,7 +497,8 @@ pub struct PaymentReconciliationBuilder {
 }
 
 impl PaymentReconciliationBuilder {
-    pub fn build(&self) -> PaymentReconciliation {
+    pub fn build<'a>(&'a mut self) -> PaymentReconciliation {
+        self.value["resourceType"] = json!("PaymentReconciliation");
         PaymentReconciliation {
             value: Cow::Owned(self.value.clone()),
         }

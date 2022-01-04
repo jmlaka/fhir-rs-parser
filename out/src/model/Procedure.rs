@@ -834,7 +834,8 @@ pub struct ProcedureBuilder {
 }
 
 impl ProcedureBuilder {
-    pub fn build(&self) -> Procedure {
+    pub fn build<'a>(&'a mut self) -> Procedure {
+        self.value["resourceType"] = json!("Procedure");
         Procedure {
             value: Cow::Owned(self.value.clone()),
         }

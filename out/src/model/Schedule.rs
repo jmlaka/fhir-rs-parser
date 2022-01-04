@@ -385,7 +385,8 @@ pub struct ScheduleBuilder {
 }
 
 impl ScheduleBuilder {
-    pub fn build(&self) -> Schedule {
+    pub fn build<'a>(&'a mut self) -> Schedule {
+        self.value["resourceType"] = json!("Schedule");
         Schedule {
             value: Cow::Owned(self.value.clone()),
         }

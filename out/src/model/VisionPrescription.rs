@@ -366,7 +366,8 @@ pub struct VisionPrescriptionBuilder {
 }
 
 impl VisionPrescriptionBuilder {
-    pub fn build(&self) -> VisionPrescription {
+    pub fn build<'a>(&'a mut self) -> VisionPrescription {
+        self.value["resourceType"] = json!("VisionPrescription");
         VisionPrescription {
             value: Cow::Owned(self.value.clone()),
         }

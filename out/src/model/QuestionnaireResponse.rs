@@ -415,7 +415,8 @@ pub struct QuestionnaireResponseBuilder {
 }
 
 impl QuestionnaireResponseBuilder {
-    pub fn build(&self) -> QuestionnaireResponse {
+    pub fn build<'a>(&'a mut self) -> QuestionnaireResponse {
+        self.value["resourceType"] = json!("QuestionnaireResponse");
         QuestionnaireResponse {
             value: Cow::Owned(self.value.clone()),
         }

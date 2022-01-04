@@ -557,7 +557,8 @@ pub struct GuidanceResponseBuilder {
 }
 
 impl GuidanceResponseBuilder {
-    pub fn build(&self) -> GuidanceResponse {
+    pub fn build<'a>(&'a mut self) -> GuidanceResponse {
+        self.value["resourceType"] = json!("GuidanceResponse");
         GuidanceResponse {
             value: Cow::Owned(self.value.clone()),
         }

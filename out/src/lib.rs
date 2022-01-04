@@ -40,7 +40,7 @@ mod tests {
 
   #[test]
   fn test_generate_json() {
-    let vision_builder = VisionPrescription::VisionPrescriptionBuilder::new(
+    let mut vision_builder = VisionPrescription::VisionPrescriptionBuilder::new(
       vec![
         VisionPrescription_LensSpecification::VisionPrescription_LensSpecificationBuilder::new(
           CodeableConcept::CodeableConceptBuilder::new().build(),
@@ -59,7 +59,7 @@ mod tests {
     );
     assert_eq!(
       vision_builder.build().to_json().to_string(),
-      r#"{"lensSpecification":[{"product":{}}],"patient":{"identifier":{"id":"id","value":"value"}},"prescriber":{}}"#
+      r#"{"lensSpecification":[{"product":{}}],"patient":{"identifier":{"id":"id","value":"value"}},"prescriber":{},"resourceType":"VisionPrescription"}"#
     );
   }
 

@@ -571,7 +571,8 @@ pub struct LocationBuilder {
 }
 
 impl LocationBuilder {
-    pub fn build(&self) -> Location {
+    pub fn build<'a>(&'a mut self) -> Location {
+        self.value["resourceType"] = json!("Location");
         Location {
             value: Cow::Owned(self.value.clone()),
         }

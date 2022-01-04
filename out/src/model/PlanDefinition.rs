@@ -937,7 +937,8 @@ pub struct PlanDefinitionBuilder {
 }
 
 impl PlanDefinitionBuilder {
-    pub fn build(&self) -> PlanDefinition {
+    pub fn build<'a>(&'a mut self) -> PlanDefinition {
+        self.value["resourceType"] = json!("PlanDefinition");
         PlanDefinition {
             value: Cow::Owned(self.value.clone()),
         }

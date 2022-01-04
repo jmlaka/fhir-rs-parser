@@ -882,7 +882,8 @@ pub struct EventDefinitionBuilder {
 }
 
 impl EventDefinitionBuilder {
-    pub fn build(&self) -> EventDefinition {
+    pub fn build<'a>(&'a mut self) -> EventDefinition {
+        self.value["resourceType"] = json!("EventDefinition");
         EventDefinition {
             value: Cow::Owned(self.value.clone()),
         }

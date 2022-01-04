@@ -685,7 +685,8 @@ pub struct DeviceDefinitionBuilder {
 }
 
 impl DeviceDefinitionBuilder {
-    pub fn build(&self) -> DeviceDefinition {
+    pub fn build<'a>(&'a mut self) -> DeviceDefinition {
+        self.value["resourceType"] = json!("DeviceDefinition");
         DeviceDefinition {
             value: Cow::Owned(self.value.clone()),
         }

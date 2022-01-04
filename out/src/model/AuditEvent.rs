@@ -432,7 +432,8 @@ pub struct AuditEventBuilder {
 }
 
 impl AuditEventBuilder {
-    pub fn build(&self) -> AuditEvent {
+    pub fn build<'a>(&'a mut self) -> AuditEvent {
+        self.value["resourceType"] = json!("AuditEvent");
         AuditEvent {
             value: Cow::Owned(self.value.clone()),
         }

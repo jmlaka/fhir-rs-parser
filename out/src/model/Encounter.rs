@@ -651,7 +651,8 @@ pub struct EncounterBuilder {
 }
 
 impl EncounterBuilder {
-    pub fn build(&self) -> Encounter {
+    pub fn build<'a>(&'a mut self) -> Encounter {
+        self.value["resourceType"] = json!("Encounter");
         Encounter {
             value: Cow::Owned(self.value.clone()),
         }

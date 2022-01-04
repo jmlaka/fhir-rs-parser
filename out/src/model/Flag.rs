@@ -347,7 +347,8 @@ pub struct FlagBuilder {
 }
 
 impl FlagBuilder {
-    pub fn build(&self) -> Flag {
+    pub fn build<'a>(&'a mut self) -> Flag {
+        self.value["resourceType"] = json!("Flag");
         Flag {
             value: Cow::Owned(self.value.clone()),
         }

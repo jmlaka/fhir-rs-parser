@@ -863,7 +863,8 @@ pub struct SearchParameterBuilder {
 }
 
 impl SearchParameterBuilder {
-    pub fn build(&self) -> SearchParameter {
+    pub fn build<'a>(&'a mut self) -> SearchParameter {
+        self.value["resourceType"] = json!("SearchParameter");
         SearchParameter {
             value: Cow::Owned(self.value.clone()),
         }

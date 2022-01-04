@@ -848,7 +848,8 @@ pub struct EvidenceBuilder {
 }
 
 impl EvidenceBuilder {
-    pub fn build(&self) -> Evidence {
+    pub fn build<'a>(&'a mut self) -> Evidence {
+        self.value["resourceType"] = json!("Evidence");
         Evidence {
             value: Cow::Owned(self.value.clone()),
         }

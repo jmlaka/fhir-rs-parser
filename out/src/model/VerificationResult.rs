@@ -501,7 +501,8 @@ pub struct VerificationResultBuilder {
 }
 
 impl VerificationResultBuilder {
-    pub fn build(&self) -> VerificationResult {
+    pub fn build<'a>(&'a mut self) -> VerificationResult {
+        self.value["resourceType"] = json!("VerificationResult");
         VerificationResult {
             value: Cow::Owned(self.value.clone()),
         }

@@ -611,7 +611,8 @@ pub struct ExampleScenarioBuilder {
 }
 
 impl ExampleScenarioBuilder {
-    pub fn build(&self) -> ExampleScenario {
+    pub fn build<'a>(&'a mut self) -> ExampleScenario {
+        self.value["resourceType"] = json!("ExampleScenario");
         ExampleScenario {
             value: Cow::Owned(self.value.clone()),
         }

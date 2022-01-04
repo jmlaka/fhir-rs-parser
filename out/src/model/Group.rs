@@ -429,7 +429,8 @@ pub struct GroupBuilder {
 }
 
 impl GroupBuilder {
-    pub fn build(&self) -> Group {
+    pub fn build<'a>(&'a mut self) -> Group {
+        self.value["resourceType"] = json!("Group");
         Group {
             value: Cow::Owned(self.value.clone()),
         }

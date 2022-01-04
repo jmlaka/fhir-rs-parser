@@ -536,7 +536,8 @@ pub struct RiskAssessmentBuilder {
 }
 
 impl RiskAssessmentBuilder {
-    pub fn build(&self) -> RiskAssessment {
+    pub fn build<'a>(&'a mut self) -> RiskAssessment {
+        self.value["resourceType"] = json!("RiskAssessment");
         RiskAssessment {
             value: Cow::Owned(self.value.clone()),
         }

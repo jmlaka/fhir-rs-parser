@@ -898,7 +898,8 @@ pub struct EffectEvidenceSynthesisBuilder {
 }
 
 impl EffectEvidenceSynthesisBuilder {
-    pub fn build(&self) -> EffectEvidenceSynthesis {
+    pub fn build<'a>(&'a mut self) -> EffectEvidenceSynthesis {
+        self.value["resourceType"] = json!("EffectEvidenceSynthesis");
         EffectEvidenceSynthesis {
             value: Cow::Owned(self.value.clone()),
         }

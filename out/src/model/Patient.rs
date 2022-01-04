@@ -600,7 +600,8 @@ pub struct PatientBuilder {
 }
 
 impl PatientBuilder {
-    pub fn build(&self) -> Patient {
+    pub fn build<'a>(&'a mut self) -> Patient {
+        self.value["resourceType"] = json!("Patient");
         Patient {
             value: Cow::Owned(self.value.clone()),
         }

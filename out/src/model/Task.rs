@@ -796,7 +796,8 @@ pub struct TaskBuilder {
 }
 
 impl TaskBuilder {
-    pub fn build(&self) -> Task {
+    pub fn build<'a>(&'a mut self) -> Task {
+        self.value["resourceType"] = json!("Task");
         Task {
             value: Cow::Owned(self.value.clone()),
         }

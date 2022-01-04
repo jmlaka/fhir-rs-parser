@@ -533,7 +533,8 @@ pub struct MolecularSequenceBuilder {
 }
 
 impl MolecularSequenceBuilder {
-    pub fn build(&self) -> MolecularSequence {
+    pub fn build<'a>(&'a mut self) -> MolecularSequence {
+        self.value["resourceType"] = json!("MolecularSequence");
         MolecularSequence {
             value: Cow::Owned(self.value.clone()),
         }

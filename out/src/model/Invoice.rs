@@ -524,7 +524,8 @@ pub struct InvoiceBuilder {
 }
 
 impl InvoiceBuilder {
-    pub fn build(&self) -> Invoice {
+    pub fn build<'a>(&'a mut self) -> Invoice {
+        self.value["resourceType"] = json!("Invoice");
         Invoice {
             value: Cow::Owned(self.value.clone()),
         }

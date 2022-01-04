@@ -468,7 +468,8 @@ pub struct EndpointBuilder {
 }
 
 impl EndpointBuilder {
-    pub fn build(&self) -> Endpoint {
+    pub fn build<'a>(&'a mut self) -> Endpoint {
+        self.value["resourceType"] = json!("Endpoint");
         Endpoint {
             value: Cow::Owned(self.value.clone()),
         }

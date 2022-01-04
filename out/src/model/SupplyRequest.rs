@@ -548,7 +548,8 @@ pub struct SupplyRequestBuilder {
 }
 
 impl SupplyRequestBuilder {
-    pub fn build(&self) -> SupplyRequest {
+    pub fn build<'a>(&'a mut self) -> SupplyRequest {
+        self.value["resourceType"] = json!("SupplyRequest");
         SupplyRequest {
             value: Cow::Owned(self.value.clone()),
         }

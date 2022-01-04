@@ -468,7 +468,8 @@ pub struct DocumentManifestBuilder {
 }
 
 impl DocumentManifestBuilder {
-    pub fn build(&self) -> DocumentManifest {
+    pub fn build<'a>(&'a mut self) -> DocumentManifest {
+        self.value["resourceType"] = json!("DocumentManifest");
         DocumentManifest {
             value: Cow::Owned(self.value.clone()),
         }

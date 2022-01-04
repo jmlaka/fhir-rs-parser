@@ -580,7 +580,8 @@ pub struct NutritionOrderBuilder {
 }
 
 impl NutritionOrderBuilder {
-    pub fn build(&self) -> NutritionOrder {
+    pub fn build<'a>(&'a mut self) -> NutritionOrder {
+        self.value["resourceType"] = json!("NutritionOrder");
         NutritionOrder {
             value: Cow::Owned(self.value.clone()),
         }

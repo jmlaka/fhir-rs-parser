@@ -314,7 +314,8 @@ pub struct SubstanceReferenceInformationBuilder {
 }
 
 impl SubstanceReferenceInformationBuilder {
-    pub fn build(&self) -> SubstanceReferenceInformation {
+    pub fn build<'a>(&'a mut self) -> SubstanceReferenceInformation {
+        self.value["resourceType"] = json!("SubstanceReferenceInformation");
         SubstanceReferenceInformation {
             value: Cow::Owned(self.value.clone()),
         }
